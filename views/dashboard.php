@@ -2,10 +2,21 @@
 	// Exit if accessed directly.
 	if ( ! defined( 'ABSPATH' ) ) exit;
 	
+	// Get the selected post if one is set, otherwise: all posts.
+	if ( isset ( $_POST['post'] ) && check_admin_referer('dashboard') ) {
+		$selected_post = sanitize_text_field( $_POST['post'] );
+	} else {
+		if ( isset ( $_GET['post'] ) ) {
+			$selected_post = sanitize_text_field( $_GET['post'] );
+		} else {
+			$selected_post = '';
+		}
+	}
+	
 	// Get the data necessary for all tabs.
 	$years = eefstatify_get_years();
 	$months = eefstatify_get_months();
-	$views_for_all_months = eefstatify_get_views_for_all_months();
+	$views_for_all_months = eefstatify_get_views_for_all_months( $selected_post );
 	
 	// Get the selected tab.
 	if ( isset ( $_GET['year'] ) && strlen( $_GET['year'] ) == 4 ) {
@@ -13,12 +24,12 @@
 		
 		// Get the data shown on daily details tab for one year.
 		$days = eefstatify_get_days();
-		$views_for_all_days = eefstatify_get_views_for_all_days();
+		$views_for_all_days = eefstatify_get_views_for_all_days( $selected_post );
 	} else {
 		$selected_year = 0; // 0 = show overview tab
 		
 		// Get data shown on overview tab.
-		$views_for_all_years = eefstatify_get_views_for_all_years();
+		$views_for_all_years = eefstatify_get_views_for_all_years( $selected_post );
 		$post_types = eefstatify_get_post_types();
 	}
 ?>
@@ -26,18 +37,43 @@
 	<h1><?php _e( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' ); ?></h1>
 
 	<h2 class="nav-tab-wrapper">
-		<a href="<?php echo admin_url( 'admin.php?page=extended_evaluation_for_statify_dashboard' ); ?>" 
+		<a href="<?php echo admin_url( 'admin.php?page=extended_evaluation_for_statify_dashboard' ) . '&post=' . $selected_post; ?>" 
 			class="<?php eefstatify_echo_tab_class( $selected_year == 0 ); ?>"><?php _e( 'Overview', 'extended-evaluation-for-statify' ); ?></a>
 	<?php foreach( $years as $year ) { ?>
-		<a href="<?php echo admin_url( 'admin.php?page=extended_evaluation_for_statify_dashboard' ) . '&year=' . $year; ?>"
+		<a href="<?php echo admin_url( 'admin.php?page=extended_evaluation_for_statify_dashboard' ) . '&year=' . $year . '&post=' . $selected_post; ?>"
 			class="<?php eefstatify_echo_tab_class( $selected_year == $year ); ?>"><?php echo esc_html( $year ); ?></a>
 	<?php } ?>
-	</h2>	
+	</h2>
 <?php 
 	if ( $selected_year == 0 ) { // overview tab
 ?>
 	<h2><?php _e( 'Monthly / Yearly Views', 'extended-evaluation-for-statify' ); ?>
-		<?php eefstatify_echo_export_form( 'monthly' ); ?></h2>
+		<?php eefstatify_echo_post_title_and_type_name_from_url( $selected_post ); ?>
+		<?php eefstatify_echo_export_form( 'monthly' ); ?></h2>	
+<?php } else { ?>
+	<h2><?php echo __( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . esc_html( $selected_year ); ?>
+		<?php eefstatify_echo_post_title_and_type_name_from_url( $selected_post ); ?>
+		<?php eefstatify_echo_export_form( 'daily', array( 'year' => $selected_year ) ); ?></h2>	
+<?php } ?>
+	<form method="post" action="">
+		<?php wp_nonce_field( 'dashboard' ); ?>
+		<fieldset>
+			<legend><?php _e( 'Per default the views of all posts are shown. To restrict the evaluation to one post/page, select one.', 'extended-evaluation-for-statify' ); ?></legend>
+			<label for="post"><?php _e( 'Post/Page', 'extended-evaluation-for-statify' );?></label>
+			<select id="post" name="post" required="required">
+				<option><?php _e('all posts'); ?></option>
+				<?php $posts = eefstatify_get_post_urls();
+					foreach ($posts as $post) { ?>
+				<option value="<?php echo $post['target']; ?>" <?php if ( $post['target'] == $selected_post ) 
+					echo 'selected="selected"'?>><?php echo eefstatify_get_post_title_from_url( $post['target'] ); ?></option>
+				<?php } ?>
+			</select>
+			<button type="submit" class="button-secondary"><?php _e( 'Select post/page', 'extended-evaluation-for-statify' ); ?></button>
+		</fieldset>
+	</form>
+<?php 
+	if ( $selected_year == 0 ) { // overview tab
+?>
 	<section class="two-charts">
 		<div id="chart-monthly"></div>
 		<div id="chart-yearly""></div>
@@ -137,8 +173,6 @@
 		</table>
 	</section>
 <?php } else { ?>
-	<h2><?php echo __( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . esc_html( $selected_year ); ?>
-		<?php eefstatify_echo_export_form( 'daily', array( 'year' => $selected_year ) ); ?></h2>
 	<section class="two-charts">
 		<div id="chart-daily"></div>
 		<div id="chart-monthly"></div>

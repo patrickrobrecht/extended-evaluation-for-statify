@@ -154,6 +154,14 @@
 		return ( $post_type == '' ) ? '' : get_post_type_object( $post_type )->labels->singular_name;
 	}
 	
+	function eefstatify_echo_post_title_and_type_name_from_url( $url ) {
+		if ( $url != '') {
+			echo sprintf ( __('for %s %s'), 
+					eefstatify_get_post_type_name_from_url( $url ),
+					eefstatify_get_post_title_from_url( $url ) );
+		}
+	}
+	
 	/**
 	 * Returns the post types of the site: post, page and custom post types.
 	 * 

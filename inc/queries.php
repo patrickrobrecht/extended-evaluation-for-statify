@@ -57,15 +57,29 @@
 	 *
 	 * @return an array with date as key and views as value
 	 */
-	function eefstatify_get_views_for_all_days() {
+	function eefstatify_get_views_for_all_days( $post_url = '' ) {
 		global $wpdb;
-		$results = $wpdb->get_results(
-				"SELECT `created` as `date`, COUNT(`created`) as `count`
-				FROM `$wpdb->statify`
-				GROUP BY `created`
-				ORDER BY `created`",
-				ARRAY_A
-		);
+		if ( $post_url == '' ) {
+			$results = $wpdb->get_results(
+					"SELECT `created` as `date`, COUNT(`created`) as `count`
+					FROM `$wpdb->statify`
+					GROUP BY `created`
+					ORDER BY `created`",
+					ARRAY_A
+			);
+		} else {
+			$results = $wpdb->get_results(
+					$wpdb->prepare(
+							"SELECT `created` as `date`, COUNT(`created`) as `count`
+							FROM `$wpdb->statify`
+							WHERE `target` = %s
+							GROUP BY `created`
+							ORDER BY `created`",
+							$post_url
+							),
+					ARRAY_A
+			);			
+		}
 		$views_for_all_days = array();
 		foreach ( $results as $result ) {
 			$views_for_all_days[ $result['date'] ] = $result['count'];
@@ -105,15 +119,29 @@
 	 *
 	 * @return an array with month as key and views as value
 	 */
-	function eefstatify_get_views_for_all_months() {
+	function eefstatify_get_views_for_all_months( $post_url = '' ) {
 		global $wpdb;
-		$results = $wpdb->get_results(
-				"SELECT SUBSTRING(`created`, 1, 7) as `date`, COUNT(`created`) as `count`
-				FROM `$wpdb->statify`
-				GROUP BY `date`
-				ORDER BY `date`",
-				ARRAY_A
-		);
+		if ( $post_url == '' ) {
+			$results = $wpdb->get_results(
+					"SELECT SUBSTRING(`created`, 1, 7) as `date`, COUNT(`created`) as `count`
+					FROM `$wpdb->statify`
+					GROUP BY `date`
+					ORDER BY `date`",
+					ARRAY_A
+			);
+		} else {
+			$results = $wpdb->get_results(
+					$wpdb->prepare(
+							"SELECT SUBSTRING(`created`, 1, 7) as `date`, COUNT(`created`) as `count`
+							FROM `$wpdb->statify`
+							WHERE `target` = %s
+							GROUP BY `date`
+							ORDER BY `date`",
+							$post_url
+					),
+					ARRAY_A
+			);			
+		}
 		$views_for_all_months = array();
 		foreach ( $results as $result ) {
 			$views_for_all_months[ $result['date'] ] = $result['count'];
@@ -146,14 +174,27 @@
 	 *
 	 * @return an array with the year as key and views as value
 	 */
-	function eefstatify_get_views_for_all_years() {
+	function eefstatify_get_views_for_all_years( $post_url = '' ) {
 		global $wpdb;
-		$results = $wpdb->get_results(
-				"SELECT SUBSTRING(`created`, 1, 4) as `date`, COUNT(`created`) as `count`
-				FROM `$wpdb->statify`
-				GROUP BY `date`",
-				ARRAY_A
-		);
+		if ( $post_url == '' ) {
+			$results = $wpdb->get_results(
+					"SELECT SUBSTRING(`created`, 1, 4) as `date`, COUNT(`created`) as `count`
+					FROM `$wpdb->statify`
+					GROUP BY `date`",
+					ARRAY_A
+			);
+		} else {
+			$results = $wpdb->get_results(
+					$wpdb->prepare(
+							"SELECT SUBSTRING(`created`, 1, 4) as `date`, COUNT(`created`) as `count`
+							FROM `$wpdb->statify`
+							WHERE `target` = %s
+							GROUP BY `date`",
+							$post_url
+					),
+					ARRAY_A
+			);
+		}
 		$views_for_all_years = array();
 		foreach ( $results as $result ) {
 			$views_for_all_years[ $result['date'] ] = $result['count'];
@@ -305,5 +346,20 @@
 				ARRAY_A
 		);
 		return $results;
-	}	
+	}
 	
+	/**
+	 * Returns a list of all target URLs.
+	 * 
+	 * @return an array of urls
+	 */
+	function eefstatify_get_post_urls() {
+		global $wpdb;
+		$results = $wpdb->get_results(
+				"SELECT DISTINCT `target`
+				FROM `$wpdb->statify`
+				ORDER BY `target` ASC",
+				ARRAY_A
+		);
+		return $results;
+	}
