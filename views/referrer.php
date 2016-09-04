@@ -2,7 +2,14 @@
 	// Exit if accessed directly.
 	if ( ! defined( 'ABSPATH' ) ) exit;
 	
-	// Reset variables and Get post parameters for the dates if submitted..
+	// Get the selected post if one is set, otherwise: all posts.
+	if ( isset ( $_POST['post'] ) && check_admin_referer('referrers') && $_POST['post'] != 'all' ) {
+		$selected_post = sanitize_text_field( $_POST['post'] );
+	} else {
+		$selected_post = '';
+	}
+	
+	// Reset variables and get post parameters for the dates if submitted.
 	$valid_start = false;
 	$valid_end = false;
 	$message = '';
@@ -18,13 +25,7 @@
 		}
 	}
 	
-	if ( $valid_start && $valid_end ) {
-		// Get the referrer data for the given range.
-		$referrers = eefstatify_get_views_for_all_referrers_for_period( $start, $end );
-	} else {
-		// Get the referrer data.
-		$referrers = eefstatify_get_views_for_all_referrers();
-	}
+	$referrers = eefstatify_get_views_for_all_referrers( $selected_post, $start, $end );
 	$referrers_for_diagram = array_slice($referrers, 0, 25, true);
 ?>
 <div class="wrap eefstatify">
@@ -37,12 +38,13 @@
 	<?php } ?>
 	<h2><?php _e( 'Referrer from other websites', 'extended-evaluation-for-statify' ); ?>
 		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ); ?>
+		<?php eefstatify_echo_post_title_and_type_name_from_url( $selected_post ); ?>
 		<?php if ($valid_start && $valid_end ) {
 			eefstatify_echo_export_form( 'referrer-date-period', array( 'start' => $start, 'end' => $end ) );
 		} else {
 			eefstatify_echo_export_form( 'referrer' );
 		} ?></h2>
-	<form method="post" action="">
+	<form method="post">
 		<?php wp_nonce_field( 'referrers' ); ?>
 		<fieldset>
 			<legend><?php _e( 'Restrict date period: Please enter start and end date in the YYYY-MM-DD format', 'extended-evaluation-for-statify' ); ?></legend>
@@ -52,7 +54,26 @@
 			<label for="end"><?php _e( 'End date', 'extended-evaluation-for-statify' );?></label>
 			<input id="end" name="end" type="date" value="<?php if ( $valid_end ) echo $end; ?>" required="required"
 				pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
+			<input id="post" name="post" type="hidden" value="<?php echo $selected_post; ?>">
 			<button type="submit" class="button-secondary"><?php _e( 'Select date period', 'extended-evaluation-for-statify' ); ?></button>
+		</fieldset>
+	</form>
+	<form method="post">
+		<?php wp_nonce_field( 'referrers' ); ?>
+		<fieldset>
+			<legend><?php _e( 'Per default the views of all posts are shown. To restrict the evaluation to one post/page, select one.', 'extended-evaluation-for-statify' ); ?></legend>
+			<label for="post"><?php _e( 'Post/Page', 'extended-evaluation-for-statify' );?></label>
+			<select id="post" name="post" required="required">
+				<option value="all"><?php _e('all posts'); ?></option>
+				<?php $posts = eefstatify_get_post_urls();
+					foreach ($posts as $post) { ?>
+				<option value="<?php echo $post['target']; ?>" <?php if ( $post['target'] == $selected_post ) 
+					echo 'selected="selected"'?>><?php echo eefstatify_get_post_title_from_url( $post['target'] ); ?></option>
+				<?php } ?>
+			</select>
+			<input id="start" name="start" type="hidden" value="<?php if ( $valid_start ) echo $start; ?>">
+			<input id="end" name="end" type="hidden" value="<?php if ( $valid_end ) echo $end; ?>">
+			<button type="submit" class="button-secondary"><?php _e( 'Select post/page', 'extended-evaluation-for-statify' ); ?></button>
 		</fieldset>
 	</form>
 	<section>

@@ -3,10 +3,10 @@
 	if ( ! defined( 'ABSPATH' ) ) exit;
 	
 	// Get the selected post if one is set, otherwise: all posts.
-	if ( isset ( $_POST['post'] ) && check_admin_referer('dashboard') ) {
+	if ( isset ( $_POST['post'] ) && check_admin_referer('dashboard') && $_POST['post'] != 'all' ) {
 		$selected_post = sanitize_text_field( $_POST['post'] );
 	} else {
-		if ( isset ( $_GET['post'] ) ) {
+		if ( isset ( $_GET['post'] ) && $_GET['post'] != 'all' ) {
 			$selected_post = sanitize_text_field( $_GET['post'] );
 		} else {
 			$selected_post = '';
@@ -61,7 +61,7 @@
 			<legend><?php _e( 'Per default the views of all posts are shown. To restrict the evaluation to one post/page, select one.', 'extended-evaluation-for-statify' ); ?></legend>
 			<label for="post"><?php _e( 'Post/Page', 'extended-evaluation-for-statify' );?></label>
 			<select id="post" name="post" required="required">
-				<option><?php _e('all posts'); ?></option>
+				<option value="all"><?php _e('all posts'); ?></option>
 				<?php $posts = eefstatify_get_post_urls();
 					foreach ($posts as $post) { ?>
 				<option value="<?php echo $post['target']; ?>" <?php if ( $post['target'] == $selected_post ) 
