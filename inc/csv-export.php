@@ -46,14 +46,15 @@
 			
 			// exports from the content page
 			case 'content':
-				eefstatify_generate_csv_file( 'content', eefstatify_get_content_data_for_csv() );
+				eefstatify_generate_csv_file( __('content', 'extended-evaluation-for-statify'), eefstatify_get_content_data_for_csv() );
 				break;
 			case 'content-date-period':
 				$start = isset( $_POST['start'] ) ? $_POST['start'] : '';
 				$end = isset( $_POST['end'] ) ? $_POST['end'] : '';
 				if ( eefstatify_is_valid_date_string( $start ) && eefstatify_is_valid_date_string( $end ) ) {
-					eefstatify_generate_csv_file( 'content-date-period-from-' . $start . '-to-' . $end, 
-							eefstatify_get_content_data_for_csv( $start, $end ) );
+					$name = __('content-date-period-from', 'extended-evaluation-for-statify') 
+						. '-' . $start . '-' . __( 'to', 'extended-evaluation-for-statify' ) . '-' . $end;
+					eefstatify_generate_csv_file( $name, eefstatify_get_content_data_for_csv( $start, $end ) );
 				} else {
 					_e( 'No valid export parameters.', 'extended-evaluation-for-statify' );
 					return;
@@ -61,23 +62,25 @@
 				break;
 			case 'posttype':
 				$post_type = isset( $parameters['posttype'] ) ? sanitize_text_field( $parameters['posttype'] ) : 'post';
-				if ( !in_array( $post_type, eefstatify_get_post_types() ) ) {
-					_e( 'No valid export parameters.', 'extended-evaluation-for-statify' );
-					return;
-				}	
-				eefstatify_generate_csv_file( $post_type, eefstatify_get_post_type_content_data_for_csv( $post_type ) );
-				break;
-			case 'posttype-date-period':
-				$post_type = isset( $parameters['posttype'] ) ? sanitize_text_field( $parameters['posttype'] ) : 'post';
-				if ( !in_array( $post_type, eefstatify_get_post_types() ) ) {
+				if ( in_array( $post_type, eefstatify_get_post_types() ) ) {
+					$name = get_post_type_object( $post_type )->labels->name;
+					eefstatify_generate_csv_file( $name, eefstatify_get_post_type_content_data_for_csv( $post_type ) );
+				} else {
 					_e( 'No valid export parameters.', 'extended-evaluation-for-statify' );
 					return;
 				}
+				break;
+			case 'posttype-date-period':
+				$post_type = isset( $parameters['posttype'] ) ? sanitize_text_field( $parameters['posttype'] ) : 'post';
 				$start = isset( $_POST['start'] ) ? $_POST['start'] : '';
 				$end = isset( $_POST['end'] ) ? $_POST['end'] : '';
-				if ( eefstatify_is_valid_date_string( $start ) && eefstatify_is_valid_date_string( $end ) ) {
-					eefstatify_generate_csv_file( $post_type . '-date-period-from-' . $start . '-to-' . $end,
-							eefstatify_get_post_type_content_data_for_csv( $post_type, $start, $end ) );
+				if ( in_array( $post_type, eefstatify_get_post_types() ) 
+						&& eefstatify_is_valid_date_string( $start ) && eefstatify_is_valid_date_string( $end ) ) {
+					$name = get_post_type_object( $post_type )->labels->name 
+						. '-' . __( 'date-period-from', 'extended-evaluation-for-statify' ) 
+						. '-' . $start . '-' . __( 'to', 'extended-evaluation-for-statify' ) . '-' . $end;
+					eefstatify_generate_csv_file( $name,
+								eefstatify_get_post_type_content_data_for_csv( $post_type, $start, $end ) );
 				} else {
 					_e( 'No valid export parameters.', 'extended-evaluation-for-statify' );
 					return;
