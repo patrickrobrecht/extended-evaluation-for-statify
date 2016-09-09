@@ -15,18 +15,33 @@
 		
 		$export = sanitize_text_field( $parameters['export'] );
 		switch ( $export ) {
-			// exports from the plugin's main page
+			// exports from the plugin's dashboard page
 			case 'daily':
-				if ( isset( $parameters['year'] ) && strlen( $parameters['year'] ) == 4 ) {
+				if ( isset( $parameters['year'] ) && strlen( $parameters['year'] ) == 4 && isset ( $parameters['post'] ) ) {
 					$year = intval( sanitize_text_field( $parameters['year'] ) );
-					eefstatify_generate_csv_file( 'daily' . '-' . $year, eefstatify_get_daily_data_for_csv( $year ) );
+					$post = sanitize_text_field( $parameters['post'] );
+					$name = __( 'daily-views', 'extended-evaluation-for-statify' ) . '-' . $year;
+					if ( $parameters['post'] != '' ) {
+						$name .= '-' . $post;
+					}
+					eefstatify_generate_csv_file( $name, eefstatify_get_daily_data_for_csv( $year, $post ) );
 				} else {
 					_e( 'No valid export parameters.', 'extended-evaluation-for-statify' );
 					return;
 				}
 				break;
 			case 'monthly':
-				eefstatify_generate_csv_file( 'monthly', eefstatify_get_monthly_data_for_csv() );
+				if ( isset ( $parameters['post'] ) ) {
+					$post = sanitize_text_field( $parameters['post'] );
+					$name = __( 'monthly-views', 'extended-evaluation-for-statify' );
+					if ( $parameters['post'] != '' ) {
+						$name .= '-' . $post;
+					}
+					eefstatify_generate_csv_file( $name, eefstatify_get_monthly_data_for_csv( $post ) );
+				} else {
+					_e( 'No valid export parameters.', 'extended-evaluation-for-statify' );
+					return;
+				}
 				break;
 			
 			// exports from the content page
@@ -71,14 +86,28 @@
 			
 			// exports from the referrer page
 			case 'referrer':
-				eefstatify_generate_csv_file( 'referrer', eefstatify_get_referrer_data_for_csv() );
+				if ( isset ( $parameters['post'] ) ) {
+					$post = sanitize_text_field( $parameters['post'] );
+					$name = __( 'referrer', 'extended-evaluation-for-statify' );
+					if ( $parameters['post'] != '' ) {
+						$name .= '-' . $post;
+					}
+					eefstatify_generate_csv_file( $name, eefstatify_get_referrer_data_for_csv( $post ) );
+				} else {
+					_e( 'No valid export parameters.', 'extended-evaluation-for-statify' );
+					return;
+				}
 				break;
 			case 'referrer-date-period':
 				$start = isset( $_POST['start'] ) ? $_POST['start'] : '';
 				$end = isset( $_POST['end'] ) ? $_POST['end'] : '';
-				if ( eefstatify_is_valid_date_string( $start ) && eefstatify_is_valid_date_string( $end ) ) {
-					eefstatify_generate_csv_file( 'referrer-date-period-from-' . $start . '-to-' . $end, 
-							eefstatify_get_referrer_data_for_csv( $start, $end ) );
+				if ( isset ( $parameters['post'] ) && eefstatify_is_valid_date_string( $start ) && eefstatify_is_valid_date_string( $end ) ) {
+					$post = sanitize_text_field( $parameters['post'] );
+					$name = __('referrer-date-period-from', 'extended-evaluation-for-statify')  . '-' . $start . '-to-' . $end;
+					if ( $parameters['post'] != '' ) {
+						$name .= '-' . $post;
+					}
+					eefstatify_generate_csv_file( $name, eefstatify_get_referrer_data_for_csv( $post, $start, $end ) );
 				} else {
 					_e( 'No valid export parameters.', 'extended-evaluation-for-statify' );
 					return;
@@ -118,10 +147,11 @@
 	/**
 	 * Returns the daily data for the csv file, including headlines.
 	 * 
-	 * @param unknown $year the year to export
-	 * @return multitype: an array of arrays (1st dimension: day, 2nd dimension: month)
+	 * @param int $year the year to export
+	 * @param string $post_url the post or the empty string for all posts
+	 * @return array an array of arrays (1st dimension: day, 2nd dimension: month)
 	 */
-	function eefstatify_get_daily_data_for_csv( $year ) {
+	function eefstatify_get_daily_data_for_csv( $year, $post_url = '' ) {
 		$days = eefstatify_get_days();
 		$months = eefstatify_get_months();
 		
@@ -133,8 +163,8 @@
 		}
 		array_push( $result, $headline );
 		
-		$views_for_all_days = eefstatify_get_views_for_all_days();
-		$views_for_all_months = eefstatify_get_views_for_all_months();
+		$views_for_all_days = eefstatify_get_views_for_all_days( $post_url );
+		$views_for_all_months = eefstatify_get_views_for_all_months( $post_url );
 		
 		foreach( $days as $day ) {
 			$day_line = array();
@@ -158,9 +188,10 @@
 	/**
 	 * Returns the monthly data for the csv file, including headlines.
 	 * 
-	 * @return multitype: an array of arrays containing the data
+	 * @param string $post_url the post or the empty string for all posts
+	 * @return array an array of arrays containing the data
 	 */
-	function eefstatify_get_monthly_data_for_csv() {
+	function eefstatify_get_monthly_data_for_csv( $post_url = '' ) {
 		$months = eefstatify_get_months();
 		$years = eefstatify_get_years();
 		
@@ -173,8 +204,8 @@
 		array_push( $headline, __( 'Sum', 'extended-evaluation-for-statify' ) );
 		array_push( $result, $headline );
 	
-		$views_for_all_months = eefstatify_get_views_for_all_months();
-		$views_for_all_years = eefstatify_get_views_for_all_years();
+		$views_for_all_months = eefstatify_get_views_for_all_months( $post_url );
+		$views_for_all_years = eefstatify_get_views_for_all_years( $post_url );
 		
 		foreach( $years as $year ) {
 			$year_line = array();
@@ -192,7 +223,7 @@
 	/**
 	 * Returns the content data for the csv file, including headlines.
 	 * 
-	 * @return multitype: an array of arrays containing the data
+	 * @return array an array of arrays containing the data
 	 */
 	function eefstatify_get_content_data_for_csv( $start = '', $end = '' ) {
 		$result = array();
@@ -228,8 +259,8 @@
 	/**
 	 * Returns the post type content data for the csv file, including headlines.
 	 * 
-	 * @param unknown $post_type the post type to export
-	 * @return multitype: an array of arrays containing the data
+	 * @param string $post_type the post type to export
+	 * @return array an array of arrays containing the data
 	 */
 	function eefstatify_get_post_type_content_data_for_csv( $post_type, $start = '', $end = '' ) {
 		$result = array();
@@ -272,9 +303,9 @@
 	/**
 	 * Returns the referrer data for the csv file, including headlines.
 	 * 
-	 * @return multitype: an array of arrays containing the data
+	 * @return array an array of arrays containing the data
 	 */
-	function eefstatify_get_referrer_data_for_csv( $start = '', $end = '') {
+	function eefstatify_get_referrer_data_for_csv( $post = '', $start = '', $end = '') {
 		$result = array();
 		array_push( $result, 
 				array( 
@@ -283,11 +314,7 @@
 				)
 		);
 		
-		if ( $start == '' && $end == '' ) {
-			$referrer_views = eefstatify_get_views_for_all_referrers();
-		} else {
-			$referrer_views = eefstatify_get_views_for_all_referrers_for_period( $start, $end );
-		}
+		$referrer_views = eefstatify_get_views_for_all_referrers( $post, $start, $end );
 		
 		foreach( $referrer_views as $referrer ) {
 			array_push( $result, 
@@ -304,7 +331,7 @@
 	/**
 	 * Converts the given array of array to the csv syntax (semicolon as separator)
 	 * 
-	 * @param unknown $lines an array of array
+	 * @param array $lines an array of array
 	 * @return string|boolean the csv content or FALSE on failure
 	 */
 	function eefstatify_create_csv( $lines ){

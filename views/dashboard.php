@@ -49,11 +49,11 @@
 ?>
 	<h2><?php _e( 'Monthly / Yearly Views', 'extended-evaluation-for-statify' ); ?>
 		<?php eefstatify_echo_post_title_and_type_name_from_url( $selected_post ); ?>
-		<?php eefstatify_echo_export_form( 'monthly' ); ?></h2>	
+		<?php eefstatify_echo_export_form( 'monthly', array( 'post' => $selected_post ) ); ?></h2>	
 <?php } else { ?>
 	<h2><?php echo __( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . esc_html( $selected_year ); ?>
 		<?php eefstatify_echo_post_title_and_type_name_from_url( $selected_post ); ?>
-		<?php eefstatify_echo_export_form( 'daily', array( 'year' => $selected_year ) ); ?></h2>	
+		<?php eefstatify_echo_export_form( 'daily', array( 'year' => $selected_year, 'post' => $selected_post ) ); ?></h2>	
 <?php } ?>
 	<form method="post" action="">
 		<?php wp_nonce_field( 'dashboard' ); ?>

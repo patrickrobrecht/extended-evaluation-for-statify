@@ -40,9 +40,9 @@
 		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ); ?>
 		<?php eefstatify_echo_post_title_and_type_name_from_url( $selected_post ); ?>
 		<?php if ($valid_start && $valid_end ) {
-			eefstatify_echo_export_form( 'referrer-date-period', array( 'start' => $start, 'end' => $end ) );
+			eefstatify_echo_export_form( 'referrer-date-period', array( 'post' => $selected_post, 'start' => $start, 'end' => $end ) );
 		} else {
-			eefstatify_echo_export_form( 'referrer' );
+			eefstatify_echo_export_form( 'referrer', array( 'post' => $selected_post ) );
 		} ?></h2>
 	<form method="post">
 		<?php wp_nonce_field( 'referrers' ); ?>
