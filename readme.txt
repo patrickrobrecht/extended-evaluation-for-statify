@@ -2,8 +2,8 @@
 Contributors: patrickrobrecht
 Tags: stats, analytics, privacy, dashboard, statistics, admin
 Requires at least: 4.4
-Tested up to: 4.6
-Stable tag: 1.6
+Tested up to: 4.6.1
+Stable tag: 1.7
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,9 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 == Changelog ==
 
+= 1.7 =
+* Enhancement: statistics for one selected post/page on the dashboard and referrer page
+
 = 1.6 =
 * Bugfix: csv export for content statistics with posts containing special characters
 
@@ -118,6 +121,9 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 
 == Upgrade Notice ==
+
+= 1.7 =
+Enhancement: statistics for one selected post/page on the dashboard and referrer page 
 
 = 1.6 =
 One bug fix in the csv export.
