@@ -30,14 +30,14 @@
 ?>
 <div class="wrap eefstatify">
 	<h1><?php _e( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' ); ?> 
-			&rsaquo; <?php _e( 'Referrer from other websites', 'extended-evaluation-for-statify' ); ?></h1>
+			&rsaquo; <?php _e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?></h1>
 	<?php if ( $message != '' ) { ?>
 	<div class="notice notice-error">
 		<p><?php echo $message; ?></p>
 	</div>
 	<?php } ?>
-	<h2><?php _e( 'Referrer from other websites', 'extended-evaluation-for-statify' ); ?>
-		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ); ?>
+	<h2><?php _e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?>
+		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>
 		<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post ); ?>
 		<?php if ($valid_start && $valid_end ) {
 			eefstatify_echo_export_form( 'referrer-date-period', array( 'post' => $selected_post, 'start' => $start, 'end' => $end ) );

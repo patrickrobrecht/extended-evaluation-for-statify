@@ -52,7 +52,7 @@
 		$views_per_post_for_diagram = array_slice($views_per_post, 0, 25, true);
 ?>
 	<h2><?php _e( 'Most Popular Content', 'extended-evaluation-for-statify' ); ?>
-		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ); ?>
+		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>
 		<?php if ($valid_start && $valid_end ) {
 			eefstatify_echo_export_form( 'content-date-period', array( 'start' => $start, 'end' => $end ) );
 		} else {
@@ -143,7 +143,7 @@
 	$post_type = $selected_post_type;
 ?>
 	<h2><?php echo get_post_type_object( $post_type )->labels->name; ?>
-		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ); ?>
+		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>
 		<?php if ( $valid_start && $valid_end ) {
 			eefstatify_echo_export_form( 'posttype-date-period', array( 'posttype' => $post_type, 'start' => $start, 'end' => $end ) );
 		} else {

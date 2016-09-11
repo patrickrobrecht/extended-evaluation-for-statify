@@ -58,8 +58,13 @@
 	 * @param boolean $show whether to show the date period
 	 * @return string the formatted date period string
 	 */
-	function eefstatify_get_date_period_string( $start, $end, $show ) {
+	function eefstatify_get_date_period_string( $start, $end, $show, $formatted_dates = false ) {
 		if ( $show ) {
+			if ( $formatted_dates ) {
+				$format = get_option( 'date_format' );
+				$start = date_i18n( $format, strtotime( $start ) );
+				$end = date_i18n( $format, strtotime( $end ) );
+			}
 			return ' ' . __( 'from', 'extended-evaluation-for-statify' ) . ' ' . $start 
 				 . ' ' . __( 'to', 'extended-evaluation-for-statify' ) . ' ' . $end;
 		} else {
