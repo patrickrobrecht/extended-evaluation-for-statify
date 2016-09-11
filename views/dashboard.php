@@ -3,10 +3,10 @@
 	if ( ! defined( 'ABSPATH' ) ) exit;
 	
 	// Get the selected post if one is set, otherwise: all posts.
-	if ( isset ( $_POST['post'] ) && check_admin_referer('dashboard') && $_POST['post'] != 'all' ) {
+	if ( isset( $_POST['post'] ) && check_admin_referer( 'dashboard' ) && $_POST['post'] != 'all' ) {
 		$selected_post = sanitize_text_field( $_POST['post'] );
 	} else {
-		if ( isset ( $_GET['post'] ) && $_GET['post'] != 'all' ) {
+		if ( isset( $_GET['post'] ) && $_GET['post'] != 'all' ) {
 			$selected_post = sanitize_text_field( $_GET['post'] );
 		} else {
 			$selected_post = '';
@@ -19,7 +19,7 @@
 	$views_for_all_months = eefstatify_get_views_for_all_months( $selected_post );
 	
 	// Get the selected tab.
-	if ( isset ( $_GET['year'] ) && strlen( $_GET['year'] ) == 4 ) {
+	if ( isset( $_GET['year'] ) && strlen( $_GET['year'] ) == 4 ) {
 		$selected_year = intval( $_GET['year'] );
 		
 		// Get the data shown on daily details tab for one year.
@@ -48,11 +48,11 @@
 	if ( $selected_year == 0 ) { // overview tab
 ?>
 	<h2><?php _e( 'Monthly / Yearly Views', 'extended-evaluation-for-statify' ); ?>
-		<?php eefstatify_echo_post_title_and_type_name_from_url( $selected_post ); ?>
+		<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post ); ?>
 		<?php eefstatify_echo_export_form( 'monthly', array( 'post' => $selected_post ) ); ?></h2>	
 <?php } else { ?>
 	<h2><?php echo __( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . esc_html( $selected_year ); ?>
-		<?php eefstatify_echo_post_title_and_type_name_from_url( $selected_post ); ?>
+		<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post ); ?>
 		<?php eefstatify_echo_export_form( 'daily', array( 'year' => $selected_year, 'post' => $selected_post ) ); ?></h2>	
 <?php } ?>
 	<form method="post" action="">
@@ -61,7 +61,7 @@
 			<legend><?php _e( 'Per default the views of all posts are shown. To restrict the evaluation to one post/page, select one.', 'extended-evaluation-for-statify' ); ?></legend>
 			<label for="post"><?php _e( 'Post/Page', 'extended-evaluation-for-statify' );?></label>
 			<select id="post" name="post" required="required">
-				<option value="all"><?php _e('all posts'); ?></option>
+				<option value="all"><?php _e( 'all posts', 'extended-evaluation-for-statify' ); ?></option>
 				<?php $posts = eefstatify_get_post_urls();
 					foreach ($posts as $post) { ?>
 				<option value="<?php echo $post['target']; ?>" <?php if ( $post['target'] == $selected_post ) 
@@ -87,7 +87,7 @@
 					text: '<?php _e( 'Monthly Views', 'extended-evaluation-for-statify' ); ?>'
 				},
 				subtitle: {
-					text: '<?php echo get_bloginfo( 'name' ); ?>'
+					text: '<?php echo get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ); ?>'
 				},
 				xAxis: {
 					categories: [ '<?php echo implode( "','", array_keys( $views_for_all_months ) ); ?>' ],
@@ -108,7 +108,8 @@
 					enabled: false
 				},
 				exporting: {
-					filename: '<?php echo eefstatify_get_filename( 'monthly' ); ?>'
+					filename: '<?php echo eefstatify_get_filename( __( 'Monthly Views', 'extended-evaluation-for-statify' ) 
+							. '-' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>'
 				}
 			});
 		});
@@ -121,7 +122,7 @@
 					text: '<?php _e( 'Yearly Views', 'extended-evaluation-for-statify' ); ?>'
 				},
 				subtitle: {
-					text: '<?php echo get_bloginfo( 'name' ); ?>'
+					text: '<?php echo get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ); ?>'
 				},
 				xAxis: {
 					categories: [ '<?php echo implode( "','", array_keys( $views_for_all_years ) ); ?>' ],
@@ -142,7 +143,8 @@
 					enabled: false
 				},
 				exporting: {
-					filename: '<?php echo eefstatify_get_filename( 'yearly' ); ?>'
+					filename: '<?php echo eefstatify_get_filename( __( 'Yearly Views', 'extended-evaluation-for-statify' ) 
+							. '-' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>'
 				}
 			});
 		});
@@ -186,7 +188,7 @@
 					text: '<?php echo __( 'Daily Views', 'extended-evaluation-for-statify' ). ' ' . $selected_year; ?>'
 				},
 				subtitle: {
-					text: '<?php echo get_bloginfo( 'name' ); ?>'
+					text: '<?php echo get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ); ?>'
 				},
 				xAxis: {
 					categories: [ <?php
@@ -219,7 +221,9 @@
 					enabled: false	
 				},
 				exporting: {
-					filename: '<?php echo eefstatify_get_filename( 'daily-' . $selected_year ); ?>'
+					filename: '<?php echo eefstatify_get_filename( __( 'Monthly Views', 'extended-evaluation-for-statify' )
+					. '-' . $selected_year
+					. '-' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>'
 				}
 			});
 		});
@@ -232,7 +236,7 @@
 					text: '<?php echo __( 'Monthly Views', 'extended-evaluation-for-statify' ). ' ' . $selected_year; ?>'
 				},
 				subtitle: {
-					text: '<?php echo get_bloginfo( 'name' ); ?>'
+					text: '<?php echo get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ); ?>'
 				},
 				xAxis: {
 					categories: [ <?php
@@ -262,7 +266,9 @@
 					enabled: false	
 				},
 				exporting: {
-					filename: '<?php echo eefstatify_get_filename( 'monthly-' . $selected_year ); ?>'
+					filename: '<?php echo eefstatify_get_filename( __( 'Monthly Views', 'extended-evaluation-for-statify' )
+							. '-' . $selected_year
+							. '-' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>'
 				}
 			});
 		});		

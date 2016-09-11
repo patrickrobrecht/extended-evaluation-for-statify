@@ -20,9 +20,9 @@
 				if ( isset( $parameters['year'] ) && strlen( $parameters['year'] ) == 4 && isset ( $parameters['post'] ) ) {
 					$year = intval( sanitize_text_field( $parameters['year'] ) );
 					$post = sanitize_text_field( $parameters['post'] );
-					$name = __( 'daily-views', 'extended-evaluation-for-statify' ) . '-' . $year;
+					$name = __( 'Daily Views', 'extended-evaluation-for-statify' ) . '-' . $year;
 					if ( $parameters['post'] != '' ) {
-						$name .= '-' . $post;
+						$name .= '-' . eefstatify_get_post_title_from_url( $post );
 					}
 					eefstatify_generate_csv_file( $name, eefstatify_get_daily_data_for_csv( $year, $post ) );
 				} else {
@@ -33,9 +33,9 @@
 			case 'monthly':
 				if ( isset ( $parameters['post'] ) ) {
 					$post = sanitize_text_field( $parameters['post'] );
-					$name = __( 'monthly-views', 'extended-evaluation-for-statify' );
+					$name = __( 'Monthly Views', 'extended-evaluation-for-statify' );
 					if ( $parameters['post'] != '' ) {
-						$name .= '-' . $post;
+						$name .= '-' . eefstatify_get_post_title_from_url( $post );
 					}
 					eefstatify_generate_csv_file( $name, eefstatify_get_monthly_data_for_csv( $post ) );
 				} else {
@@ -46,14 +46,15 @@
 			
 			// exports from the content page
 			case 'content':
-				eefstatify_generate_csv_file( __('content', 'extended-evaluation-for-statify'), eefstatify_get_content_data_for_csv() );
+				eefstatify_generate_csv_file( __( 'Most Popular Content', 'extended-evaluation-for-statify' ), eefstatify_get_content_data_for_csv() );
 				break;
 			case 'content-date-period':
 				$start = isset( $_POST['start'] ) ? $_POST['start'] : '';
 				$end = isset( $_POST['end'] ) ? $_POST['end'] : '';
 				if ( eefstatify_is_valid_date_string( $start ) && eefstatify_is_valid_date_string( $end ) ) {
-					$name = __('content-date-period-from', 'extended-evaluation-for-statify') 
-						. '-' . $start . '-' . __( 'to', 'extended-evaluation-for-statify' ) . '-' . $end;
+					$name = __( 'Most Popular Content', 'extended-evaluation-for-statify' )
+						. '-' . __('from', 'extended-evaluation-for-statify') . '-' . $start 
+						. '-' . __( 'to', 'extended-evaluation-for-statify' ) . '-' . $end;
 					eefstatify_generate_csv_file( $name, eefstatify_get_content_data_for_csv( $start, $end ) );
 				} else {
 					_e( 'No valid export parameters.', 'extended-evaluation-for-statify' );
@@ -77,8 +78,8 @@
 				if ( in_array( $post_type, eefstatify_get_post_types() ) 
 						&& eefstatify_is_valid_date_string( $start ) && eefstatify_is_valid_date_string( $end ) ) {
 					$name = get_post_type_object( $post_type )->labels->name 
-						. '-' . __( 'date-period-from', 'extended-evaluation-for-statify' ) 
-						. '-' . $start . '-' . __( 'to', 'extended-evaluation-for-statify' ) . '-' . $end;
+						. '-' . __( 'from', 'extended-evaluation-for-statify' ) . '-' . $start 
+						. '-' . __( 'to', 'extended-evaluation-for-statify' ) . '-' . $end;
 					eefstatify_generate_csv_file( $name,
 								eefstatify_get_post_type_content_data_for_csv( $post_type, $start, $end ) );
 				} else {
@@ -93,7 +94,7 @@
 					$post = sanitize_text_field( $parameters['post'] );
 					$name = __( 'referrer', 'extended-evaluation-for-statify' );
 					if ( $parameters['post'] != '' ) {
-						$name .= '-' . $post;
+						$name .= '-' . eefstatify_get_post_title_from_url( $post );
 					}
 					eefstatify_generate_csv_file( $name, eefstatify_get_referrer_data_for_csv( $post ) );
 				} else {
@@ -106,9 +107,11 @@
 				$end = isset( $_POST['end'] ) ? $_POST['end'] : '';
 				if ( isset ( $parameters['post'] ) && eefstatify_is_valid_date_string( $start ) && eefstatify_is_valid_date_string( $end ) ) {
 					$post = sanitize_text_field( $parameters['post'] );
-					$name = __('referrer-date-period-from', 'extended-evaluation-for-statify')  . '-' . $start . '-to-' . $end;
+					$name = __( 'referrer', 'extended-evaluation-for-statify' )
+						. '-' . __('from', 'extended-evaluation-for-statify') . '-' . $start 
+						. '-' . __( 'to', 'extended-evaluation-for-statify' ) . '-' . $end;
 					if ( $parameters['post'] != '' ) {
-						$name .= '-' . $post;
+						$name .= '-' . eefstatify_get_post_title_from_url( $post );
 					}
 					eefstatify_generate_csv_file( $name, eefstatify_get_referrer_data_for_csv( $post, $start, $end ) );
 				} else {

@@ -38,7 +38,7 @@
 	<?php } ?>
 	<h2><?php _e( 'Referrer from other websites', 'extended-evaluation-for-statify' ); ?>
 		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ); ?>
-		<?php eefstatify_echo_post_title_and_type_name_from_url( $selected_post ); ?>
+		<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post ); ?>
 		<?php if ($valid_start && $valid_end ) {
 			eefstatify_echo_export_form( 'referrer-date-period', array( 'post' => $selected_post, 'start' => $start, 'end' => $end ) );
 		} else {
@@ -64,7 +64,7 @@
 			<legend><?php _e( 'Per default the views of all posts are shown. To restrict the evaluation to one post/page, select one.', 'extended-evaluation-for-statify' ); ?></legend>
 			<label for="post"><?php _e( 'Post/Page', 'extended-evaluation-for-statify' );?></label>
 			<select id="post" name="post" required="required">
-				<option value="all"><?php _e('all posts'); ?></option>
+				<option value="all"><?php _e('all posts', 'extended-evaluation-for-statify'); ?></option>
 				<?php $posts = eefstatify_get_post_urls();
 					foreach ($posts as $post) { ?>
 				<option value="<?php echo $post['target']; ?>" <?php if ( $post['target'] == $selected_post ) 
@@ -87,7 +87,7 @@
 					text: '<?php _e( 'Referrer from other websites', 'extended-evaluation-for-statify' ); ?>'
 				},
 				subtitle: {
-					text: '<?php echo get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ); ?>'
+					text: '<?php echo get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ); ?>'
 				},
 				xAxis: {
 					categories: [ 
@@ -113,7 +113,9 @@
 					enabled: false
 				},
 				exporting: {
-					filename: '<?php echo eefstatify_get_filename( 'referrer' ); ?>'
+					filename: '<?php echo eefstatify_get_filename( __( 'referrer', 'extended-evaluation-for-statify' )
+						. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end )
+						. '-' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>'
 				}
 			});
 		});

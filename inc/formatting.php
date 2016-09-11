@@ -75,6 +75,8 @@
 	 */
 	function eefstatify_get_filename( $export_name ) {
 		$sitename = sanitize_key( get_bloginfo( 'name' ) );
+		$export_name = strtolower( $export_name );
+		$export_name = str_replace( ' ', '-', $export_name );
 		return $sitename . '-' . $export_name . '-export-' . date( 'Y-m-d-H-i-s' );
 	}
 	
@@ -82,6 +84,7 @@
 	 * Echo the given number if greater 0 else a dash.
 	 * 
 	 * @param string $string a numeric value as string
+	 * return string the formatted number or a dash
 	 */
 	function eefstatify_echo_number( $string ) {
 		$number = intval( $string );
@@ -128,6 +131,12 @@
 	 * @return string the title or the URL itself as fallback
 	 */
 	function eefstatify_get_post_title_from_url( $url ) {
+		if ( $url == '' ) {
+			return __( 'all posts', 'extended-evaluation-for-statify' );
+		}
+		if ( $url == '/' ) {
+			return __( 'Home Page', 'extended-evaluation-for-statify' );
+		}
 		$post_id = url_to_postid( $url );
 		return ( $post_id == 0 ) ? esc_url( $url ) : get_the_title( $post_id );
 	}
@@ -154,18 +163,22 @@
 		return ( $post_type == '' ) ? '' : get_post_type_object( $post_type )->labels->singular_name;
 	}
 	
-	function eefstatify_echo_post_title_and_type_name_from_url( $url ) {
-		if ( $url != '') {
-			echo sprintf ( __('for %s %s'), 
-					eefstatify_get_post_type_name_from_url( $url ),
-					eefstatify_get_post_title_from_url( $url ) );
-		}
+	/**
+	 * Returns the post type and name for the given post URL.
+	 * 
+	 * @param unknown $url an URL of a post
+	 * @return string the post type name and the title.
+	 */
+	function eefstatify_get_post_type_name_and_title_from_url( $url ) {
+		return sprintf ( __( 'for %s %s', 'extended-evaluation-for-statify' ), 
+				eefstatify_get_post_type_name_from_url( $url ),
+				eefstatify_get_post_title_from_url( $url ) );
 	}
 	
 	/**
 	 * Returns the post types of the site: post, page and custom post types.
 	 * 
-	 * @return multitype: an array of post type slugs
+	 * @return array an array of post type slugs
 	 */
 	function eefstatify_get_post_types() {
 		$types_args = array(
