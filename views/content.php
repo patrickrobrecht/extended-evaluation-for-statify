@@ -83,7 +83,7 @@
 					text: '<?php _e( 'Most Popular Content', 'extended-evaluation-for-statify' ); ?>'
 				},
 				subtitle: {
-					text: '<?php echo get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ); ?>'
+					text: '<?php echo get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>'
 				},
 				xAxis: {
 					categories: [ 
@@ -222,7 +222,7 @@
 				text: '<?php echo get_post_type_object( $post_type )->labels->name; ?>'
 			},
 			subtitle: {
-				text: '<?php echo get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ); ?>'
+				text: '<?php echo get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>'
 			},
 			xAxis: {
 				categories: [ <?php echo $x; ?> ],

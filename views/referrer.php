@@ -87,7 +87,7 @@
 					text: '<?php _e( 'Referrer from other websites', 'extended-evaluation-for-statify' ); ?>'
 				},
 				subtitle: {
-					text: '<?php echo get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ); ?>'
+					text: '<?php echo get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>'
 				},
 				xAxis: {
 					categories: [ 
