@@ -82,6 +82,8 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 == Changelog ==
 
+Please see https://github.com/patrickrobrecht/extended-evaluation-for-statify for the details.
+
 = 1.7 =
 * Enhancement: statistics for one selected post/page on the dashboard and referrer page
 
@@ -97,28 +99,6 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 * Feature: diagrams for all evaluations
 * Feature: download diagrams as PNG, JPG, PDF or SVG
 
-= 1.3.1 =
-* Bugfix: Capability *see_statify_evaluation* for access to the menu pages
-
-= 1.3 =
-* Enhancement: Dashboard with monthly evaluation and tabs for daily views
-* Enhancement: Content page now with tabs for most popular content and all post types
-
-= 1.2 =
-* Enhancement: Text domain *extended-evaluation-for-statify* for localization
-
-= 1.1 =
-* Feature: Own capability for access to the evaluation pages.
-* Enhancement: Menu page now before Design page and not at the very end.
-* Bugfix: fixed *All content* link on the dashboard page
-
-= 1.0 =
-* Feature: show views per day / month / year
-* Feature: show most popular content (title, url, post type and views)
-* Feature: show views per post/page/custom post type (title, url and views)
-* Feature: show referrer statistics (domain and views)
-* Feature: export all statistics listed above as csv files
-
 
 == Upgrade Notice ==
 
@@ -133,9 +113,3 @@ New feature: Content / Referrers per date period.
 
 = 1.4 =
 New feature: diagrams.
-
-= 1.3.1 =
-One bug fix.
-
-= 1.1 =
-One bug fix, one enhancement and one new feature.
