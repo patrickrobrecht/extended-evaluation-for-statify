@@ -9,5 +9,5 @@
 .eefstatify .right{text-align:right;min-width:2.5em;}
 .eefstatify .sum{font-weight: bold;}
 .eefstatify h2 form{display:inline;margin-left:.2em;font-weight:normal;}
-.eefstatify legend{font-weight:bold;}
+.eefstatify legend{margin:.5em 0;font-weight:bold;}
 .eefstatify input[type=date]{margin-right:25px;}
