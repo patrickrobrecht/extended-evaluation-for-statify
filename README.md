@@ -20,7 +20,7 @@ Developer: [Patrick Robrecht](https://patrick-robrecht.de/)
 
 ## Changelog
 
-### Version 1.8 (in development)
+### Version 1.8
 * Enhancement: Formatted dates in diagram subtitles
 * Enhancement: translated filenames for diagrams, consistent with csv export filenames
 
