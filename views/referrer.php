@@ -84,7 +84,7 @@
 					type: 'column'
 				},
 				title: {
-					text: '<?php _e( 'Referrer from other websites', 'extended-evaluation-for-statify' ); ?>'
+					text: '<?php _e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?>'
 				},
 				subtitle: {
 					text: '<?php echo get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>'
@@ -113,7 +113,7 @@
 					enabled: false
 				},
 				exporting: {
-					filename: '<?php echo eefstatify_get_filename( __( 'referrer', 'extended-evaluation-for-statify' )
+					filename: '<?php echo eefstatify_get_filename( __( 'Referrers', 'extended-evaluation-for-statify' )
 						. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end )
 						. '-' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>'
 				}

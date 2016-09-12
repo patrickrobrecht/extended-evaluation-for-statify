@@ -92,7 +92,7 @@
 			case 'referrer':
 				if ( isset ( $parameters['post'] ) ) {
 					$post = sanitize_text_field( $parameters['post'] );
-					$name = __( 'referrer', 'extended-evaluation-for-statify' );
+					$name = __( 'Referrers', 'extended-evaluation-for-statify' );
 					if ( $parameters['post'] != '' ) {
 						$name .= '-' . eefstatify_get_post_title_from_url( $post );
 					}
@@ -107,7 +107,7 @@
 				$end = isset( $_POST['end'] ) ? $_POST['end'] : '';
 				if ( isset ( $parameters['post'] ) && eefstatify_is_valid_date_string( $start ) && eefstatify_is_valid_date_string( $end ) ) {
 					$post = sanitize_text_field( $parameters['post'] );
-					$name = __( 'referrer', 'extended-evaluation-for-statify' )
+					$name = __( 'Referrers', 'extended-evaluation-for-statify' )
 						. '-' . __('from', 'extended-evaluation-for-statify') . '-' . $start 
 						. '-' . __( 'to', 'extended-evaluation-for-statify' ) . '-' . $end;
 					if ( $parameters['post'] != '' ) {

@@ -84,6 +84,10 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see https://github.com/patrickrobrecht/extended-evaluation-for-statify for the details.
 
+= 1.8 =
+* Enhancement: Formatted dates in diagram subtitles
+* Enhancement: translated filenames for diagrams, consistent with csv export filenames
+
 = 1.7 =
 * Enhancement: statistics for one selected post/page on the dashboard and referrer page
 

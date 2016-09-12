@@ -165,9 +165,9 @@ function eefstatify_add_menu() {
 	);
 	add_submenu_page(
 			'extended_evaluation_for_statify_dashboard',
-			__( 'Referrer', 'extended-evaluation-for-statify' )
+			__( 'Referrers', 'extended-evaluation-for-statify' )
 				. ' &mdash; ' . __( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' ),
-			__( 'Referrer', 'extended-evaluation-for-statify' ),
+			__( 'Referrers', 'extended-evaluation-for-statify' ),
 			'see_statify_evaluation',
 			'extended_evaluation_for_statify_referrer',
 			'eefstatify_show_referrer'
