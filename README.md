@@ -9,7 +9,7 @@ The use this WordPress Plugin requires the [Statify Plugin](https://de.wordpress
 Details and Download of the latest stable version can be found in the [WordPress Plugin Directory](https://wordpress.org/plugins/extended-evaluation-for-statify/).
 
 
-## Development
+## Development and Translation
 
 You can report issues or suggest new features in the [Issue Tracker](https://github.com/patrickrobrecht/extended-evaluation-for-statify/issues). Pull requests are also welcome!
 

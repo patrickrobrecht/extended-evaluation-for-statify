@@ -82,7 +82,7 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 == Changelog ==
 
-Please see https://github.com/patrickrobrecht/extended-evaluation-for-statify for the details.
+Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify#changelog) for the details.
 
 = 1.8 =
 * Enhancement: Formatted dates in diagram subtitles
