@@ -40,7 +40,7 @@
 	function eefstatify_get_years() {
 		global $wpdb;
 		$results = $wpdb->get_results(
-				"SELECT DISTINCT SUBSTRING(`created`, 1, 4) as `year`
+				"SELECT DISTINCT YEAR(`created`) as `year`
 				FROM `$wpdb->statify`
 				ORDER BY `year` DESC",
 				ARRAY_A
@@ -129,22 +129,23 @@
 		global $wpdb;
 		if ( $post_url == '' ) { // all posts
 			$results = $wpdb->get_results(
-					"SELECT SUBSTRING(`created`, 1, 7) as `date`, COUNT(`created`) as `count`
+					"SELECT DATE_FORMAT(`created`, '%Y-%m') as `date`, COUNT(`created`) as `count`
 					FROM `$wpdb->statify`
 					GROUP BY `date`
 					ORDER BY `date`",
 					ARRAY_A
 			);
 		} else { // selected posts
+			$where_clause = $wpdb->prepare(
+					"WHERE `target` = %s",
+					$post_url
+			);
 			$results = $wpdb->get_results(
-					$wpdb->prepare(
-							"SELECT SUBSTRING(`created`, 1, 7) as `date`, COUNT(`created`) as `count`
-							FROM `$wpdb->statify`
-							WHERE `target` = %s
-							GROUP BY `date`
-							ORDER BY `date`",
-							$post_url
-					),
+					"SELECT DATE_FORMAT(`created`, '%Y-%m') as `date`, COUNT(`created`) as `count`
+					FROM `$wpdb->statify`"
+					. $where_clause .
+					"GROUP BY `date`
+					ORDER BY `date`",
 					ARRAY_A
 			);			
 		}
@@ -187,7 +188,7 @@
 		global $wpdb;
 		if ( $post_url == '' ) { // all posts
 			$results = $wpdb->get_results(
-					"SELECT SUBSTRING(`created`, 1, 4) as `date`, COUNT(`created`) as `count`
+					"SELECT YEAR(`created`) as `date`, COUNT(`created`) as `count`
 					FROM `$wpdb->statify`
 					GROUP BY `date`",
 					ARRAY_A
@@ -195,7 +196,7 @@
 		} else { // selected posts
 			$results = $wpdb->get_results(
 					$wpdb->prepare(
-							"SELECT SUBSTRING(`created`, 1, 4) as `date`, COUNT(`created`) as `count`
+							"SELECT YEAR(`created`) as `date`, COUNT(`created`) as `count`
 							FROM `$wpdb->statify`
 							WHERE `target` = %s
 							GROUP BY `date`",
