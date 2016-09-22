@@ -95,7 +95,8 @@
 				yAxis: {
 					title: {
 						text: '<?php _e( 'Views', 'extended-evaluation-for-statify' ); ?>'
-					}
+					},
+					min: 0
 				},
 				legend: {
 					enabled: false,
@@ -130,7 +131,8 @@
 				yAxis: {
 					title: {
 						text: '<?php _e( 'Views', 'extended-evaluation-for-statify' ); ?>'
-					}
+					},
+					min: 0
 				},
 				legend: {
 					enabled: false,
@@ -197,10 +199,8 @@
 							$days = eefstatify_get_days( $month, $selected_year );
 							foreach( $days as $day ) {
 								$views = eefstatify_get_daily_views( $views_for_all_days, $selected_year, $month, $day );
-								if ( $views > 0 ) {
-									echo "'" . $day . '. ' . eefstatify_get_month_name( $month ) . "',";
-									$y .= $views . ',';
-								}
+								echo "'" . $day . '. ' . eefstatify_get_month_name( $month ) . "',";
+								$y .= $views . ',';
 							}
 						}
 					?>],
@@ -208,7 +208,8 @@
 				yAxis: {
 					title: {
 						text: '<?php _e( 'Views', 'extended-evaluation-for-statify' ); ?>'
-					}
+					},
+					min: 0
 				},
 				legend: {
 					enabled: false,
@@ -253,7 +254,8 @@
 				yAxis: {
 					title: {
 						text: '<?php _e( 'Views', 'extended-evaluation-for-statify' ); ?>'
-					}
+					},
+					min: 0
 				},
 				legend: {
 					enabled: false,

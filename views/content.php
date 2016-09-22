@@ -94,7 +94,8 @@
 				yAxis: {
 					title: {
 						text: '<?php _e( 'Views', 'extended-evaluation-for-statify' ); ?>'
-					}
+					},
+					min: 0
 				},
 				legend: {
 					enabled: false,
@@ -230,7 +231,8 @@
 			yAxis: {
 				title: {
 					text: '<?php _e( 'Views', 'extended-evaluation-for-statify' ); ?>'
-				}
+				},
+				min: 0
 			},
 			legend: {
 				enabled: false,
