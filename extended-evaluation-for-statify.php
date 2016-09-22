@@ -1,7 +1,7 @@
 <?php
 /*
 	Plugin Name: Extended Evaluation for Statify
-	Plugin URI: https://patrick-robrecht.de/wordpress/erweiterte-auswertung-fuer-statify/
+	Plugin URI: https://patrick-robrecht.de/wordpress/
 	Description: Extended evaluation for the compact, easy-to-use and privacy-compliant Statify plugin.
 	Version: 1.8
 	Author: Patrick Robrecht
@@ -9,7 +9,6 @@
 	License: GPLv2 or later
 	License URI: https://www.gnu.org/licenses/gpl-3.0.html
 	Text Domain: extended-evaluation-for-statify
-	Domain Path: /lang
 	
 	Extended Evaluation for Statify is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by the Free Software 
@@ -87,11 +86,7 @@ function eefstatify_is_statify_active() {
  * Load text domain for translation.
  */
 function eefstatify_load_plugin_textdomain() {
-	load_plugin_textdomain( 
-			'extended-evaluation-for-statify',
-			FALSE,
-			basename( dirname( __FILE__ ) ) . '/lang/'
-	);
+	load_plugin_textdomain( 'extended-evaluation-for-statify' );
 }
 // Add text domain during initialization.
 add_action( 'init', 'eefstatify_load_plugin_textdomain' );

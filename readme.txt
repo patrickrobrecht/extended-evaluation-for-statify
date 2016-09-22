@@ -1,6 +1,6 @@
 === Extended Evaluation for Statify ===
 Contributors: patrickrobrecht
-Tags: stats, analytics, privacy, dashboard, statistics, admin
+Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
 Tested up to: 4.6.1
 Stable tag: 1.8
