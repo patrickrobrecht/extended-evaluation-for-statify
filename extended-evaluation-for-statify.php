@@ -128,10 +128,17 @@ function eefstatify_register_and_load_scripts() {
 					__FILE__
 			)
 	);
+	wp_register_script(
+			'table-to-csv',
+			plugins_url(
+					'/js/table-to-csv.js',
+					__FILE__
+			)
+	);	
 	
-	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'highcharts' );
 	wp_enqueue_script( 'highcharts-exporting' );
+	wp_enqueue_script( 'table-to-csv' );
 }
 // Load JavaScript libraries.
 add_action( 'admin_print_scripts', 'eefstatify_register_and_load_scripts' );
@@ -225,24 +232,4 @@ function eefstatify_show_referrer() {
 	if ( eefstatify_current_user_can_see_evaluation() ) {
 		include_once 'views/referrer.php';
 	}
-}
-
-/**
- * If parameters for the export function submitted, call the csv export function.
- */
-function eefstatify_export() {
-	if ( eefstatify_current_user_can_see_evaluation() && isset( $_POST['export'] ) && check_admin_referer( 'export' ) ) {
-		include_once 'inc/csv-export.php';
-		eefstatify_export_as_csv( $_POST );
-		die;
-	}
-}
-add_action( 'admin_init', 'eefstatify_export' );
-
-/**
- * The name strings for the translation file.
- */
-function eefstatify_names() {
-	__( 'Extended evaluation for the compact, easy-to-use and privacy-compliant Statify plugin.', 'extended-evaluation-for-statify' );
-	__( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' );
 }

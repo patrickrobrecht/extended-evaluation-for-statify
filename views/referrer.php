@@ -39,11 +39,10 @@
 	<h2><?php _e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?>
 		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>
 		<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post ); ?>
-		<?php if ($valid_start && $valid_end ) {
-			eefstatify_echo_export_form( 'referrer-date-period', array( 'post' => $selected_post, 'start' => $start, 'end' => $end ) );
-		} else {
-			eefstatify_echo_export_form( 'referrer', array( 'post' => $selected_post ) );
-		} ?></h2>
+		<?php $filename = eefstatify_get_filename( __( 'Referrers', 'extended-evaluation-for-statify' )
+						. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end )
+						. '-' . eefstatify_get_post_title_from_url( $selected_post ) );
+			eefstatify_echo_export_button( $filename ); ?></h2>
 	<form method="post">
 		<?php wp_nonce_field( 'referrers' ); ?>
 		<fieldset>
@@ -114,15 +113,13 @@
 					enabled: false
 				},
 				exporting: {
-					filename: '<?php echo eefstatify_get_filename( __( 'Referrers', 'extended-evaluation-for-statify' )
-						. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end )
-						. '-' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>'
+					filename: '<?php echo $filename; ?>'
 				}
 			});
 		});
 		</script>	
 		<div id="chart"></div>
-		<table class="wp-list-table widefat">
+		<table id="table-data" class="wp-list-table widefat">
 			<thead>
 				<tr>
 					<th><?php _e( 'Referring Domain', 'extended-evaluation-for-statify' ); ?></th>

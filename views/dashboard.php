@@ -3,14 +3,17 @@
 	if ( ! defined( 'ABSPATH' ) ) exit;
 	
 	// Get the selected post if one is set, otherwise: all posts.
-	if ( isset( $_POST['post'] ) && check_admin_referer( 'dashboard' ) && $_POST['post'] != 'all' ) {
+	if ( isset( $_POST['post'] ) && check_admin_referer( 'dashboard' ) ) {
 		$selected_post = sanitize_text_field( $_POST['post'] );
 	} else {
-		if ( isset( $_GET['post'] ) && $_GET['post'] != 'all' ) {
+		if ( isset( $_GET['post'] ) ) {
 			$selected_post = sanitize_text_field( $_GET['post'] );
 		} else {
 			$selected_post = '';
 		}
+	}
+	if ( $selected_post == 'all' ) {
+		$selected_post = '';
 	}
 	
 	// Get the data necessary for all tabs.
@@ -49,11 +52,16 @@
 ?>
 	<h2><?php _e( 'Monthly / Yearly Views', 'extended-evaluation-for-statify' ); ?>
 		<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post ); ?>
-		<?php eefstatify_echo_export_form( 'monthly', array( 'post' => $selected_post ) ); ?></h2>	
+		<?php $filename_monthly = eefstatify_get_filename( __( 'Monthly Views', 'extended-evaluation-for-statify' ) 
+							. '-' . eefstatify_get_post_title_from_url( $selected_post ) );
+			eefstatify_echo_export_button( $filename_monthly ); ?></h2>
 <?php } else { ?>
 	<h2><?php echo __( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . esc_html( $selected_year ); ?>
 		<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post ); ?>
-		<?php eefstatify_echo_export_form( 'daily', array( 'year' => $selected_year, 'post' => $selected_post ) ); ?></h2>	
+		<?php $filename_daily = eefstatify_get_filename( __( 'Daily Views', 'extended-evaluation-for-statify' )
+							. '-' . $selected_year
+							. '-' . eefstatify_get_post_title_from_url( $selected_post ) );
+			eefstatify_echo_export_button( $filename_daily ); ?></h2>
 <?php } ?>
 	<form method="post" action="">
 		<?php wp_nonce_field( 'dashboard' ); ?>
@@ -109,8 +117,7 @@
 					enabled: false
 				},
 				exporting: {
-					filename: '<?php echo eefstatify_get_filename( __( 'Monthly Views', 'extended-evaluation-for-statify' ) 
-							. '-' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>'
+					filename: '<?php echo $filename_monthly; ?>'
 				}
 			});
 		});
@@ -153,7 +160,7 @@
 		</script>
 	</section>
 	<section>
-		<table class="wp-list-table widefat">
+		<table id="table-data" class="wp-list-table widefat">
 			<thead>
 			 	<tr>
 			 		<th scope="col"><?php _e('Year', 'extended-evaluation-for-statify' ); ?></th>
@@ -222,9 +229,7 @@
 					enabled: false	
 				},
 				exporting: {
-					filename: '<?php echo eefstatify_get_filename( __( 'Monthly Views', 'extended-evaluation-for-statify' )
-					. '-' . $selected_year
-					. '-' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>'
+					filename: '<?php echo $filename_daily; ?>'
 				}
 			});
 		});
@@ -269,15 +274,15 @@
 				},
 				exporting: {
 					filename: '<?php echo eefstatify_get_filename( __( 'Monthly Views', 'extended-evaluation-for-statify' )
-							. '-' . $selected_year
-							. '-' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>'
+										. '-' . $selected_year
+										. '-' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>'
 				}
 			});
 		});		
 		</script>
 	</section>
 	<section>
-		<table class="wp-list-table widefat">
+		<table id="table-data" class="wp-list-table widefat">
 			<thead>
 			 	<tr>
 			 		<td></td>

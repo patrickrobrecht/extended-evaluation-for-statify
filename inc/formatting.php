@@ -1,26 +1,24 @@
 <?php
 	// Exit if accessed directly.
 	if ( ! defined( 'ABSPATH' ) ) exit;
-
+	
 	/**
-	 * Echos the export form for the given parameters
-	 * 
-	 * @param string $export the export type
-	 * @param array $parameters additional parameters
-	 * @param string $button_title_added title extension for the export button (optional)
+	 * Output the link to a csv export.
+	 *
+	 * @param unknown $button_id the ID of the link
+	 * @param unknown $table_id the ID of the table to export
+	 * @param unknown $filename the file name
 	 */
-	function eefstatify_echo_export_form( $export, $parameters = array() ) {
-?>
-<form method="post" action="">
-	<?php wp_nonce_field( 'export' ); ?>
-	<input type="hidden" name="export" value="<?php echo esc_attr( $export ); ?>">
-	<?php foreach( $parameters as $name => $value ) { ?>
-	<input type="hidden" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr ( $value ); ?>">
-	<?php } ?>
-	<button type="submit" class="button-secondary"><?php _e( 'Export', 'extended-evaluation-for-statify' ); ?></button>
-</form>
-<?php	
-	}
+	function eefstatify_echo_export_button( $filename, $button_id = 'csv-export', $table_id = 'table-data' ) { ?>
+	    <a class="page-title-action" href="#" id="<?php echo $button_id; ?>" role="button"><?php _e( 'Export', 'extended-evaluation-for-statify' ); ?></a>
+		<script type='text/javascript'>
+		jQuery(document).ready(function () {
+			jQuery("#<?php echo $button_id; ?>").click(function (event) {
+				exportTableToCSV.apply(this, [jQuery('#<?php echo $table_id; ?>'), '<?php echo $filename; ?>.csv']);
+			});
+		});
+	    </script>
+<?php }
 	
 	/**
 	 * Echo the class(es) for an navigation tab.
@@ -80,7 +78,6 @@
 	 */
 	function eefstatify_get_filename( $export_name ) {
 		$sitename = sanitize_key( get_bloginfo( 'name' ) );
-		$export_name = strtolower( $export_name );
 		$export_name = str_replace( ' ', '-', $export_name );
 		return $sitename . '-' . $export_name . '-export-' . date( 'Y-m-d-H-i-s' );
 	}
