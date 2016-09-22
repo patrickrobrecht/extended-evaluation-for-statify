@@ -20,6 +20,11 @@ Developer: [Patrick Robrecht](https://patrick-robrecht.de/)
 
 ## Changelog
 
+### Version 1.9
+* Enhancement: client-side CSV export via JavaScript
+* Improved database queries
+* Bugfix: Daily diagram now includes values with 0 views to display the diagram correctly
+
 ### Version 1.8
 * Enhancement: Formatted dates in diagram subtitles
 * Enhancement: translated filenames for diagrams, consistent with csv export filenames

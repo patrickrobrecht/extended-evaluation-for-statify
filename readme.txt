@@ -3,7 +3,7 @@ Contributors: patrickrobrecht
 Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
 Tested up to: 4.6.1
-Stable tag: 1.8
+Stable tag: 1.9
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -83,6 +83,10 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 == Changelog ==
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify#changelog) for the details.
+
+= 1.9 =
+* Enhancement: client-side CSV export via JavaScript
+* minor bugfixes and improvements
 
 = 1.8 =
 * Enhancement: Formatted dates in diagram subtitles
