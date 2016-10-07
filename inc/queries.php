@@ -260,55 +260,50 @@
 	}
 
 	/**
-	 * Returns the most popular posts with their views count.
-	 * 
-	 * @return array an array with the most popular posts, ordered by view count
-	 */
-	function eefstatify_get_views_of_most_popular_posts() {
-		global $wpdb;
-		$results = $wpdb->get_results(
-				"SELECT COUNT(`target`) as `count`, `target` as `url`
-				FROM `$wpdb->statify`
-				GROUP BY `target`
-				ORDER BY `count` DESC",
-				ARRAY_A
-		);
-		return $results;
-	}
-	
-	/**
-	 * Returns the most popular posts with their views count.
+	 * Returns the most popular posts with their views count (in the date period if set).
 	 * 
 	 * @param string $start the start date of the period
 	 * @param string $end the end date of the period
 	 * @return array an array with the most popular posts, ordered by view count
 	 */
-	function eefstatify_get_views_of_most_popular_posts_for_period( $start, $end ) {
+	function eefstatify_get_views_of_most_popular_posts( $start = '', $end = '' ) {
 		global $wpdb;
-		$results = $wpdb->get_results(
-				$wpdb->prepare(
-						"SELECT COUNT(`target`) as `count`, `target` as `url`
-						FROM `$wpdb->statify`
-						WHERE `created` >= %s AND `created` <= %s
-						GROUP BY `target`
-						ORDER BY `count` DESC",
-						$start,
-						$end
-				),
-				ARRAY_A
-		);
-		return $results;
-	}	
-
+		if ( $start == '' && $end == '' ) {
+			return $wpdb->get_results(
+					"SELECT COUNT(`target`) as `count`, `target` as `url`
+					FROM `$wpdb->statify`
+					GROUP BY `target`
+					ORDER BY `count` DESC",
+					ARRAY_A
+			);
+		} else {
+			return $wpdb->get_results(
+					$wpdb->prepare(
+							"SELECT COUNT(`target`) as `count`, `target` as `url`
+							FROM `$wpdb->statify`
+							WHERE `created` >= %s AND `created` <= %s
+							GROUP BY `target`
+							ORDER BY `count` DESC",
+							$start,
+							$end
+							),
+					ARRAY_A
+			);
+		}
+	}
+	
 	/**
-	 * Returns the number of views for the post with the given URL.
+	 * Returns the number of views for the post with the given URL (in the date period if set).
 	 * 
 	 * @param string $url the post URL
+	 * @param string $start the start date of the period
+	 * @param string $end the end date of the period
 	 * @return int the number of views for the post
 	 */
-	function eefstatify_get_views_of_post( $url ) {
+	function eefstatify_get_views_of_post( $url, $start = '', $end = '' ) {
 		global $wpdb;
-		$results = $wpdb->get_results(
+		if ( $start == '' && $end == '' ) {
+			$results = $wpdb->get_results(
 				$wpdb->prepare(
 						"SELECT COUNT(`target`) as `count`
 						FROM `$wpdb->statify`
@@ -316,31 +311,20 @@
 						$url
 				),
 				OBJECT
-		);
-		return $results[0]->count;
-	}
-	
-	/**
-	 * Returns the number of views for the post with the given URL in the given date period.
-	 * 
-	 * @param string $url the post URL
-	 * @param string $start the start date of the period
-	 * @param string $end the end date of the period
-	 * @return int the number of views for the post
-	 */
-	function eefstatify_get_views_of_post_for_period( $url, $start, $end ) {
-		global $wpdb;
-		$results = $wpdb->get_results(
-				$wpdb->prepare(
-						"SELECT COUNT(`target`) as `count`
-						FROM `$wpdb->statify`
-						WHERE `target` = %s AND `created` >= %s AND `created` <= %s",
-						$url,
-						$start,
-						$end
-				),
-				OBJECT
-		);
+			);
+		} else {	
+			$results = $wpdb->get_results(
+					$wpdb->prepare(
+							"SELECT COUNT(`target`) as `count`
+							FROM `$wpdb->statify`
+							WHERE `target` = %s AND `created` >= %s AND `created` <= %s",
+							$url,
+							$start,
+							$end
+					),
+					OBJECT
+			);
+		}
 		return $results[0]->count;
 	}	
 
@@ -359,7 +343,7 @@
 		global $wpdb;
 		if ( $post_url == '' ) { // all posts		
 			if ( $start == '' && $end == '' ) {
-				$results = $wpdb->get_results(
+				return $wpdb->get_results(
 						"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`,
 						SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host`
 						FROM `$wpdb->statify`
@@ -369,7 +353,7 @@
 						ARRAY_A
 				);
 			} else {
-				$results = $wpdb->get_results(
+				return $wpdb->get_results(
 						$wpdb->prepare(
 								"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`,
 								SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host`
@@ -385,7 +369,7 @@
 			}
 		} else { // selected posts
 			if ( $start == '' && $end == '' ) {
-				$results = $wpdb->get_results(
+				return $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`,
 							SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host`
@@ -398,7 +382,7 @@
 						ARRAY_A
 				);
 			} else {
-				$results = $wpdb->get_results(
+				return $wpdb->get_results(
 						$wpdb->prepare(
 								"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`,
 								SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host`
@@ -414,7 +398,6 @@
 				);
 			}
 		}
-		return $results;
 	}
 	
 	/**
@@ -424,11 +407,10 @@
 	 */
 	function eefstatify_get_post_urls() {
 		global $wpdb;
-		$results = $wpdb->get_results(
+		return $wpdb->get_results(
 				"SELECT DISTINCT `target`
 				FROM `$wpdb->statify`
 				ORDER BY `target` ASC",
 				ARRAY_A
 		);
-		return $results;
 	}

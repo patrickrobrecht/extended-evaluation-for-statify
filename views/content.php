@@ -45,7 +45,7 @@
 	if ( $selected_post_type == 'popular' ) { 
 		// show most popular content
 		if ( $valid_start && $valid_end ) {
-			$views_per_post = eefstatify_get_views_of_most_popular_posts_for_period( $start, $end );
+			$views_per_post = eefstatify_get_views_of_most_popular_posts( $start, $end );
 		} else {
 			$views_per_post = eefstatify_get_views_of_most_popular_posts();
 		}
@@ -181,7 +181,7 @@
 			if( $query->have_posts() ) {
 				while ( $query->have_posts() ) : $query->the_post();
 					if ( $valid_start && $valid_end ) {
-						$views = eefstatify_get_views_of_post_for_period( 
+						$views = eefstatify_get_views_of_post( 
 								str_replace( home_url(), "", get_permalink() ),
 								$start,
 								$end
