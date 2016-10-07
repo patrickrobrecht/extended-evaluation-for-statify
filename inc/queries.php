@@ -157,8 +157,7 @@
 	}
 	
 	/**
-	 * Returns the views for one month. If the date does not exists (e. g. 30th February), 
-	 * this method returns -1.
+	 * Returns the views for one month.
 	 * 
 	 * @param array $views_for_all_months an array with the monthly views
 	 * @param int $year the year
@@ -174,6 +173,37 @@
 		} else {
 			return 0;
 		}
+	}
+	
+	/**
+	 * Returns the average daily views in the given month.
+	 * 
+	 * @param array $views_for_all_months an array with the monthly views
+	 * @param int $year the year
+	 * @param int $month the month
+	 * @return float the average daily views in the given month
+	 */
+	function eefstatify_get_average_daily_views_of_month( $views_for_all_months, $year, $month ) {
+		$views_in_month = eefstatify_get_monthly_views( $views_for_all_months, $year, $month );
+		$days_in_month = count( eefstatify_get_days( $month, $year ) );
+		return round( $views_in_month / $days_in_month);
+	}
+	
+	/**
+	 * Returns an array with the daily views for all days in the given month.
+	 * 
+	 * @param array $views_for_all_days
+	 * @param int $year the year
+	 * @param int $month the month
+	 * @return array array with the daily views for all days in the given month
+	 */
+	function eefstatify_get_daily_views_of_month( $views_for_all_days, $year, $month ) {
+		$days = eefstatify_get_days( $month, $year );
+		$views = array();
+		foreach ( $days as $day ) {
+			array_push( $views, intval( eefstatify_get_daily_views( $views_for_all_days, $year, $month, $day ) ) );	
+		}
+		return $views;
 	}
 
 	/**

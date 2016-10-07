@@ -306,6 +306,27 @@
 	            	<td class="right"><?php eefstatify_echo_number( eefstatify_get_monthly_views( $views_for_all_months, $selected_year, $month ) ); ?></td>
 	            	<?php } ?>
 	            </tr>
+	            <tr>
+	            	<td><?php _e( 'Average', 'extended-evaluation-for-statify' ); ?></td>
+	            	<?php foreach ( $months as $month ) { ?>
+	            	<td class="right"><?php echo eefstatify_echo_number( eefstatify_get_average_daily_views_of_month( $views_for_all_months, $selected_year, $month ) ); ?></td>
+	            	<?php } ?>
+	            </tr>
+	            <tr>
+	            	<td><?php _e( 'Minimum', 'extended-evaluation-for-statify' ); ?></td>
+	            	<?php $daily_views = array();
+	            		foreach ( $months as $month ) { 
+	            			$daily_views[ $month ] = eefstatify_get_daily_views_of_month( $views_for_all_days, $selected_year, $month );
+	            	?>
+	            	<td class="right"><?php echo eefstatify_echo_number( min( $daily_views[ $month ] ) ); ?></td>
+	            	<?php } ?>
+	            </tr>
+	            <tr>
+	            	<td><?php _e( 'Maximum', 'extended-evaluation-for-statify' ); ?></td>
+	            	<?php foreach ( $months as $month ) { ?>
+	            	<td class="right"><?php echo eefstatify_echo_number( max( $daily_views[ $month ] ) ); ?></td>
+	            	<?php } ?>
+	            </tr>
 			</tbody>
 		</table>
 	</section>
