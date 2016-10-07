@@ -164,8 +164,8 @@
 		<table id="table-data" class="wp-list-table widefat">
 			<thead>
 				<tr>
-					<th><?php echo get_post_type_object( $post_type )->labels->singular_name; ?></th>
-					<th><?php _e( 'Views', 'extended-evaluation-for-statify' ); ?></th>
+					<th scope="col"><?php echo get_post_type_object( $post_type )->labels->singular_name; ?></th>
+					<th scope="col"><?php _e( 'Views', 'extended-evaluation-for-statify' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>

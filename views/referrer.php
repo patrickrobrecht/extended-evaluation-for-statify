@@ -122,8 +122,8 @@
 		<table id="table-data" class="wp-list-table widefat">
 			<thead>
 				<tr>
-					<th><?php _e( 'Referring Domain', 'extended-evaluation-for-statify' ); ?></th>
-					<th><?php _e( 'Views', 'extended-evaluation-for-statify' ); ?></th>
+					<th scope="col"><?php _e( 'Referring Domain', 'extended-evaluation-for-statify' ); ?></th>
+					<th scope="col"><?php _e( 'Views', 'extended-evaluation-for-statify' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>

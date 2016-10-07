@@ -287,14 +287,14 @@
 			 	<tr>
 			 		<td></td>
 			 		<?php foreach ( $months as $month ) { ?>
-			 		<th><?php echo eefstatify_get_month_name( $month ); ?></th>
+			 		<th scope="col"><?php echo eefstatify_get_month_name( $month ); ?></th>
 			 		<?php } ?>
 			 	</tr>
 			 </thead>
 			 <tbody>
 			 	<?php foreach ( $days as $day ) { ?>
 	     		<tr>
-	     			<th><?php echo $day; ?></th>
+	     			<th scope="row"><?php echo $day; ?></th>
 	     			<?php foreach ( $months as $month ) { ?>
 			 		<td class="right"><?php eefstatify_echo_number( eefstatify_get_daily_views( $views_for_all_days, $selected_year, $month, $day ) ); ?></td>
 			 		<?php } ?>
