@@ -3,7 +3,7 @@ Contributors: patrickrobrecht
 Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
 Tested up to: 4.6.1
-Stable tag: 1.9
+Stable tag: 2.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -24,8 +24,6 @@ The results are shown in data tables and diagrams. The evaluation results can be
 
 * as CSV files (for an import into LibreOffice Calc or Microsoft Excel)
 * as PNG, JPG or SVG image or PDF document (all diagrams) using the [Highcharts](http://www.highcharts.com/) JavaScript library
-
-The plugin is currently available in English and German. If you need another language, please help to [translate this plugin](https://translate.wordpress.org/projects/wp-plugins/extended-evaluation-for-statify).
 
 = Requirements =
 
@@ -84,40 +82,17 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify#changelog) for the details.
 
+= 2.0 =
+* Enhancement: average/minimum/maximum daily views per month on Dashboard page
+* Enhancement: code simplifications
+
 = 1.9 =
 * Enhancement: client-side CSV export via JavaScript
 * minor bugfixes and improvements
 
-= 1.8 =
-* Enhancement: Formatted dates in diagram subtitles
-* Enhancement: translated filenames for diagrams, consistent with csv export filenames
-
-= 1.7 =
-* Enhancement: statistics for one selected post/page on the dashboard and referrer page
-
-= 1.6 =
-* Bugfix: csv export for content statistics with posts containing special characters
-
-= 1.5 =
-* Feature: Referrers for variable period
-* Feature: Most popular content and post views for variable period
-* Enhancement: content / referrer diagrams: only first 25 values
-
-= 1.4 =
-* Feature: diagrams for all evaluations
-* Feature: download diagrams as PNG, JPG, PDF or SVG
-
 
 == Upgrade Notice ==
 
-= 1.7 =
-Enhancement: statistics for one selected post/page on the dashboard and referrer page 
+= 2.0 =
+Enhancement: average/minimum/maximum daily views per month on Dashboard page 
 
-= 1.6 =
-One bug fix in the csv export.
-
-= 1.5 =
-New feature: Content / Referrers per date period.
-
-= 1.4 =
-New feature: diagrams.
