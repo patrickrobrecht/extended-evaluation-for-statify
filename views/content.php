@@ -119,6 +119,7 @@
 			<thead>
 				<tr>
 					<th scope="col"><?php _e( 'Post/Page', 'extended-evaluation-for-statify' ); ?></th>
+					<th scope="col"><?php _e( 'URL', 'extended-evaluation-for-statify' ); ?></th>
 					<th scope="col"><?php _e( 'Post Type', 'extended-evaluation-for-statify' ); ?></th>
 					<th scope="col"><?php _e( 'Views', 'extended-evaluation-for-statify' ); ?></th>
 				</tr>
@@ -128,6 +129,7 @@
 					foreach ( $views_per_post as $post ) { ?>
 				<tr>
 					<td><a href="<?php echo esc_url( $post['url'] ); ?>" target="_blank"><?php echo eefstatify_get_post_title_from_url( $post['url'] ); ?></a></td>
+					<td><?php echo esc_url( $post['url'] ); ?></td>
 					<td><?php echo eefstatify_get_post_type_name_from_url( $post['url'] ); ?></td>
 					<td class="right"><?php eefstatify_echo_number( $post['count'] ); ?></td>
 				</tr>
@@ -165,6 +167,7 @@
 			<thead>
 				<tr>
 					<th scope="col"><?php echo get_post_type_object( $post_type )->labels->singular_name; ?></th>
+					<th scope="col"><?php _e( 'URL', 'extended-evaluation-for-statify' ); ?></th>
 					<th scope="col"><?php _e( 'Views', 'extended-evaluation-for-statify' ); ?></th>
 				</tr>
 			</thead>
@@ -197,6 +200,7 @@
 		?>
 			    <tr>
 			    	<td><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></td>
+			    	<td><?php echo wp_make_link_relative( get_the_permalink() ); ?></td>
 			    	<td class="right"><?php eefstatify_echo_number( $views ); ?></td>
 			    </tr>
 		<?php
