@@ -230,6 +230,6 @@ function eefstatify_show_content() {
  */
 function eefstatify_show_referrer() {
 	if ( eefstatify_current_user_can_see_evaluation() ) {
-		include_once 'views/referrer.php';
+		include_once 'views/referrers.php';
 	}
 }
