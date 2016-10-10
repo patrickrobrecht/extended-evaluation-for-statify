@@ -146,7 +146,7 @@
 					<td><?php _e( 'Sum', 'extended-evaluation-for-statify' ); ?></td>
 					<td></td>
 					<td></td>
-					<td class="right"><?php echo $total; ?></td>
+					<td class="right"><?php eefstatify_echo_number( $total ); ?></td>
 					<td class="right"><?php eefstatify_echo_percentage( 1 ); ?></td>
 				</tr>
 			</tfoot>
