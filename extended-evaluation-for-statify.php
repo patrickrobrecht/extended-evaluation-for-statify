@@ -3,7 +3,7 @@
 	Plugin Name: Extended Evaluation for Statify
 	Plugin URI: https://patrick-robrecht.de/wordpress/
 	Description: Extended evaluation for the compact, easy-to-use and privacy-compliant Statify plugin.
-	Version: 2.0
+	Version: 2.1
 	Author: Patrick Robrecht
 	Author URI: https://patrick-robrecht.de/
 	License: GPLv2 or later

@@ -20,6 +20,10 @@ Developer: [Patrick Robrecht](https://patrick-robrecht.de/)
 
 ## Changelog
 
+### Version 2.1
+* Enhancement: URLs in csv export
+* Enhancement: percentages on Content and Referrers pages
+
 ### Version 2.0
 * Enhancement: average/minimum/maximum daily views per month on Dashboard page
 * Enhancement: code simplifications

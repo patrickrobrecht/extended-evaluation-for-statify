@@ -3,7 +3,7 @@ Contributors: patrickrobrecht
 Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
 Tested up to: 4.6.1
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,10 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify#changelog) for the details.
 
+= 2.1 =
+* Enhancement: URLs in csv export
+* Enhancement: percentages on Content and Referrers pages
+
 = 2.0 =
 * Enhancement: average/minimum/maximum daily views per month on Dashboard page
 * Enhancement: code simplifications
@@ -93,6 +97,8 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 
 == Upgrade Notice ==
 
+= 2.1 =
+* Enhancement: percentages on Content and Referrers pages
+
 = 2.0 =
 Enhancement: average/minimum/maximum daily views per month on Dashboard page 
-
