@@ -96,6 +96,15 @@
 			echo number_format_i18n( $number, 0 );
 		}
 	}
+	
+	/**
+	 * Outputs the given number in percent.
+	 * 
+	 * @param unknown $number
+	 */
+	function eefstatify_echo_percentage( $number, $decimals = 2 ) {
+		echo number_format_i18n( $number*100, $decimals ) . ' %';
+	}
 
 	/**
 	 * Get the first three characters of the month name.

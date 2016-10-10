@@ -3,7 +3,7 @@
 	if ( ! defined( 'ABSPATH' ) ) exit;
 	
 	// Get the selected post if one is set, otherwise: all posts.
-	if ( isset ( $_POST['post'] ) && check_admin_referer('referrers') && $_POST['post'] != 'all' ) {
+	if ( isset ( $_POST['post'] ) && check_admin_referer( 'referrers' ) && $_POST['post'] != 'all' ) {
 		$selected_post = sanitize_text_field( $_POST['post'] );
 	} else {
 		$selected_post = '';
@@ -26,7 +26,7 @@
 	}
 	
 	$referrers = eefstatify_get_views_for_all_referrers( $selected_post, $start, $end );
-	$referrers_for_diagram = array_slice($referrers, 0, 25, true);
+	$referrers_for_diagram = array_slice( $referrers, 0, 25, true );
 ?>
 <div class="wrap eefstatify">
 	<h1><?php _e( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' ); ?> 
@@ -124,18 +124,31 @@
 				<tr>
 					<th scope="col"><?php _e( 'Referring Domain', 'extended-evaluation-for-statify' ); ?></th>
 					<th scope="col"><?php _e( 'Views', 'extended-evaluation-for-statify' ); ?></th>
+					<th scope="col"><?php _e( 'Proportion', 'extended-evaluation-for-statify' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
+					$total = 0;
+					foreach( $referrers as $referrer ) {
+						$total += $referrer['count'];
+					}
 					foreach( $referrers as $referrer ) { ?>
 					<tr>
 						<td><a href="<?php echo esc_url( $referrer['url'] ); ?>" target="_blank"><?php echo esc_html( $referrer['host'] ); ?></a></td>
-	        	    	<td class="right"><?php eefstatify_echo_number( $referrer['count'] ); ?></td>            
+	        	    	<td class="right"><?php eefstatify_echo_number( $referrer['count'] ); ?></td>
+	        	    	<td class="right"><?php eefstatify_echo_percentage( $referrer['count']/$total ); ?></td>   
 	       		  	</tr>
 	       		<?php } ?>
 	       		
 			</tbody>
+			<tfoot>
+				<tr>
+					<td><?php _e( 'Sum', 'extended-evaluation-for-statify' ); ?></td>
+					<td class="right"><?php echo $total; ?></td>
+					<td class="right"><?php eefstatify_echo_percentage( 1 ); ?></td>
+				</tr>
+			</tfoot>
 		</table>
 	</section>
 </div>

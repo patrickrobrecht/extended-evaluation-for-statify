@@ -122,19 +122,34 @@
 					<th scope="col"><?php _e( 'URL', 'extended-evaluation-for-statify' ); ?></th>
 					<th scope="col"><?php _e( 'Post Type', 'extended-evaluation-for-statify' ); ?></th>
 					<th scope="col"><?php _e( 'Views', 'extended-evaluation-for-statify' ); ?></th>
+					<th scope="col"><?php _e( 'Proportion', 'extended-evaluation-for-statify' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php	
+				<?php
+					$total = 0;
+					foreach( $views_per_post as $post ) {
+						$total += $post['count'];
+					}
 					foreach ( $views_per_post as $post ) { ?>
 				<tr>
 					<td><a href="<?php echo esc_url( $post['url'] ); ?>" target="_blank"><?php echo eefstatify_get_post_title_from_url( $post['url'] ); ?></a></td>
 					<td><?php echo esc_url( $post['url'] ); ?></td>
 					<td><?php echo eefstatify_get_post_type_name_from_url( $post['url'] ); ?></td>
 					<td class="right"><?php eefstatify_echo_number( $post['count'] ); ?></td>
+					<td class="right"><?php eefstatify_echo_percentage( $post['count']/$total ); ?></td>   
 				</tr>
 				<?php }?>
 			</tbody>
+			<tfoot>
+				<tr>
+					<td><?php _e( 'Sum', 'extended-evaluation-for-statify' ); ?></td>
+					<td></td>
+					<td></td>
+					<td class="right"><?php echo $total; ?></td>
+					<td class="right"><?php eefstatify_echo_percentage( 1 ); ?></td>
+				</tr>
+			</tfoot>
 		</table>
 	</section>
 <?php 
