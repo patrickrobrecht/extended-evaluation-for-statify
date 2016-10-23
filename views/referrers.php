@@ -27,6 +27,10 @@
 	
 	$referrers = eefstatify_get_views_for_all_referrers( $selected_post, $start, $end );
 	$referrers_for_diagram = array_slice( $referrers, 0, 25, true );
+	
+	$filename = eefstatify_get_filename( __( 'Referrers', 'extended-evaluation-for-statify' )
+			. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end )
+			. '-' . eefstatify_get_post_title_from_url( $selected_post ) );
 ?>
 <div class="wrap eefstatify">
 	<h1><?php _e( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' ); ?> 
@@ -36,13 +40,6 @@
 		<p><?php echo $message; ?></p>
 	</div>
 	<?php } ?>
-	<h2><?php _e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?>
-		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>
-		<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post ); ?>
-		<?php $filename = eefstatify_get_filename( __( 'Referrers', 'extended-evaluation-for-statify' )
-						. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end )
-						. '-' . eefstatify_get_post_title_from_url( $selected_post ) );
-			eefstatify_echo_export_button( $filename ); ?></h2>
 	<form method="post">
 		<?php wp_nonce_field( 'referrers' ); ?>
 		<fieldset>
@@ -63,7 +60,7 @@
 			<legend><?php _e( 'Per default the views of all posts are shown. To restrict the evaluation to one post/page, select one.', 'extended-evaluation-for-statify' ); ?></legend>
 			<label for="post"><?php _e( 'Post/Page', 'extended-evaluation-for-statify' );?></label>
 			<select id="post" name="post" required="required">
-				<option value="all"><?php _e('all posts', 'extended-evaluation-for-statify'); ?></option>
+				<option value="all" <?php if ( '' == $selected_post ) echo 'selected="selected"'; ?>><?php _e('all posts', 'extended-evaluation-for-statify'); ?></option>
 				<?php $posts = eefstatify_get_post_urls();
 					foreach ($posts as $post) { ?>
 				<option value="<?php echo $post['target']; ?>" <?php if ( $post['target'] == $selected_post ) 
@@ -76,6 +73,7 @@
 		</fieldset>
 	</form>
 	<section>
+		<div id="chart"></div>
 		<script type="text/javascript">
 		jQuery(function() {
 			jQuery('#chart').highcharts({
@@ -117,8 +115,13 @@
 				}
 			});
 		});
-		</script>	
-		<div id="chart"></div>
+		</script>
+	</section>	
+	<section>
+		<h3><?php _e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?>
+			<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>
+			<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post );
+				eefstatify_echo_export_button( $filename ); ?></h3>
 		<table id="table-data" class="wp-list-table widefat">
 			<thead>
 				<tr>

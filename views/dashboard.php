@@ -47,33 +47,17 @@
 			class="<?php eefstatify_echo_tab_class( $selected_year == $year ); ?>"><?php echo esc_html( $year ); ?></a>
 	<?php } ?>
 	</h2>
-<?php 
-	if ( $selected_year == 0 ) { // overview tab
-?>
-	<h2><?php _e( 'Monthly / Yearly Views', 'extended-evaluation-for-statify' ); ?>
-		<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post ); ?>
-		<?php $filename_monthly = eefstatify_get_filename( __( 'Monthly Views', 'extended-evaluation-for-statify' ) 
-							. '-' . eefstatify_get_post_title_from_url( $selected_post ) );
-			eefstatify_echo_export_button( $filename_monthly ); ?></h2>
-<?php } else { ?>
-	<h2><?php echo __( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . esc_html( $selected_year ); ?>
-		<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post ); ?>
-		<?php $filename_daily = eefstatify_get_filename( __( 'Daily Views', 'extended-evaluation-for-statify' )
-							. '-' . $selected_year
-							. '-' . eefstatify_get_post_title_from_url( $selected_post ) );
-			eefstatify_echo_export_button( $filename_daily ); ?></h2>
-<?php } ?>
 	<form method="post" action="">
 		<?php wp_nonce_field( 'dashboard' ); ?>
 		<fieldset>
 			<legend><?php _e( 'Per default the views of all posts are shown. To restrict the evaluation to one post/page, select one.', 'extended-evaluation-for-statify' ); ?></legend>
 			<label for="post"><?php _e( 'Post/Page', 'extended-evaluation-for-statify' );?></label>
 			<select id="post" name="post" required="required">
-				<option value="all"><?php _e( 'all posts', 'extended-evaluation-for-statify' ); ?></option>
+				<option value="all" <?php if ( '' == $selected_post ) echo 'selected="selected"'; ?>><?php _e( 'all posts', 'extended-evaluation-for-statify' ); ?></option>
 				<?php $posts = eefstatify_get_post_urls();
 					foreach ($posts as $post) { ?>
 				<option value="<?php echo $post['target']; ?>" <?php if ( $post['target'] == $selected_post ) 
-					echo 'selected="selected"'?>><?php echo eefstatify_get_post_title_from_url( $post['target'] ); ?></option>
+					echo 'selected="selected"'; ?>><?php echo eefstatify_get_post_title_from_url( $post['target'] ); ?></option>
 				<?php } ?>
 			</select>
 			<button type="submit" class="button-secondary"><?php _e( 'Select post/page', 'extended-evaluation-for-statify' ); ?></button>
@@ -81,10 +65,12 @@
 	</form>
 <?php 
 	if ( $selected_year == 0 ) { // overview tab
+		$filename_monthly = eefstatify_get_filename( __( 'Monthly Views', 'extended-evaluation-for-statify' )
+				. '-' . eefstatify_get_post_title_from_url( $selected_post ) );
 ?>
 	<section class="two-charts">
 		<div id="chart-monthly"></div>
-		<div id="chart-yearly""></div>
+		<div id="chart-yearly"></div>
 		<script type="text/javascript">
 		jQuery(function() {
 			jQuery('#chart-monthly').highcharts({
@@ -160,6 +146,9 @@
 		</script>
 	</section>
 	<section>
+		<h3><?php _e( 'Monthly / Yearly Views', 'extended-evaluation-for-statify' ); ?>
+			<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post );
+				eefstatify_echo_export_button( $filename_monthly ); ?></h3>
 		<table id="table-data" class="wp-list-table widefat">
 			<thead>
 			 	<tr>
@@ -183,7 +172,11 @@
 			</tbody>
 		</table>
 	</section>
-<?php } else { ?>
+<?php } else { 
+	$filename_daily = eefstatify_get_filename( __( 'Daily Views', 'extended-evaluation-for-statify' )
+			. '-' . $selected_year
+			. '-' . eefstatify_get_post_title_from_url( $selected_post ) );
+?>
 	<section class="two-charts">
 		<div id="chart-daily"></div>
 		<div id="chart-monthly"></div>
@@ -282,6 +275,9 @@
 		</script>
 	</section>
 	<section>
+		<h3><?php echo __( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . esc_html( $selected_year ); ?>
+			<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post );
+				eefstatify_echo_export_button( $filename_daily ); ?></h3>
 		<table id="table-data" class="wp-list-table widefat">
 			<thead>
 			 	<tr>

@@ -31,6 +31,11 @@
 <div class="wrap eefstatify">
 	<h1><?php _e( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' ); ?>
 			&rsaquo; <?php _e( 'Content', 'extended-evaluation-for-statify' ); ?></h1>
+	<?php if ( $message != '' ) { ?>
+	<div class="notice notice-error">
+		<p><?php echo $message; ?></p>
+	</div>
+	<?php } ?>		
 	<h2 class="nav-tab-wrapper">
 		<a href="<?php echo admin_url( 'admin.php?page=extended_evaluation_for_statify_content' ); ?>" 
 			class="<?php eefstatify_echo_tab_class( $selected_post_type == 'popular' ); ?>">
@@ -50,12 +55,10 @@
 			$views_per_post = eefstatify_get_views_of_most_popular_posts();
 		}
 		$views_per_post_for_diagram = array_slice($views_per_post, 0, 25, true);
+		
+		$filename = eefstatify_get_filename( __( 'Most Popular Content', 'extended-evaluation-for-statify' )
+				. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ) );
 ?>
-	<h2><?php _e( 'Most Popular Content', 'extended-evaluation-for-statify' ); ?>
-		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>
-		<?php $filename = eefstatify_get_filename( __( 'Most Popular Content', 'extended-evaluation-for-statify' ) 
-						. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ) );
-			eefstatify_echo_export_button( $filename ); ?></h2>
 	<form method="post" action="">
 		<?php wp_nonce_field( 'content' ); ?>
 		<fieldset>
@@ -114,7 +117,10 @@
 		});
 		</script>	
 	</section>
-	<section>		
+	<section>
+		<h3><?php _e( 'Most Popular Content', 'extended-evaluation-for-statify' ); ?>
+			<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true );
+				eefstatify_echo_export_button( $filename ); ?></h3>
 		<table id="table-data" class="wp-list-table widefat">
 			<thead>
 				<tr>
@@ -155,12 +161,9 @@
 <?php 
 } else {
 	$post_type = $selected_post_type;
+	$filename = eefstatify_get_filename( get_post_type_object( $post_type )->labels->name
+			. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ) );
 ?>
-	<h2><?php echo get_post_type_object( $post_type )->labels->name; ?>
-		<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>
-		<?php $filename = eefstatify_get_filename( get_post_type_object( $post_type )->labels->name
-						. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ) );
-			eefstatify_echo_export_button( $filename ); ?></h2>
 	<form method="post" action="">
 		<?php wp_nonce_field( 'content' ); ?>
 		<fieldset>
@@ -178,6 +181,9 @@
 		<div id="chart"></div>
 	</section>
 	<section>
+		<h3><?php echo get_post_type_object( $post_type )->labels->name; ?>
+			<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true );
+				eefstatify_echo_export_button( $filename ); ?></h3>
 		<table id="table-data" class="wp-list-table widefat">
 			<thead>
 				<tr>
@@ -225,7 +231,7 @@
 		?>
 			</tbody>
 		</table>
-	</section>
+	</section>	
 	<script type="text/javascript">
 	jQuery(function() {
 		jQuery('#chart').highcharts({
@@ -262,7 +268,6 @@
 			}
 		});
 	});
-	</script>		
-	</section>
+	</script>
 <?php } ?>
 </div>

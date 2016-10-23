@@ -25,14 +25,6 @@ The results are shown in data tables and diagrams. The evaluation results can be
 * as CSV files (for an import into LibreOffice Calc or Microsoft Excel)
 * as PNG, JPG or SVG image or PDF document (all diagrams) using the [Highcharts](http://www.highcharts.com/) JavaScript library
 
-= Requirements =
-
-* WordPress 4.4+ (not tested with older WordPress versions)
-* [Statify](https://wordpress.org/plugins/statify/) 1.4.2+
-* PHP 5.6+ and 7.0+ (not tested with older PHP versions)
-
-This plugin will be regularly updated to be compatibe with the latest WordPress and Statify version!
-
 
 == Installation ==
 1. If not already done, install and activate the **[Statify plugin](https://wordpress.org/plugins/statify/)** which is necessary to collect the data to evaluate.
@@ -42,6 +34,10 @@ This plugin will be regularly updated to be compatibe with the latest WordPress 
 4. Activate *Extended Evaluation for Statify* in the WordPress Plugins Area.
 5. See the evalutation of the Statify data in the new menu page *Statify*. 
 	(Important notice: If you've just activated Statify, there will be nothing interesting for now because there's no data to evaluate. So come back to the *Extended Evaluation for Statify* page later!)
+
+= Requirements =
+* [Statify](https://wordpress.org/plugins/statify/)
+* PHP 5.6 or greater
 
 
 == Frequently Asked Questions ==
