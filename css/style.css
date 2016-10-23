@@ -3,7 +3,6 @@
 .eefstatify .two-charts div:first-child{width:65%;float:left}
 .eefstatify .two-charts div:nth-child(2){width:35%;float:left}
 .eefstatify table{border-collapse:collapse;clear:both;}
-.eefstatify tr:nth-child(2n){background:#ddd;}
 .eefstatify th,.eefstatify td{padding:.7em;vertical-align:top;}
 .eefstatify .right{text-align:right;min-width:2.5em;}
 .eefstatify .sum{font-weight:bold;}

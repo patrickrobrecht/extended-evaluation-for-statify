@@ -149,7 +149,7 @@
 		<h3><?php _e( 'Monthly / Yearly Views', 'extended-evaluation-for-statify' ); ?>
 			<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post );
 				eefstatify_echo_export_button( $filename_monthly ); ?></h3>
-		<table id="table-data" class="wp-list-table widefat">
+		<table id="table-data" class="wp-list-table widefat striped">
 			<thead>
 			 	<tr>
 			 		<th scope="col"><?php _e('Year', 'extended-evaluation-for-statify' ); ?></th>
@@ -278,7 +278,7 @@
 		<h3><?php echo __( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . esc_html( $selected_year ); ?>
 			<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post );
 				eefstatify_echo_export_button( $filename_daily ); ?></h3>
-		<table id="table-data" class="wp-list-table widefat">
+		<table id="table-data" class="wp-list-table widefat striped">
 			<thead>
 			 	<tr>
 			 		<td></td>

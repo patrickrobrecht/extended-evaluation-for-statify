@@ -122,7 +122,7 @@
 			<?php echo eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ); ?>
 			<?php echo eefstatify_get_post_type_name_and_title_from_url( $selected_post );
 				eefstatify_echo_export_button( $filename ); ?></h3>
-		<table id="table-data" class="wp-list-table widefat">
+		<table id="table-data" class="wp-list-table widefat striped">
 			<thead>
 				<tr>
 					<th scope="col"><?php _e( 'Referring Domain', 'extended-evaluation-for-statify' ); ?></th>
