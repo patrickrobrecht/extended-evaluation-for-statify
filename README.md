@@ -20,6 +20,10 @@ Developer: [Patrick Robrecht](https://patrick-robrecht.de/)
 
 ## Changelog
 
+### Version 2.2
+* Enhancement: Minor changes in the style
+* Enhancement: If there is nothing to display, show "no data available"
+
 ### Version 2.1
 * Enhancement: URLs in csv export
 * Enhancement: percentages on Content and Referrers pages

@@ -2,8 +2,8 @@
 Contributors: patrickrobrecht
 Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
-Tested up to: 4.6.1
-Stable tag: 2.1
+Tested up to: 4.7
+Stable tag: 2.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,6 +78,10 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify#changelog) for the details.
 
+= 2.2 =
+* Enhancement: Minor changes in the style
+* Enhancement: If there is nothing to display, show "no data available"
+
 = 2.1 =
 * Enhancement: URLs in csv export
 * Enhancement: percentages on Content and Referrers pages
@@ -86,15 +90,8 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 * Enhancement: average/minimum/maximum daily views per month on Dashboard page
 * Enhancement: code simplifications
 
-= 1.9 =
-* Enhancement: client-side CSV export via JavaScript
-* minor bugfixes and improvements
-
 
 == Upgrade Notice ==
 
-= 2.1 =
-* Enhancement: percentages on Content and Referrers pages
-
-= 2.0 =
-Enhancement: average/minimum/maximum daily views per month on Dashboard page 
+= 2.2 =
+* Little enhancements (style, message if there is nothing to display) and support for WordPress 4.7
