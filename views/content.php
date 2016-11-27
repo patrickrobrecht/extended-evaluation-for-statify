@@ -54,7 +54,7 @@
 		} else {
 			$views_per_post = eefstatify_get_views_of_most_popular_posts();
 		}
-		$views_per_post_for_diagram = array_slice($views_per_post, 0, 25, true);
+		$views_per_post_for_diagram = array_slice( $views_per_post, 0, 25, true );
 		
 		$filename = eefstatify_get_filename( __( 'Most Popular Content', 'extended-evaluation-for-statify' )
 				. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end ) );
@@ -72,6 +72,9 @@
 			<button type="submit" class="button-secondary"><?php _e( 'Select date period', 'extended-evaluation-for-statify' ); ?></button>
 		</fieldset>
 	</form>
+	<?php if ( count( $views_per_post ) == 0 ) { ?>
+	<p><?php _e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
+	<?php } else { ?>
 	<section>
 		<div id="chart"></div>
 		<script type="text/javascript">
@@ -158,6 +161,7 @@
 			</tfoot>
 		</table>
 	</section>
+	<?php } ?>
 <?php 
 } else {
 	$post_type = $selected_post_type;
@@ -176,7 +180,21 @@
 				pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
 			<button type="submit" class="button-secondary"><?php _e( 'Select date period', 'extended-evaluation-for-statify' ); ?></button>
 		</fieldset>
-	</form>
+	</form>	
+<?php
+	// Query for the post of the selected post type.
+	$args = array(
+			'post_type' => $post_type,
+			'post_status' => 'publish',
+			'posts_per_page' => -1
+	);
+	$x = ''; $y = '';
+	$index = 0;
+	$query = new WP_Query($args);
+	
+	if( !$query->have_posts() ) { ?>
+	<p><?php _e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
+	<?php } else { ?>
 	<section>
 		<div id="chart"></div>
 	</section>
@@ -193,42 +211,29 @@
 				</tr>
 			</thead>
 			<tbody>
-		<?php
-			$args = array(
-				'post_type' => $post_type,
-				'post_status' => 'publish',
-				'posts_per_page' => -1
-			);
-			$x = ''; $y = '';
-			$index = 0;
-			$query = new WP_Query($args);
-			if( $query->have_posts() ) {
-				while ( $query->have_posts() ) : $query->the_post();
-					if ( $valid_start && $valid_end ) {
-						$views = eefstatify_get_views_of_post( 
-								str_replace( home_url(), "", get_permalink() ),
-								$start,
-								$end
-						);
-					} else {
-						$views = eefstatify_get_views_of_post( str_replace( home_url(), "", get_permalink() ) );
-					}
-					$index++;
-					if ($index <= 25) {
-						$x .= "'" . get_the_title() . "',";
-						$y .= $views . ",";
-					}
+		<?php		
+			while ( $query->have_posts() ) : $query->the_post();
+				if ( $valid_start && $valid_end ) {
+					$views = eefstatify_get_views_of_post( 
+							str_replace( home_url(), "", get_permalink() ),
+							$start,
+							$end
+					);
+				} else {
+					$views = eefstatify_get_views_of_post( str_replace( home_url(), "", get_permalink() ) );
+				}
+				$index++;
+				if ($index <= 25) {
+					$x .= "'" . get_the_title() . "',";
+					$y .= $views . ",";
+				}
 		?>
 			    <tr>
 			    	<td><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></td>
 			    	<td><?php echo wp_make_link_relative( get_the_permalink() ); ?></td>
 			    	<td class="right"><?php eefstatify_echo_number( $views ); ?></td>
 			    </tr>
-		<?php
-				endwhile;
-			}
-			wp_reset_query(); // Restore global post data stomped by the_post().
-		?>
+		<?php endwhile; ?>
 			</tbody>
 		</table>
 	</section>	
@@ -269,5 +274,8 @@
 		});
 	});
 	</script>
+	<?php }
+		wp_reset_query(); // Restore global post data stomped by the_post().
+	?>
 <?php } ?>
 </div>

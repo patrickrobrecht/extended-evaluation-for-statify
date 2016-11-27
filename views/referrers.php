@@ -72,6 +72,9 @@
 			<button type="submit" class="button-secondary"><?php _e( 'Select post/page', 'extended-evaluation-for-statify' ); ?></button>
 		</fieldset>
 	</form>
+	<?php if ( count( $referrers ) == 0 ) { ?>
+	<p><?php _e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
+	<?php } else { ?>
 	<section>
 		<div id="chart"></div>
 		<script type="text/javascript">
@@ -154,4 +157,5 @@
 			</tfoot>
 		</table>
 	</section>
+	<?php } ?>
 </div>

@@ -68,6 +68,9 @@
 		$filename_monthly = eefstatify_get_filename( __( 'Monthly Views', 'extended-evaluation-for-statify' )
 				. '-' . eefstatify_get_post_title_from_url( $selected_post ) );
 ?>
+	<?php if ( count( $views_for_all_months ) == 0 ) { ?>
+	<p><?php _e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
+	<?php } else { ?>
 	<section class="two-charts">
 		<div id="chart-monthly"></div>
 		<div id="chart-yearly"></div>
@@ -172,6 +175,7 @@
 			</tbody>
 		</table>
 	</section>
+	<?php } ?>
 <?php } else { 
 	$filename_daily = eefstatify_get_filename( __( 'Daily Views', 'extended-evaluation-for-statify' )
 			. '-' . $selected_year
