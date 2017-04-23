@@ -48,8 +48,7 @@ The diagrams can be downloaded by clicking the menu in the upper right corner of
 
 = How do I give other users access to the Extended Evaluation for Statify pages? =
 
-Per default, administrators and analysts have access to the *Extended Evaluation for Statify* pages.
-Users with the role analyst can only see the Statify evaluation and nothing else within the WordPress admin area.
+Per default, administrators have access to the *Extended Evaluation for Statify* pages.
 
 You can give users of other roles the capability to see the *Extended Evaluation for Statify* page by extending their capabilities with a member plugin (e. g. [Members](https://wordpress.org/plugins/members/)).
 Therefore you'll have to add the *see_statify_evaluation* capability to the user role.
@@ -66,6 +65,9 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify#changelog) for the details.
 
+= 2.2.1 =
+* Bugfix: Remove buggy Statify Analyst user role. Use [Members](https://wordpress.org/plugins/members/) to add the capability *see_statify_evaluation* to other roles than administrator.
+
 = 2.2 =
 * Enhancement: Minor changes in the style
 * Enhancement: If there is nothing to display, show "no data available"
@@ -74,12 +76,11 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 * Enhancement: URLs in csv export
 * Enhancement: percentages on Content and Referrers pages
 
-= 2.0 =
-* Enhancement: average/minimum/maximum daily views per month on Dashboard page
-* Enhancement: code simplifications
-
 
 == Upgrade Notice ==
+
+= 2.2.1 =
+* Bugfix: Remove buggy Statify Analyst user role
 
 = 2.2 =
 * Little enhancements (style, message if there is nothing to display) and support for WordPress 4.7

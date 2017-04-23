@@ -1,6 +1,9 @@
-# Extended evaluation for Statify - Changelog
+# Extended Evaluation for Statify - Changelog
 
 ## Version 2.x
+
+### Version 2.2.1
+* Bugfix: Remove buggy Statify Analyst user role. Use [Members](https://wordpress.org/plugins/members/) to add the capability *see_statify_evaluation* to other roles than administrator.
 
 ### Version 2.2
 * Enhancement: Minor changes in the style

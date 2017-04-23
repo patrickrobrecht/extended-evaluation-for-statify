@@ -179,23 +179,21 @@ function eefstatify_add_menu() {
 add_action( 'admin_menu', 'eefstatify_add_menu' );
 
 /**
- * Adds a custom role for users who see the evaluation pages.
+ * Adds a custom capability for users who see the evaluation pages.
  */
-function eefstatify_add_role() {
-	// Statify Analysts can see the evaluation.
-	add_role( 
-			'statify_evaluator', 
-			__( 'Statify Analyst', 'extended-evaluation-for-statify' ) 
-	);
-	$role = get_role( 'statify_evaluator' );
-	$role->add_cap( 'see_statify_evaluation' );
-	
-	// All administrators can also see the evaluation.
+function eefstatify_add_capability() {
+	// Only administrators can see the evaluation by default.
 	$role = get_role( 'administrator' );
 	$role->add_cap( 'see_statify_evaluation' );
+
+	// Remove Statify Analyst
+	$role = get_role( 'statify_evaluator' );
+	if ( $role ) {
+		remove_role( 'statify_evaluator' );
+	}
 }
-//Adds the role.
-add_action( 'admin_init', 'eefstatify_add_role' );
+// Adds the capability.
+add_action( 'admin_init', 'eefstatify_add_capability' );
 
 /**
  * Checks whether the current user is in the admin area and has the capability to see 
