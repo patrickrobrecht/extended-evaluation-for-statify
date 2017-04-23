@@ -4,6 +4,8 @@
 
 ### Version 2.2.1
 * Bugfix: Remove buggy Statify Analyst user role. Use [Members](https://wordpress.org/plugins/members/) to add the capability *see_statify_evaluation* to other roles than administrator.
+* Bugfix: proper escaping for all outputs
+* Better conformance to WordPress coding guidelines
 
 ### Version 2.2
 * Enhancement: Minor changes in the style
