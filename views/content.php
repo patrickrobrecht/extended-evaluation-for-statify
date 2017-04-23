@@ -36,7 +36,7 @@ if ( ( '' !== $start  || '' !== $end ) && check_admin_referer( 'content' ) ) {
 }
 ?>
 <div class="wrap eefstatify">
-	<h1><?php esc_html_e( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' ); ?>
+	<h1><?php esc_html_e( 'Statify – Extended Evaluation', 'extended-evaluation-for-statify' ); ?>
 			&rsaquo; <?php esc_html_e( 'Content', 'extended-evaluation-for-statify' ); ?></h1>
 	<?php if ( '' !== $message ) { ?>
 	<div class="notice notice-error">

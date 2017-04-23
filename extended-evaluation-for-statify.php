@@ -27,8 +27,8 @@ function eefstatify_activate() {
 	if ( ! eefstatify_is_statify_active() ) {
 		deactivate_plugins( __FILE__ );
 		wp_die(
-			esc_html( __( 'Extended Evaluation for Statify requires the plugin Statify which has to be installed and activated! Please install and activate Statify before activating this plugin!', 'extended-evaluation-for-statify' ) ),
-			esc_html( __( 'Activation Error: Extended Evaluation for Statify requires Statify!', 'extended-evaluation-for-statify' ) ),
+			esc_html( __( 'Statify – Extended Evaluation requires the plugin Statify which has to be installed and activated! Please install and activate Statify before activating this plugin!', 'extended-evaluation-for-statify' ) ),
+			esc_html( __( 'Activation Error: Statify – Extended Evaluation requires Statify!', 'extended-evaluation-for-statify' ) ),
 			array(
 				'response' => 200,
 				'back_link' => true,
@@ -50,16 +50,15 @@ register_uninstall_hook( __FILE__, 'eefstatify_uninstall' );
 
 /**
  * Check for Statify plugin being installed.
- * If it isn't, display message and deactivate Extended Evaluation for Statify.
+ * If it isn't, display message and deactivate this plugin.
  */
 function eefstatify_check_status() {
-	// Extended Evaluation for Statify will not work without Statify!
 	if ( ! eefstatify_is_statify_active() ) {
 		// Display warning in the admin area.
 		echo '<div class="error"><p>'
-				. esc_html( __( 'Extended Evaluation for Statify requires the plugin Statify which has to be installed and activated! Please install and activate Statify before activating this plugin!', 'extended-evaluation-for-statify' ) )
+				. esc_html( __( 'Statify – Extended Evaluation requires the plugin Statify which has to be installed and activated! Please install and activate Statify before activating this plugin!', 'extended-evaluation-for-statify' ) )
 				. '</p></div>';
-		// Deactivate Extended Evaluation for Statify.
+		// Deactivate this plugin.
 		deactivate_plugins( __FILE__ );
 	}
 }
@@ -140,7 +139,7 @@ add_action( 'admin_print_scripts', 'eefstatify_register_and_load_scripts' );
  */
 function eefstatify_add_menu() {
 	add_menu_page(
-		__( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' ), // page title.
+		__( 'Statify – Extended Evaluation', 'extended-evaluation-for-statify' ), // page title.
 		'Statify', // title in the menu.
 		'see_statify_evaluation',
 		'extended_evaluation_for_statify_dashboard',
@@ -151,7 +150,7 @@ function eefstatify_add_menu() {
 	add_submenu_page(
 		'extended_evaluation_for_statify_dashboard',
 		__( 'Content', 'extended-evaluation-for-statify' )
-				. ' &mdash; ' . __( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' ),
+				. ' &mdash; ' . __( 'Statify – Extended Evaluation', 'extended-evaluation-for-statify' ),
 		__( 'Content', 'extended-evaluation-for-statify' ),
 		'see_statify_evaluation',
 		'extended_evaluation_for_statify_content',
@@ -160,7 +159,7 @@ function eefstatify_add_menu() {
 	add_submenu_page(
 		'extended_evaluation_for_statify_dashboard',
 		__( 'Referrers', 'extended-evaluation-for-statify' )
-				. ' &mdash; ' . __( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' ),
+				. ' &mdash; ' . __( 'Statify – Extended Evaluation', 'extended-evaluation-for-statify' ),
 		__( 'Referrers', 'extended-evaluation-for-statify' ),
 		'see_statify_evaluation',
 		'extended_evaluation_for_statify_referrer',

@@ -1,4 +1,4 @@
-=== Extended Evaluation for Statify ===
+=== Statify – Extended Evaluation ===
 Contributors: patrickrobrecht
 Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
@@ -32,25 +32,24 @@ The results are shown in data tables and diagrams. The evaluation results can be
 
 == Frequently Asked Questions ==
 
-= I have installed Statify already. Why should I install Extended Evaluation for Statify? =
+= I have installed Statify already. Why should I install this plugin? =
 
-*Extended Evaluation for Statify* provides detailed statistics for the data collected with the Statify plugin. 
+This plugin provides detailed statistics for the data collected with the Statify plugin.
 If you are interested in a deeper analysis of that data or want to export the evaluation as csv file, this is the right plugin for you.
 
 = I've just installed the plugin, but I don't see any evaluation. =
-If you've just installed Statify, no data is stored in the database which can be evaluated. Visit the *Extended Evaluation for Statify* pages later again and you'll see the statistics. 
+If you've just installed Statify, no data is stored in the database which can be evaluated. Visit the statistics pages later again.
 
 = How can I download the evaluation results? =
 
 The complete data can be downloaded by clicking the *Export* button next to the headline of each evaluation.
+The diagrams can be downloaded by clicking the menu in the upper right corner of the diagram and choosing one of the download options (available: PNG image, JPG image, PDF document, SVG image).
 
-The diagrams can be downloaded by clicking the menu in the upper right corner of the diagram and choosing one of the dowload options (available: PNG image, JPG image, PDF document, SVG image).
+= How do I give other users access to the *Statify – Extended Evaluation* pages? =
 
-= How do I give other users access to the Extended Evaluation for Statify pages? =
+Per default, administrators have access to the *Statify – Extended Evaluation* statistics.
 
-Per default, administrators have access to the *Extended Evaluation for Statify* pages.
-
-You can give users of other roles the capability to see the *Extended Evaluation for Statify* page by extending their capabilities with a member plugin (e. g. [Members](https://wordpress.org/plugins/members/)).
+You can give users of other roles the capability to see the *Statify – Extended Evaluation* pages by extending their capabilities with a member plugin (e. g. [Members](https://wordpress.org/plugins/members/)).
 Therefore you'll have to add the *see_statify_evaluation* capability to the user role.
 
 
@@ -63,12 +62,13 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 == Changelog ==
 
-Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify#changelog) for the details.
+Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify/blob/master/CHANGELOG.md) for the details.
 
-= 2.2.1 =
+= 2.3 =
 * Bugfix: Remove buggy Statify Analyst user role. Use [Members](https://wordpress.org/plugins/members/) to add the capability *see_statify_evaluation* to other roles than administrator.
 * Bugfix: proper escaping for all outputs
-* Better conformance to WordPress coding guidelines
+* Enhancement: Better conformance to WordPress Coding Guidelines
+* Enhancement: Rename the plugin to *Statify – Extended Evaluation*
 
 = 2.2 =
 * Enhancement: Minor changes in the style
@@ -81,8 +81,8 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 
 == Upgrade Notice ==
 
-= 2.2.1 =
-* Bugfix: Remove buggy Statify Analyst user role
+= 2.3 =
+Removes the buggy Statify Analyst user role and renames the plugin to *Statify – Extended Evaluation*.
 
 = 2.2 =
-* Little enhancements (style, message if there is nothing to display) and support for WordPress 4.7
+Little enhancements (style, message if there is nothing to display) and support for WordPress 4.7.

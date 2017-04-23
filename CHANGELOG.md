@@ -1,11 +1,12 @@
-# Extended Evaluation for Statify - Changelog
+# *Statify – Extended Evaluation* - Changelog
 
 ## Version 2.x
 
-### Version 2.2.1
+### Version 2.3
 * Bugfix: Remove buggy Statify Analyst user role. Use [Members](https://wordpress.org/plugins/members/) to add the capability *see_statify_evaluation* to other roles than administrator.
-* Bugfix: proper escaping for all outputs
-* Better conformance to WordPress coding guidelines
+* Bugfix: Proper escaping for all outputs
+* Enhancement: Better conformance to WordPress Coding Guidelines
+* Enhancement: Rename the plugin to *Statify – Extended Evaluation* such that it is listed after to Statify in the alphabetical list of plugins in the WordPress admin area
 
 ### Version 2.2
 * Enhancement: Minor changes in the style

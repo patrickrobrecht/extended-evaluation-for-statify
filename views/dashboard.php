@@ -43,7 +43,7 @@ if ( isset( $_GET['year'] ) && 4 === strlen( $_GET['year'] ) ) {
 }
 ?>
 <div class="wrap eefstatify">
-	<h1><?php esc_html_e( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' ); ?></h1>
+	<h1><?php esc_html_e( 'Statify – Extended Evaluation', 'extended-evaluation-for-statify' ); ?></h1>
 
 	<h2 class="nav-tab-wrapper">
 		<a href="<?php echo esc_url( admin_url( 'admin.php?page=extended_evaluation_for_statify_dashboard&post=' . $selected_post ) ); ?>"

@@ -40,7 +40,7 @@ $filename = eefstatify_get_filename( __( 'Referrers', 'extended-evaluation-for-s
 	. '-' . eefstatify_get_post_title_from_url( $selected_post ) );
 ?>
 <div class="wrap eefstatify">
-	<h1><?php esc_html_e( 'Extended Evaluation for Statify', 'extended-evaluation-for-statify' ); ?>
+	<h1><?php esc_html_e( 'Statify – Extended Evaluation', 'extended-evaluation-for-statify' ); ?>
 			&rsaquo; <?php esc_html_e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?></h1>
 	<?php if ( '' !== $message  ) { ?>
 	<div class="notice notice-error">

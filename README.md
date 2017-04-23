@@ -1,4 +1,4 @@
-# Extended evaluation for Statify
+# WordPress Plugin *Statify – Extended Evaluation*
 
 This WordPress plugin evaluates the data collected with the privacy-friendly Statify Plugin (data tables and diagrams). The evaluation can be downloaded as csv and as diagram (image or PDF).
 
