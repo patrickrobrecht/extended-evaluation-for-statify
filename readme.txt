@@ -3,7 +3,7 @@ Contributors: patrickrobrecht
 Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
 Tested up to: 4.7
-Stable tag: 2.3
+Stable tag: 2.3.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -68,6 +68,9 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify/blob/master/CHANGELOG.md) for the details.
 
+= 2.3.1 =
+* Bugfix: diagram for yearly views
+
 = 2.3 =
 * Bugfix: Remove buggy Statify Analyst user role. Use [Members](https://wordpress.org/plugins/members/) to add the capability *see_statify_evaluation* to other roles than administrator.
 * Bugfix: proper escaping for all outputs
@@ -85,8 +88,5 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 
 == Upgrade Notice ==
 
-= 2.3 =
-Removes the buggy Statify Analyst user role and renames the plugin to *Statify – Extended Evaluation*.
-
-= 2.2 =
-Little enhancements (style, message if there is nothing to display) and support for WordPress 4.7.
+= 2.3.1 =
+Bugfix: diagram for yearly views. This bugfix release is recommended for all users.

@@ -2,6 +2,9 @@
 
 ## Version 2.x
 
+### Version 2.3.1
+* Bugfix: diagram for yearly views
+
 ### Version 2.3
 * Bugfix: Remove buggy Statify Analyst user role. Use [Members](https://wordpress.org/plugins/members/) to add the capability *see_statify_evaluation* to other roles than administrator.
 * Bugfix: Proper escaping for all outputs

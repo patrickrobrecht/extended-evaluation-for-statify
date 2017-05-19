@@ -129,7 +129,7 @@ if ( 0 === $selected_year ) {
 					text: '<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>'
 				},
 				xAxis: {
-					categories: [ '<?php echo esc_html( implode( "','", array_keys( $views_for_all_years ) ) ); ?>' ]
+					categories: [ '<?php echo __( implode( "','", array_keys( $views_for_all_years ) ) ); ?>' ]
 				},
 				yAxis: {
 					title: {
