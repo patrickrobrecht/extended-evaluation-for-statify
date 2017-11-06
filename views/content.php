@@ -85,46 +85,19 @@ if ( 'popular' === $selected_post_type ) {
 	<section>
 		<div id="chart"></div>
 		<script type="text/javascript">
-		jQuery(function() {
-			jQuery('#chart').highcharts({
-				chart: {
-					type: 'column'
-				},
-				title: {
-					text: '<?php esc_html_e( 'Most Popular Content', 'extended-evaluation-for-statify' ); ?>'
-				},
-				subtitle: {
-					text: '<?php echo esc_html( get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>'
-				},
-				xAxis: {
-					categories: [
-						<?php foreach ( $views_per_post_for_diagram as $post ) {
-							echo "'" . esc_html( eefstatify_get_post_title_from_url( $post['url'] ) ) . "',";
-						} ?> ]
-				},
-				yAxis: {
-					title: {
-						text: '<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>'
-					},
-					min: 0
-				},
-				legend: {
-					enabled: false
-				},
-				series: [ {
-					name: '<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-					data: [ <?php foreach ( $views_per_post_for_diagram as $post ) {
-						echo esc_html( $post['count'] . ',' );
-						} ?> ]
-				} ],
-				credits: {
-					enabled: false	
-				},
-				exporting: {
-					filename: '<?php echo esc_html( $filename ); ?>'
-				}
-			});
-		});
+            eefstatifyColumnChart(
+                '#chart',
+                '<?php esc_html_e( 'Most Popular Content', 'extended-evaluation-for-statify' ); ?>',
+                '<?php echo esc_html( get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>',
+                [ <?php foreach ( $views_per_post_for_diagram as $post ) {
+                    echo "'" . esc_html( eefstatify_get_post_title_from_url( $post['url'] ) ) . "',";
+                } ?> ],
+                [ <?php foreach ( $views_per_post_for_diagram as $post ) {
+                    echo esc_html( $post['count'] . ',' );
+                } ?> ],
+                '<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
+                '<?php echo esc_html( $filename ); ?>'
+            );
 		</script>	
 	</section>
 	<section>
@@ -246,41 +219,15 @@ if ( 'popular' === $selected_post_type ) {
 		</table>
 	</section>	
 	<script type="text/javascript">
-	jQuery(function() {
-		jQuery('#chart').highcharts({
-			chart: {
-				type: 'column'
-			},
-			title: {
-				text: '<?php echo esc_html( get_post_type_object( $post_type )->labels->name ); ?>'
-			},
-			subtitle: {
-				text: '<?php echo esc_html( get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>'
-			},
-			xAxis: {
-				categories: [ <?php echo $x; // $x is properly escaped. ?> ]
-			},
-			yAxis: {
-				title: {
-					text: '<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>'
-				},
-				min: 0
-			},
-			legend: {
-				enabled: false
-			},
-			series: [ {
-				name: '<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				data: [ <?php echo esc_html( $y ); ?> ]
-			} ],
-			credits: {
-				enabled: false
-			},
-			exporting: {
-				filename: '<?php echo esc_html( $filename ); ?>'
-			}
-		});
-	});
+        eefstatifyColumnChart(
+            '#chart',
+            '<?php echo esc_html( get_post_type_object( $post_type )->labels->name ); ?>',
+            '<?php echo esc_html( get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>',
+            [ <?php echo $x; // $x is properly escaped. ?> ],
+            [ <?php echo esc_html( $y ); ?> ],
+            '<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
+            '<?php echo esc_html( $filename ); ?>'
+        );
 	</script>
 	<?php }
 	    // Restore global post data stomped by the_post().

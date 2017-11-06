@@ -2,6 +2,9 @@
 
 ## Version 2.x
 
+### Unreleased
+* Refactoring the charts code
+
 ### Version 2.3.1
 * Bugfix: diagram for yearly views
 

@@ -85,46 +85,19 @@ $filename = eefstatify_get_filename( __( 'Referrers', 'extended-evaluation-for-s
 	<section>
 		<div id="chart"></div>
 		<script type="text/javascript">
-		jQuery(function() {
-			jQuery('#chart').highcharts({
-				chart: {
-					type: 'column'
-				},
-				title: {
-					text: '<?php esc_html_e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?>'
-				},
-				subtitle: {
-					text: '<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>'
-				},
-				xAxis: {
-					categories: [ 
-						<?php foreach ( $referrers_for_diagram as $referrer ) {
-							echo "'" . esc_html( $referrer['host'] ) . "',";
-						} ?> ]
-				},
-				yAxis: {
-					title: {
-						text: '<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>'
-					},
-					min: 0
-				},
-				legend: {
-					enabled: false
-				},
-				series: [ {
-					name: '<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-					data: [ <?php foreach ( $referrers_for_diagram as $referrer ) {
-						echo esc_html( $referrer['count'] . ',' );
-						} ?> ]
-				} ],
-				credits: {
-					enabled: false
-				},
-				exporting: {
-					filename: '<?php echo esc_html( $filename ); ?>'
-				}
-			});
-		});
+            eefstatifyColumnChart(
+                '#chart',
+                '<?php esc_html_e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?>',
+                '<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>',
+                [ <?php foreach ( $referrers_for_diagram as $referrer ) {
+                    echo "'" . esc_html( $referrer['host'] ) . "',";
+                } ?> ],
+                [ <?php foreach ( $referrers_for_diagram as $referrer ) {
+                    echo esc_html( $referrer['count'] . ',' );
+                } ?> ],
+                '<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
+                '<?php echo esc_html( $filename ); ?>'
+            );
 		</script>
 	</section>	
 	<section>

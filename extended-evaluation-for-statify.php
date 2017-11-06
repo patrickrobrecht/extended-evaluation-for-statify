@@ -121,15 +121,15 @@ function eefstatify_register_and_load_scripts() {
 		)
 	);
 	wp_register_script(
-		'table-to-csv',
+		'eefstatify-functions',
 		plugins_url(
-			'/js/table-to-csv.js',
+			'/js/functions.js',
 			__FILE__
 		)
 	);
 	wp_enqueue_script( 'highcharts' );
 	wp_enqueue_script( 'highcharts-exporting' );
-	wp_enqueue_script( 'table-to-csv' );
+	wp_enqueue_script( 'eefstatify-functions' );
 }
 // Load JavaScript libraries.
 add_action( 'admin_print_scripts', 'eefstatify_register_and_load_scripts' );
