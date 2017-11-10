@@ -7,4 +7,4 @@
 .eefstatify .right{text-align:right;min-width:2.5em;}
 .eefstatify .sum{font-weight:bold;}
 .eefstatify legend{margin:1em 0;font-weight:bold;}
-.eefstatify input[type=date]{margin-right:25px;}
+.eefstatify input[type=date], .eefstatify select{margin-right:25px;}

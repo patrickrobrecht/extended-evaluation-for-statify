@@ -3,6 +3,7 @@
 ## Version 2.x
 
 ### Unreleased
+* Feature: Selection of predefined time periods
 * Refactoring the charts code
 
 ### Version 2.3.1

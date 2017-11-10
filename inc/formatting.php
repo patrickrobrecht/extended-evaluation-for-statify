@@ -15,8 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * @param string $button_id the identifier of the link.
  * @param string $table_id the identifier of the table to export.
  */
-function eefstatify_echo_export_button( $filename, $button_id = 'csv-export', $table_id = 'table-data' ) {
-?>
+function eefstatify_echo_export_button( $filename, $button_id = 'csv-export', $table_id = 'table-data' ) { ?>
 	<a class="page-title-action" href="#" id="<?php echo esc_html( $button_id ); ?>" role="button"><?php esc_html_e( 'Export', 'extended-evaluation-for-statify' ); ?></a>
 	<script type='text/javascript'>
 	jQuery(document).ready(function () {
@@ -25,6 +24,37 @@ function eefstatify_echo_export_button( $filename, $button_id = 'csv-export', $t
 		});
 	});
 	</script>
+<?php }
+
+function eefstatify_echo_date_selection($valid_start, $start, $valid_end, $end) { ?>
+    <fieldset>
+        <legend><?php esc_html_e( 'Restrict date period: Please enter start and end date in the YYYY-MM-DD format', 'extended-evaluation-for-statify' ); ?></legend>
+        <label for="dateRange"><?php _e('Date range'); ?></label>
+        <select id="dateRange" onchange="eefstatifySelectDateRange()">
+            <option value="default"><?php _e('default (all the time)'); ?></option>
+            <option value="lastYear"><?php _e('last year'); ?></option>
+            <option value="lastWeek"><?php _e('last week'); ?></option>
+            <option value="yesterday"><?php _e('yesterday'); ?></option>
+            <option value="today"><?php _e('today'); ?></option>
+            <option value="thisWeek"><?php _e('this week'); ?></option>
+            <option value="last28days"><?php _e('last 28 days'); ?></option>
+            <option value="lastMonth"><?php _e('last month'); ?></option>
+            <option value="thisMonth"><?php _e('this month'); ?></option>
+            <option value="thisYear"><?php _e('this year'); ?></option>
+            <option value="1stQuarter"><?php _e('1st quarter'); ?></option>
+            <option value="2ndQuarter"><?php _e('2nd quarter'); ?></option>
+            <option value="3rdQuarter"><?php _e('3rd quarter'); ?></option>
+            <option value="4thQuarter"><?php _e('4th quarter'); ?></option>
+            <option value="custom"><?php _e('custom'); ?></option>
+        </select>
+        <label for="start"><?php esc_html_e( 'Start date', 'extended-evaluation-for-statify' );?></label>
+        <input id="start" name="start" type="date" value="<?php if ( $valid_start ) echo esc_html( $start ); ?>" oninput="eefstatifyDateRangeChange()"
+               pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
+        <label for="end"><?php esc_html_e( 'End date', 'extended-evaluation-for-statify' ); ?></label>
+        <input id="end" name="end" type="date" value="<?php if ( $valid_end ) echo esc_html( $end ); ?>" oninput="eefstatifyDateRangeChange()"
+               pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
+        <button type="submit" class="button-secondary"><?php esc_html_e( 'Select date period', 'extended-evaluation-for-statify' ); ?></button>
+    </fieldset>
 <?php }
 
 /**

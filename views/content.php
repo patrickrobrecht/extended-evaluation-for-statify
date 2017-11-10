@@ -68,16 +68,7 @@ if ( 'popular' === $selected_post_type ) {
 ?>
 	<form method="post" action="">
 		<?php wp_nonce_field( 'content' ); ?>
-		<fieldset>
-			<legend><?php esc_html_e( 'Restrict date period: Please enter start and end date in the YYYY-MM-DD format', 'extended-evaluation-for-statify' ); ?></legend>
-			<label for="start"><?php esc_html_e( 'Start date', 'extended-evaluation-for-statify' );?></label>
-			<input id="start" name="start" type="date" value="<?php if ( $valid_start ) echo esc_html( $start ); ?>" required="required"
-				pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
-			<label for="end"><?php esc_html_e( 'End date', 'extended-evaluation-for-statify' ); ?></label>
-			<input id="end" name="end" type="date" value="<?php if ( $valid_end ) echo esc_html( $end ); ?>" required="required"
-				pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
-			<button type="submit" class="button-secondary"><?php esc_html_e( 'Select date period', 'extended-evaluation-for-statify' ); ?></button>
-		</fieldset>
+        <?php eefstatify_echo_date_selection($valid_start, $start, $valid_end, $end); ?>
 	</form>
 <?php if ( count( $views_per_post ) === 0 ) { ?>
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
@@ -150,16 +141,7 @@ if ( 'popular' === $selected_post_type ) {
 ?>
 	<form method="post" action="">
 		<?php wp_nonce_field( 'content' ); ?>
-		<fieldset>
-			<legend><?php esc_html_e( 'Restrict date period: Please enter start and end date in the YYYY-MM-DD format', 'extended-evaluation-for-statify' ); ?></legend>
-			<label for="start"><?php esc_html_e( 'Start date', 'extended-evaluation-for-statify' );?></label>
-			<input id="start" name="start" type="date" value="<?php if ( $valid_start ) echo esc_html( $start ); ?>" required="required"
-				pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
-			<label for="end"><?php esc_html_e( 'End date', 'extended-evaluation-for-statify' );?></label>
-			<input id="end" name="end" type="date" value="<?php if ( $valid_end ) echo esc_html( $end ); ?>" required="required"
-				pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
-			<button type="submit" class="button-secondary"><?php esc_html_e( 'Select date period', 'extended-evaluation-for-statify' ); ?></button>
-		</fieldset>
+        <?php eefstatify_echo_date_selection($valid_start, $start, $valid_end, $end); ?>
 	</form>	
 <?php
 	// Query for the post of the selected post type.

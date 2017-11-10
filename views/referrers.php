@@ -49,20 +49,7 @@ $filename = eefstatify_get_filename( __( 'Referrers', 'extended-evaluation-for-s
 	<?php } ?>
 	<form method="post">
 		<?php wp_nonce_field( 'referrers' ); ?>
-		<fieldset>
-			<legend><?php esc_html_e( 'Restrict date period: Please enter start and end date in the YYYY-MM-DD format', 'extended-evaluation-for-statify' ); ?></legend>
-			<label for="start"><?php esc_html_e( 'Start date', 'extended-evaluation-for-statify' );?></label>
-			<input id="start" name="start" type="date" value="<?php if ( $valid_start ) echo esc_html( $start ); ?>" required="required"
-				pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
-			<label for="end"><?php esc_html_e( 'End date', 'extended-evaluation-for-statify' );?></label>
-			<input id="end" name="end" type="date" value="<?php if ( $valid_end ) echo esc_html( $end ); ?>" required="required"
-				pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
-			<input id="post" name="post" type="hidden" value="<?php echo esc_html( $selected_post ); ?>">
-			<button type="submit" class="button-secondary"><?php esc_html_e( 'Select date period', 'extended-evaluation-for-statify' ); ?></button>
-		</fieldset>
-	</form>
-	<form method="post">
-		<?php wp_nonce_field( 'referrers' ); ?>
+        <?php eefstatify_echo_date_selection($valid_start, $start, $valid_end, $end); ?>
 		<fieldset>
 			<legend><?php esc_html_e( 'Per default the views of all posts are shown. To restrict the evaluation to one post/page, select one.', 'extended-evaluation-for-statify' ); ?></legend>
 			<label for="post"><?php esc_html_e( 'Post/Page', 'extended-evaluation-for-statify' );?></label>
@@ -74,8 +61,6 @@ $filename = eefstatify_get_filename( __( 'Referrers', 'extended-evaluation-for-s
 					echo 'selected="selected"'?>><?php echo esc_html( eefstatify_get_post_title_from_url( $post['target'] ) ); ?></option>
 				<?php } ?>
 			</select>
-			<input id="start" name="start" type="hidden" value="<?php if ( $valid_start ) echo esc_html( $start ); ?>">
-			<input id="end" name="end" type="hidden" value="<?php if ( $valid_end ) echo esc_html( $end ); ?>">
 			<button type="submit" class="button-secondary"><?php esc_html_e( 'Select post/page', 'extended-evaluation-for-statify' ); ?></button>
 		</fieldset>
 	</form>
