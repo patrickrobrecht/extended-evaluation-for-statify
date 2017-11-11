@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ruleset name="Coding standard">
+    <description>Coding standard for WordPress plugins</description>
+
+    <!-- Pass some flags to PHPCS:
+		 p flag: Show progress of the run.
+		 s flag: Show sniff codes in all reports.
+		 v flag: Print verbose output.
+		 n flag: Do not print warnings.
+	-->
+    <arg value="psvn"/>
+
+    <!-- use colors in output -->
+    <arg name="colors"/>
+
+    <!-- ignore vendor files-->
+    <file>inc</file>
+    <file>views</file>
+    <file>extended-evaluation-for-statify.php</file>
+    <exclude-pattern>index.php</exclude-pattern>
+    <exclude-pattern>dist/*</exclude-pattern>
+    <exclude-pattern>vendor/*</exclude-pattern>
+
+    <!-- Exclude minified Javascript files. -->
+    <exclude-pattern>*.min.js</exclude-pattern>
+
+    <!-- WordPress coding standards -->
+    <config name="minimum_supported_wp_version" value="4.4" />
+    <rule ref="WordPress">
+        <exclude name="WordPress.VIP.PostsPerPage.posts_per_page_posts_per_page" />
+    </rule>
+    <rule ref="WordPress.VIP.RestrictedFunctions.url_to_postid_url_to_postid">
+        <exclude-pattern>formatting.php</exclude-pattern>
+    </rule>
+    <rule ref="WordPress.DB.PreparedSQLPlaceholders.UnsupportedPlaceholder">
+        <exclude-pattern>queries.php</exclude-pattern>
+    </rule>
+    <rule ref="WordPress.VIP.DirectDatabaseQuery.NoCaching">
+        <exclude-pattern>queries.php</exclude-pattern>
+    </rule>
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array" value="extended-evaluation-for-statify" />
+        </properties>
+    </rule>
+
+    <!-- Include sniffs for PHP cross-version compatibility. -->
+    <config name="testVersion" value="5.6-"/>
+    <rule ref="PHPCompatibility"/>
+</ruleset>

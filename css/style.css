@@ -1,10 +1,42 @@
 @charset "UTF-8";
-.eefstatify section{clear:both;padding-top:1.5em;}
-.eefstatify .two-charts div:first-child{width:65%;float:left}
-.eefstatify .two-charts div:nth-child(2){width:35%;float:left}
-.eefstatify table{border-collapse:collapse;clear:both;}
-.eefstatify th,.eefstatify td{padding:.7em;vertical-align:top;}
-.eefstatify .right{text-align:right;min-width:2.5em;}
-.eefstatify .sum{font-weight:bold;}
-.eefstatify legend{margin:1em 0;font-weight:bold;}
-.eefstatify input[type=date], .eefstatify select{margin-right:25px;}
+
+.eefstatify section {
+    clear: both;
+    padding-top: 1.5em;
+}
+
+.eefstatify .two-charts div:first-child {
+    width: 65%;
+    float: left
+}
+
+.eefstatify .two-charts div:nth-child(2) {
+    width: 35%;
+    float: left
+}
+
+.eefstatify table {
+    border-collapse: collapse;
+    clear: both;
+}
+.eefstatify td,
+.eefstatify th {
+    padding: .7em;
+    vertical-align: top;
+}
+.eefstatify .right {
+    text-align: right;
+    min-width: 2.5em;
+}
+.eefstatify .sum {
+    font-weight: bold;
+}
+
+.eefstatify legend {
+    margin: 1em 0;
+    font-weight: bold;
+}
+.eefstatify input[type=date],
+.eefstatify select {
+    margin-right: 25px;
+}

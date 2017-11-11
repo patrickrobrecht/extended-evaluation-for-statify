@@ -4,6 +4,8 @@
 
 ### Unreleased
 * Feature: Selection of predefined time periods
+* Enhancement: Minified CSS/JS files, build command
+* Enhancement: Check for compliance with WordPress Coding Guidelines with PHP_CodeSniffer
 * Refactoring the charts code
 
 ### Version 2.3.1

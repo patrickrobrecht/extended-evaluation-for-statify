@@ -17,8 +17,8 @@
 defined( 'ABSPATH' ) || exit;
 
 // Includes.
-include_once 'inc/queries.php';
-include_once 'inc/formatting.php';
+require_once 'inc/queries.php';
+require_once 'inc/formatting.php';
 
 /**
  * Requires Statify to be installed and activated during installation.
@@ -87,16 +87,16 @@ add_action( 'init', 'eefstatify_load_plugin_textdomain' );
  * Register and load the style sheet.
  */
 function eefstatify_register_and_load_css() {
-	wp_register_style(
-		'extended-evaluation-for-statify',
-		plugins_url(
-			'/css/style.css',
-			__FILE__
-		),
-		array()
-	);
-
-	wp_enqueue_style( 'extended-evaluation-for-statify' );
+	if ( eefstatify_current_user_can_see_evaluation() ) {
+		wp_register_style(
+			'extended-evaluation-for-statify',
+			plugins_url(
+				'/css/style.min.css',
+				__FILE__
+			)
+		);
+		wp_enqueue_style( 'extended-evaluation-for-statify' );
+	}
 }
 // Load css file.
 add_action( 'admin_print_styles', 'eefstatify_register_and_load_css' );
@@ -105,31 +105,33 @@ add_action( 'admin_print_styles', 'eefstatify_register_and_load_css' );
  * Register the Highcharts libraries and load these and JQuery.
  */
 function eefstatify_register_and_load_scripts() {
-	wp_register_script(
-		'highcharts',
-		plugins_url(
-			'/js/highcharts.js',
-			__FILE__
-		),
-		array( 'jquery' )
-	);
-	wp_register_script(
-		'highcharts-exporting',
-		plugins_url(
-			'/js/exporting.js',
-			__FILE__
-		)
-	);
-	wp_register_script(
-		'eefstatify-functions',
-		plugins_url(
-			'/js/functions.js',
-			__FILE__
-		)
-	);
-	wp_enqueue_script( 'highcharts' );
-	wp_enqueue_script( 'highcharts-exporting' );
-	wp_enqueue_script( 'eefstatify-functions' );
+	if ( eefstatify_current_user_can_see_evaluation() ) {
+		wp_register_script(
+			'highcharts',
+			plugins_url(
+				'/js/highcharts.js',
+				__FILE__
+			),
+			array( 'jquery' )
+		);
+		wp_register_script(
+			'highcharts-exporting',
+			plugins_url(
+				'/js/exporting.js',
+				__FILE__
+			)
+		);
+		wp_register_script(
+			'eefstatify-functions',
+			plugins_url(
+				'/js/functions.min.js',
+				__FILE__
+			)
+		);
+		wp_enqueue_script( 'highcharts' );
+		wp_enqueue_script( 'highcharts-exporting' );
+		wp_enqueue_script( 'eefstatify-functions' );
+	}
 }
 // Load JavaScript libraries.
 add_action( 'admin_print_scripts', 'eefstatify_register_and_load_scripts' );

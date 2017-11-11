@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  */
 function eefstatify_get_days( $month = 1, $year = 0 ) {
 	if ( 2 === $month ) {
-		if ( checkdate( 2, 29, $year )  ) {
+		if ( checkdate( 2, 29, $year ) ) {
 			return range( 1, 29 );
 		} else {
 			return range( 1, 28 );
@@ -108,7 +108,7 @@ function eefstatify_get_views_for_all_days( $post_url = '' ) {
  * @return int number the number of views (or -1 if the date is invalid).
  */
 function eefstatify_get_daily_views( $views_for_all_days, $year, $month, $day ) {
-	$year = str_pad( $year, 4,'0', STR_PAD_LEFT );
+	$year = str_pad( $year, 4, '0', STR_PAD_LEFT );
 	$month = str_pad( $month, 2, '0', STR_PAD_LEFT );
 	$day = str_pad( $day, 2, '0', STR_PAD_LEFT );
 	if ( checkdate( $month, $day, $year ) ) {
@@ -144,16 +144,15 @@ function eefstatify_get_views_for_all_months( $post_url = '' ) {
 		);
 	} else {
 		// Only for selected posts.
-		$where_clause = $wpdb->prepare(
-			'WHERE `target` = %s',
-			$post_url
-		);
 		$results = $wpdb->get_results(
-			"SELECT DATE_FORMAT(`created`, '%Y-%m') as `date`, COUNT(`created`) as `count`
-			FROM `$wpdb->statify`"
-			. $where_clause .
-			'GROUP BY `date`
-			ORDER BY `date`',
+			$wpdb->prepare(
+				"SELECT DATE_FORMAT(`created`, '%Y-%m') as `date`, COUNT(`created`) as `count`
+                FROM `$wpdb->statify`
+                WHERE `target` = %s
+                GROUP BY `date`
+                ORDER BY `date`",
+				$post_url
+			),
 			ARRAY_A
 		);
 	}
@@ -173,7 +172,7 @@ function eefstatify_get_views_for_all_months( $post_url = '' ) {
  * @return int the view for the given month.
  */
 function eefstatify_get_monthly_views( $views_for_all_months, $year, $month ) {
-	$year = str_pad( $year, 4,'0', STR_PAD_LEFT );
+	$year = str_pad( $year, 4, '0', STR_PAD_LEFT );
 	$month = str_pad( $month, 2, '0', STR_PAD_LEFT );
 	$date = $year . '-' . $month;
 	if ( array_key_exists( $date, $views_for_all_months ) ) {
