@@ -2,7 +2,7 @@
 
 ## Version 2.x
 
-### Unreleased
+### Version 2.4
 * Feature: Selection of predefined time periods
 * Enhancement: Better selection of posts
 * Enhancement: Minified CSS/JS files, build command

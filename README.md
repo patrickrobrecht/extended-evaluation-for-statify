@@ -9,6 +9,23 @@ The use of this WordPress Plugin requires the [Statify Plugin](https://de.wordpr
 Details, screenshot and the zip file download of the latest stable version can be found in the [WordPress Plugin Directory](https://wordpress.org/plugins/extended-evaluation-for-statify/).
 
 
+## How to develop
+
+Install [Composer](https://getcomposer.org/)
+    and run `composer install` to install the dependencies for development.
+
+`composer build` creates the release version in the `dist` directory
+    (it contains exactly the files necessary for wordpress.org).
+
+`composer cs` checks the code style
+    and reports any violations of the WordPress Coding Guidelines
+    (see `phpcs.xml` for details).
+ 
+`composer csfix` tries to fix code style issues.
+
+`composer minify` generates minified CSS and JavaScript files.
+
+
 ## Development and Translations
 
 You can report issues or suggest new features in the [Issue Tracker](https://github.com/patrickrobrecht/extended-evaluation-for-statify/issues). If you experience unexpected behavior, please ask in the [WordPress Support Forum](https://wordpress.org/support/plugin/extended-evaluation-for-statify) first. Pull requests for known issues are highly appreciated!

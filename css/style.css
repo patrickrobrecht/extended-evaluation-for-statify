@@ -19,15 +19,18 @@
     border-collapse: collapse;
     clear: both;
 }
+
 .eefstatify td,
 .eefstatify th {
     padding: .7em;
     vertical-align: top;
 }
+
 .eefstatify .right {
     text-align: right;
     min-width: 2.5em;
 }
+
 .eefstatify .sum {
     font-weight: bold;
 }
@@ -36,6 +39,7 @@
     margin: 1em 0;
     font-weight: bold;
 }
+
 .eefstatify input[type=date],
 .eefstatify select {
     margin-right: 25px;

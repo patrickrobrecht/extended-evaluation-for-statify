@@ -69,6 +69,13 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify/blob/master/CHANGELOG.md) for the details.
 
+= 2.4 =
+* Feature: Selection of predefined time periods
+* Enhancement: Better selection of posts
+* Enhancement: Minified CSS/JS files, build command
+* Enhancement: Check for compliance with WordPress Coding Guidelines with PHP_CodeSniffer
+* Refactoring the charts code
+
 = 2.3.1 =
 * Bugfix: diagram for yearly views
 
@@ -89,5 +96,5 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 
 == Upgrade Notice ==
 
-= 2.3.1 =
-Bugfix: diagram for yearly views. This bugfix release is recommended for all users.
+= 2.4 =
+New features and enhancements. It is recommended for all users.

@@ -20,6 +20,7 @@
   },
   "scripts": {
     "build": [
+      "composer minify",
       "SlowProg\\CopyFile\\ScriptHandler::copy"
     ],
     "cs": [
