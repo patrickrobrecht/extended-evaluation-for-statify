@@ -76,6 +76,24 @@ function eefstatify_echo_date_selection( $valid_start, $start, $valid_end, $end 
 }
 
 /**
+ * Outputs the input field for the post selection.
+ *
+ * @param string $selected_post the path of the selected post.
+ */
+function eefstatify_echo_post_selection( $selected_post ) {
+	$posts = eefstatify_get_post_urls();
+	?>
+	<label for="post"><?php esc_html_e( 'Post/Page', 'extended-evaluation-for-statify' ); ?></label>
+	<input id="post" name="post" type="text" list="posts" value="<?php echo esc_attr( $selected_post ); ?>">
+	<datalist id="posts">
+		<?php foreach ( $posts as $post ) { ?>
+			<option value="<?php echo esc_html( $post['target'] ); ?>"><?php echo esc_html( eefstatify_get_post_title_from_url( $post['target'] ) ); ?></option>
+		<?php } ?>
+	</datalist>
+<?php
+}
+
+/**
  * Echo the class(es) for a navigation tab.
  *
  * @param boolean $is_active_tab true if and only if the tab is active.

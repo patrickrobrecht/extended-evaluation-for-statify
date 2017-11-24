@@ -18,9 +18,6 @@ if ( isset( $_POST['post'] ) && check_admin_referer( 'dashboard' ) ) {
 		$selected_post = '';
 	}
 }
-if ( 'all' === $selected_post ) {
-	$selected_post = '';
-}
 
 // Get the data necessary for all tabs.
 $years = eefstatify_get_years();
@@ -56,29 +53,8 @@ if ( isset( $_GET['year'] ) && 4 === strlen( sanitize_text_field( wp_unslash( $_
 	<form method="post" action="">
 		<?php wp_nonce_field( 'dashboard' ); ?>
 		<fieldset>
-			<legend><?php esc_html_e( 'Per default the views of all posts are shown. To restrict the evaluation to one post/page, select one.', 'extended-evaluation-for-statify' ); ?></legend>
-			<label for="post"><?php esc_html_e( 'Post/Page', 'extended-evaluation-for-statify' ); ?></label>
-			<select id="post" name="post" required="required">
-				<option value="all" 
-					<?php
-					if ( '' === $selected_post ) {
-						echo 'selected="selected"';
-					}
-					?>
-					><?php esc_html_e( 'all posts', 'extended-evaluation-for-statify' ); ?></option>
-				<?php
-				$posts = eefstatify_get_post_urls();
-				foreach ( $posts as $post ) {
-				?>
-				<option value="<?php echo esc_html( $post['target'] ); ?>"
-					<?php
-					if ( $post['target'] === $selected_post ) {
-						echo 'selected="selected"';
-					}
-					?>
-					><?php echo esc_html( eefstatify_get_post_title_from_url( $post['target'] ) ); ?></option>
-				<?php } ?>
-			</select>
+			<legend><?php esc_html_e( 'Per default the views of all posts are shown. To restrict the evaluation to one post/page, enter their path or name.', 'extended-evaluation-for-statify' ); ?></legend>
+			<?php eefstatify_echo_post_selection( $selected_post ); ?>
 			<button type="submit" class="button-secondary"><?php esc_html_e( 'Select post/page', 'extended-evaluation-for-statify' ); ?></button>
 		</fieldset>
 	</form>

@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Get the selected post if one is set, otherwise: all posts.
-if ( isset( $_POST['post'] ) && check_admin_referer( 'referrers' ) && 'all' !== $_POST['post'] ) {
+if ( isset( $_POST['post'] ) && check_admin_referer( 'referrers' ) ) {
 	$selected_post = sanitize_text_field( wp_unslash( $_POST['post'] ) );
 } else {
 	$selected_post = '';
@@ -57,29 +57,8 @@ $filename = eefstatify_get_filename(
 		<?php wp_nonce_field( 'referrers' ); ?>
 		<?php eefstatify_echo_date_selection( $valid_start, $start, $valid_end, $end ); ?>
 		<fieldset>
-			<legend><?php esc_html_e( 'Per default the views of all posts are shown. To restrict the evaluation to one post/page, select one.', 'extended-evaluation-for-statify' ); ?></legend>
-			<label for="post"><?php esc_html_e( 'Post/Page', 'extended-evaluation-for-statify' ); ?></label>
-			<select id="post" name="post" required="required">
-				<option value="all" 
-					<?php
-					if ( '' === $selected_post ) {
-						echo 'selected="selected"';
-					}
-					?>
-					><?php esc_html_e( 'all posts', 'extended-evaluation-for-statify' ); ?></option>
-				<?php
-				$posts = eefstatify_get_post_urls();
-				foreach ( $posts as $post ) {
-				?>
-				<option value="<?php echo esc_html( $post['target'] ); ?>"
-					<?php
-					if ( $post['target'] === $selected_post ) {
-						echo 'selected="selected"';
-					}
-					?>
-					><?php echo esc_html( eefstatify_get_post_title_from_url( $post['target'] ) ); ?></option>
-				<?php } ?>
-			</select>
+			<legend><?php esc_html_e( 'Per default the views of all posts are shown. To restrict the evaluation to one post/page, enter their path or name.', 'extended-evaluation-for-statify' ); ?></legend>
+			<?php eefstatify_echo_post_selection( $selected_post ); ?>
 			<button type="submit" class="button-secondary"><?php esc_html_e( 'Select post/page', 'extended-evaluation-for-statify' ); ?></button>
 		</fieldset>
 	</form>
