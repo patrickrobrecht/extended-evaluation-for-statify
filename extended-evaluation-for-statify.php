@@ -88,25 +88,22 @@ add_action( 'init', 'eefstatify_load_plugin_textdomain' );
  */
 function eefstatify_register_and_load_css() {
 	if ( eefstatify_current_user_can_see_evaluation() ) {
-		wp_register_style(
+		wp_enqueue_style(
 			'extended-evaluation-for-statify',
 			plugins_url(
 				'/css/style.min.css',
 				__FILE__
 			)
 		);
-		wp_enqueue_style( 'extended-evaluation-for-statify' );
 	}
 }
-// Load css file.
-add_action( 'admin_print_styles', 'eefstatify_register_and_load_css' );
 
 /**
  * Register the Highcharts libraries and load these and JQuery.
  */
 function eefstatify_register_and_load_scripts() {
 	if ( eefstatify_current_user_can_see_evaluation() ) {
-		wp_register_script(
+		wp_enqueue_script(
 			'highcharts',
 			plugins_url(
 				'/js/highcharts.js',
@@ -114,33 +111,29 @@ function eefstatify_register_and_load_scripts() {
 			),
 			array( 'jquery' )
 		);
-		wp_register_script(
+		wp_enqueue_script(
 			'highcharts-exporting',
 			plugins_url(
 				'/js/exporting.js',
 				__FILE__
 			)
 		);
-		wp_register_script(
+		wp_enqueue_script(
 			'eefstatify-functions',
 			plugins_url(
 				'/js/functions.min.js',
 				__FILE__
 			)
 		);
-		wp_enqueue_script( 'highcharts' );
-		wp_enqueue_script( 'highcharts-exporting' );
-		wp_enqueue_script( 'eefstatify-functions' );
 	}
 }
-// Load JavaScript libraries.
-add_action( 'admin_print_scripts', 'eefstatify_register_and_load_scripts' );
 
 /**
  * Create an item and submenu items in the WordPress admin menu.
  */
 function eefstatify_add_menu() {
-	add_menu_page(
+	$page_hook_suffixes = array();
+	$page_hook_suffixes[] = add_menu_page(
 		__( 'Statify – Extended Evaluation', 'extended-evaluation-for-statify' ), // page title.
 		'Statify', // title in the menu.
 		'see_statify_evaluation',
@@ -149,7 +142,7 @@ function eefstatify_add_menu() {
 		'dashicons-chart-bar',
 		50
 	);
-	add_submenu_page(
+	$page_hook_suffixes[] = add_submenu_page(
 		'extended_evaluation_for_statify_dashboard',
 		__( 'Content', 'extended-evaluation-for-statify' )
 				. ' &mdash; ' . __( 'Statify – Extended Evaluation', 'extended-evaluation-for-statify' ),
@@ -158,7 +151,7 @@ function eefstatify_add_menu() {
 		'extended_evaluation_for_statify_content',
 		'eefstatify_show_content'
 	);
-	add_submenu_page(
+	$page_hook_suffixes[] = add_submenu_page(
 		'extended_evaluation_for_statify_dashboard',
 		__( 'Referrers', 'extended-evaluation-for-statify' )
 				. ' &mdash; ' . __( 'Statify – Extended Evaluation', 'extended-evaluation-for-statify' ),
@@ -167,6 +160,12 @@ function eefstatify_add_menu() {
 		'extended_evaluation_for_statify_referrer',
 		'eefstatify_show_referrer'
 	);
+
+	// Load CSS and JavaScript on plugin pages.
+	foreach ( $page_hook_suffixes as $page_hook_suffix ) {
+		add_action( "admin_print_styles-{$page_hook_suffix}", 'eefstatify_register_and_load_css' );
+		add_action( "admin_print_scripts-{$page_hook_suffix}", 'eefstatify_register_and_load_scripts' );
+	}
 }
 // Register the menu building function.
 add_action( 'admin_menu', 'eefstatify_add_menu' );
