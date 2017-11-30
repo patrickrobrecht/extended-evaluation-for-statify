@@ -91,7 +91,7 @@ function eefstatify_register_and_load_css() {
 		wp_enqueue_style(
 			'extended-evaluation-for-statify',
 			plugins_url(
-				'/css/style.min.css',
+				'/css/style.css',
 				__FILE__
 			)
 		);
@@ -121,7 +121,7 @@ function eefstatify_register_and_load_scripts() {
 		wp_enqueue_script(
 			'eefstatify-functions',
 			plugins_url(
-				'/js/functions.min.js',
+				'/js/functions.js',
 				__FILE__
 			)
 		);
