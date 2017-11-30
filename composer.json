@@ -20,7 +20,8 @@
   },
   "scripts": {
     "build": [
-      "composer minify",
+      "@cs",
+      "@minify",
       "SlowProg\\CopyFile\\ScriptHandler::copy"
     ],
     "cs": [
@@ -36,11 +37,11 @@
   },
   "extra": {
     "copy-file": {
-      "css/style.min.css": "dist/css/",
+      "css/style.min.css": "dist/css/style.css",
       "css/index.php": "dist/css/",
       "inc/": "dist/inc/",
       "js/exporting.js": "dist/js/",
-      "js/functions.min.js": "dist/js/",
+      "js/functions.min.js": "dist/js/functions.js",
       "js/highcharts.js": "dist/js/",
       "js/index.php": "dist/js/",
       "views/": "dist/views",
