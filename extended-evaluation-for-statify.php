@@ -6,7 +6,7 @@
  * Version: 2.4
  * Author: Patrick Robrecht
  * Author URI: https://patrick-robrecht.de/
- * License: GPLv2 or later
+ * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: extended-evaluation-for-statify
  *

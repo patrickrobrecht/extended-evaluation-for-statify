@@ -1,5 +1,8 @@
 {
   "name": "patrickrobrecht/extended-evaluation-for-statify",
+  "description": "A WordPress plugin for extended Statify statistics",
+  "license": "GPL-3.0-only",
+  "type": "wordpress-plugin",
   "authors": [
     {
       "name": "Patrick Robrecht",
@@ -7,6 +10,10 @@
       "role": "Developer"
     }
   ],
+  "support": {
+    "issues": "https://github.com/patrickrobrecht/extended-evaluation-for-statify/issues",
+    "source": "https://github.com/patrickrobrecht/extended-evaluation-for-statify"
+  },
   "require": {
     "php": "^5.6|^7"
   },
