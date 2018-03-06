@@ -44,3 +44,14 @@
 .eefstatify select {
     margin-right: 25px;
 }
+
+.eefstatify .chart-container {
+    background: #fff;
+    margin: 1em 0;
+}
+
+.eefstatify .chart-title {
+    text-align: center;
+    font-size: 1.5em;
+    padding: 0.5em 0;
+}

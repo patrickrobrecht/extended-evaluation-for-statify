@@ -109,7 +109,6 @@ function eefstatify_register_and_load_assets() {
 			'chartist-plugin-tooltip' => 'lib/chartist-plugin-tooltip.min.js',
 			'highcharts' => '/js/highcharts.js',
 			'highcharts-exporting' => '/js/exporting.js',
-			'moment' => '/lib/moment.min.js',
 			'statify_extended_functions' => '/js/functions.js',
 		);
 		foreach ( $scripts as $script_name => $script_path ) {

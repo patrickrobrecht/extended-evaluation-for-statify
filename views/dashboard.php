@@ -69,6 +69,22 @@ if ( 0 === $selected_year ) {
 	<?php if ( count( $views_for_all_months ) === 0 ) { ?>
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
 	<?php } else { ?>
+	<section>
+		<div class="chart-container">
+			<div class="chart-title">
+				<?php echo esc_html( get_bloginfo( 'name' ) ); ?>:
+				<?php esc_html_e( 'Monthly Views', 'extended-evaluation-for-statify' ); ?>
+			</div>
+			<div id="chart-monthly-chartist"></div>
+		</div>
+		<div class="chart-container">
+			<div class="chart-title">
+				<?php echo esc_html( get_bloginfo( 'name' ) ); ?>:
+				<?php esc_html_e( 'Yearly Views', 'extended-evaluation-for-statify' ); ?>
+			</div>
+			<div id="chart-yearly-chartist"></div>
+		</div>
+	</section>
 	<section class="two-charts">
 		<div id="chart-monthly"></div>
 		<div id="chart-yearly"></div>
@@ -140,6 +156,48 @@ if ( 0 === $selected_year ) {
 		. '-' . $selected_year . '-' . eefstatify_get_post_title_from_url( $selected_post )
 	);
 ?>
+	<section>
+		<div class="chart-container">
+			<div class="chart-title">
+				<?php echo esc_html( get_bloginfo( 'name' ) ); ?>:
+				<?php esc_html_e( 'Daily Views', 'extended-evaluation-for-statify' ); ?>
+			</div>
+			<div id="chart-daily-chartist"></div>
+		</div>
+		<div class="chart-container">
+			<div class="chart-title">
+				<?php echo esc_html( get_bloginfo( 'name' ) ); ?>:
+				<?php esc_html_e( 'Monthly Views', 'extended-evaluation-for-statify' ); ?>
+			</div>
+			<div id="chart-monthly-chartist"></div>
+		</div>
+		<script>
+			eefstatify_line_chart(
+				'#chart-daily-chartist',
+				[
+					<?php
+					$y = '';
+					foreach ( $months as $month ) {
+						$days = eefstatify_get_days( $month, $selected_year );
+						foreach ( $days as $day ) {
+							$views = eefstatify_get_daily_views( $views_for_all_days, $selected_year, $month, $day );
+							if ( in_array( $day, array( 1, 15 ) ) ) {
+								echo "'" . esc_html( $day ) . '. ' . esc_html( eefstatify_get_month_name( $month ) ) . "',";
+							} else {
+								echo "'',";
+							}
+							$y .= $views . ',';
+						}
+					}
+					?>
+				],
+				[ <?php echo esc_html( $y ); ?> ],
+				'Y-MM-DD',
+				'Views',
+				'Time'
+			)
+		</script>
+	</section>
 	<section class="two-charts">
 		<div id="chart-daily"></div>
 		<div id="chart-monthly"></div>

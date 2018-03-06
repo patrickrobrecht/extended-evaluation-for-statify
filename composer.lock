@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac6714a3386072df03180687dab0af2c",
+    "content-hash": "55d9ee0785e909c4c83c7575c760f481",
     "packages": [
         {
             "name": "npm-asset/chartist",
@@ -21,22 +21,6 @@
             ]
         },
         {
-            "name": "npm-asset/chartist-plugin-axistitle",
-            "version": "0.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/alexstanbury/chartist-plugin-axistitle.git",
-                "reference": "03b5ab4b50372a8b6dfb3add13e853b3abbb9b50"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/alexstanbury/chartist-plugin-axistitle/zipball/03b5ab4b50372a8b6dfb3add13e853b3abbb9b50",
-                "reference": "03b5ab4b50372a8b6dfb3add13e853b3abbb9b50",
-                "shasum": null
-            },
-            "type": "npm-asset"
-        },
-        {
             "name": "npm-asset/chartist-plugin-tooltips",
             "version": "v0.0.18",
             "source": {
@@ -48,20 +32,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/tmmdata/chartist-plugin-tooltip/zipball/9917bad5e271b9e7cad289ca2ff0f07a8f8f5231",
                 "reference": "9917bad5e271b9e7cad289ca2ff0f07a8f8f5231",
-                "shasum": null
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/moment",
-            "version": "2.21.0",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/moment/-/moment-2.21.0.tgz",
-                "reference": null,
                 "shasum": null
             },
             "type": "npm-asset",

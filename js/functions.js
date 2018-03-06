@@ -54,6 +54,65 @@ function eefstatifyColumnChart(id, title, subtitle, xAxisValues, yAxisValues, yA
             }
         });
     });
+
+    var data = {
+        labels: xAxisValues,
+        series: [
+            yAxisValues
+        ]
+    };
+    var options = {
+        axisX: {
+            showGrid: false
+        },
+        seriesBarDistance: 20,
+        chartPadding: {
+            top: 20,
+            right: 30,
+            bottom: 30,
+            left: 30
+        }
+    };
+
+    var responsiveOptions = [
+        ['screen and (max-width: 640px)', {
+            seriesBarDistance: 5,
+            axisX: {
+                labelInterpolationFnc: function (value) {
+                    return value[0];
+                }
+            }
+        }]
+    ];
+
+    new Chartist.Bar(id + "-chartist", data, options, responsiveOptions)
+}
+
+function eefstatify_line_chart(div, labels, seriesData, dateFormat, xAxisTitle, yAxisTitle) {
+    var data = {
+        labels: labels,
+        series: [
+            {
+                name: 'series-1',
+                data: seriesData
+            }
+        ]
+    };
+
+    var options = {
+        axisX: {
+            showGrid: false
+        },
+        chartPadding: {
+            top: 20,
+            right: 30,
+            bottom: 30,
+            left: 30
+        },
+        showPoint: false
+    };
+
+    new Chartist.Line(div, data, options)
 }
 
 function eefstatifyLineChart(id, title, subtitle, xAxisValues, yAxisValues, yAxisTitle, filename) {
