@@ -55,13 +55,13 @@ function eefstatifyColumnChart(id, x, y) {
     new Chartist.Bar(id, data, options, responsiveOptions)
 }
 
-function eefstatify_line_chart(id, labels, data) {
+function eefstatifyLineChart(id, x, y) {
     var data = {
-        labels: labels,
+        labels: x,
         series: [
             {
                 name: 'series-1',
-                data: data
+                data: y
             }
         ]
     };
@@ -83,44 +83,6 @@ function eefstatify_line_chart(id, labels, data) {
     };
 
     new Chartist.Line(id, data, options)
-}
-
-function eefstatifyLineChart(id, title, subtitle, xAxisValues, yAxisValues, yAxisTitle, filename) {
-    jQuery(function() {
-        jQuery(id).highcharts({
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: title
-            },
-            subtitle: {
-                text: subtitle
-            },
-            xAxis: {
-                categories: xAxisValues
-            },
-            yAxis: {
-                title: {
-                    text: yAxisTitle
-                },
-                min: 0
-            },
-            legend: {
-                enabled: false
-            },
-            series: [ {
-                name: yAxisTitle,
-                data: yAxisValues
-            } ],
-            credits: {
-                enabled: false
-            },
-            exporting: {
-                filename: filename
-            }
-        });
-    });
 }
 
 function eefstatifySelectDateRange() {

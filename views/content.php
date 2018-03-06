@@ -187,9 +187,8 @@ if ( ! $query->have_posts() ) {
 				<?php echo esc_html( get_bloginfo( 'name' ) ); ?>:
 				<?php esc_html_e( 'Most Popular Content', 'extended-evaluation-for-statify' ); ?>
 			</div>
-			<div id="chart-chartist"></div>
+			<div id="chart-posts"></div>
 		</div>
-		<div id="chart"></div>
 	</section>
 	<section>
 		<h3><?php echo esc_html( get_post_type_object( $post_type )->labels->name ); ?>
@@ -236,7 +235,7 @@ if ( ! $query->have_posts() ) {
 	</section>	
 	<script type="text/javascript">
 		eefstatifyColumnChart(
-			'#chart',
+			'#chart-posts',
 			[ <?php echo $x; // @codingStandardsIgnoreLine $x is properly escaped. ?> ],
 			[ <?php echo esc_html( $y ); ?> ]
 		);

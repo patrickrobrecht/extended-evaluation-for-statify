@@ -151,7 +151,7 @@ if ( 0 === $selected_year ) {
 			<div id="chart-monthly"></div>
 		</div>
 		<script>
-			eefstatify_line_chart(
+            eefstatifyLineChart(
 				'#chart-daily',
 				[
 					<?php
