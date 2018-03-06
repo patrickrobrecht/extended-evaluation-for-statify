@@ -276,3 +276,22 @@ function eefstatify_get_post_types() {
 	$types = array_merge( array( 'post', 'page' ), get_post_types( $types_args ) );
 	return $types;
 }
+
+/**
+ * Echos the div container for the chart.
+ *
+ * @param string $id the id of the chart container.
+ * @param string $title the title.
+ * @param string $subtitle the subtitle after the site name.
+ */
+function eefstatify_echo_chart_container( $id, $title, $subtitle = '' ) {
+?>
+	<div class="chart-container">
+		<div class="chart-title">
+			<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . $subtitle ); ?>:
+			<?php echo esc_html( $title ); ?>
+		</div>
+		<div id="<?php echo esc_html( $id ); ?>"></div>
+	</div>
+<?php
+}

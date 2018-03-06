@@ -66,13 +66,13 @@ $filename = eefstatify_get_filename(
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
 <?php } else { ?>
 	<section>
-		<div class="chart-container">
-			<div class="chart-title">
-				<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>:
-				<?php esc_html_e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?>
-			</div>
-			<div id="chart-referrers"></div>
-		</div>
+		<?php
+		eefstatify_echo_chart_container(
+			'chart-referrers',
+			__( 'Referrers from other websites', 'extended-evaluation-for-statify' ),
+			eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true )
+		);
+		?>
 		<script type="text/javascript">
 			eefstatifyColumnChart(
 				'#chart-referrers',

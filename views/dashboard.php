@@ -70,20 +70,18 @@ if ( 0 === $selected_year ) {
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
 	<?php } else { ?>
 	<section>
-		<div class="chart-container">
-			<div class="chart-title">
-				<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>:
-				<?php esc_html_e( 'Monthly Views', 'extended-evaluation-for-statify' ); ?>
-			</div>
-			<div id="chart-monthly"></div>
-		</div>
-		<div class="chart-container">
-			<div class="chart-title">
-				<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>:
-				<?php esc_html_e( 'Yearly Views', 'extended-evaluation-for-statify' ); ?>
-			</div>
-			<div id="chart-yearly"></div>
-		</div>
+		<?php
+		eefstatify_echo_chart_container(
+			'chart-monthly',
+			__( 'Monthly Views', 'extended-evaluation-for-statify' ),
+			eefstatify_get_post_title_from_url( $selected_post )
+		);
+		eefstatify_echo_chart_container(
+			'chart-yearly',
+			__( 'Yearly Views', 'extended-evaluation-for-statify' ),
+			eefstatify_get_post_title_from_url( $selected_post )
+		);
+		?>
 		<script type="text/javascript">
 			eefstatifyColumnChart(
 				'#chart-monthly',
@@ -136,22 +134,20 @@ if ( 0 === $selected_year ) {
 	);
 ?>
 	<section>
-		<div class="chart-container">
-			<div class="chart-title">
-				<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>:
-				<?php echo esc_html( __( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . $selected_year ); ?>
-			</div>
-			<div id="chart-daily"></div>
-		</div>
-		<div class="chart-container">
-			<div class="chart-title">
-				<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>:
-				<?php esc_html_e( 'Monthly Views', 'extended-evaluation-for-statify' ); ?>
-			</div>
-			<div id="chart-monthly"></div>
-		</div>
+		<?php
+		eefstatify_echo_chart_container(
+			'chart-daily',
+			__( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . $selected_year,
+			eefstatify_get_post_title_from_url( $selected_post )
+		);
+		eefstatify_echo_chart_container(
+			'chart-monthly',
+			__( 'Monthly Views', 'extended-evaluation-for-statify' ) . ' ' . $selected_year,
+			eefstatify_get_post_title_from_url( $selected_post )
+		);
+		?>
 		<script>
-            eefstatifyLineChart(
+			eefstatifyLineChart(
 				'#chart-daily',
 				[
 					<?php
@@ -196,7 +192,7 @@ if ( 0 === $selected_year ) {
 			echo esc_html( eefstatify_get_post_type_name_and_title_from_url( $selected_post ) );
 			eefstatify_echo_export_button( $filename_daily );
 			?>
-			</h3>
+		</h3>
 		<table id="table-data" class="wp-list-table widefat striped">
 			<thead>
 				<tr>
