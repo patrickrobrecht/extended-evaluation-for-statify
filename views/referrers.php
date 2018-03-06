@@ -66,13 +66,17 @@ $filename = eefstatify_get_filename(
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
 <?php } else { ?>
 	<section>
-		<div id="chart"></div>
+		<div class="chart-container">
+			<div class="chart-title">
+				<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>:
+				<?php esc_html_e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?>
+			</div>
+			<div id="chart-referrers"></div>
+		</div>
 		<script type="text/javascript">
 			eefstatifyColumnChart(
-				'#chart',
-				'<?php esc_html_e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>',
-				[ 
+				'#chart-referrers',
+				[
 					<?php
 					foreach ( $referrers_for_diagram as $referrer ) {
 						echo "'" . esc_html( $referrer['host'] ) . "',";
@@ -85,9 +89,7 @@ $filename = eefstatify_get_filename(
 						echo esc_html( $referrer['count'] . ',' );
 					}
 					?>
-				],
-				'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( $filename ); ?>'
+				]
 			);
 		</script>
 	</section>	
@@ -98,7 +100,7 @@ $filename = eefstatify_get_filename(
 			echo esc_html( eefstatify_get_post_type_name_and_title_from_url( $selected_post ) );
 			eefstatify_echo_export_button( $filename );
 			?>
-			</h3>
+		</h3>
 		<table id="table-data" class="wp-list-table widefat striped">
 			<thead>
 				<tr>

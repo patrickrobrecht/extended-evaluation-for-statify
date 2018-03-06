@@ -72,49 +72,28 @@ if ( 0 === $selected_year ) {
 	<section>
 		<div class="chart-container">
 			<div class="chart-title">
-				<?php echo esc_html( get_bloginfo( 'name' ) ); ?>:
+				<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>:
 				<?php esc_html_e( 'Monthly Views', 'extended-evaluation-for-statify' ); ?>
 			</div>
-			<div id="chart-monthly-chartist"></div>
+			<div id="chart-monthly"></div>
 		</div>
 		<div class="chart-container">
 			<div class="chart-title">
-				<?php echo esc_html( get_bloginfo( 'name' ) ); ?>:
+				<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>:
 				<?php esc_html_e( 'Yearly Views', 'extended-evaluation-for-statify' ); ?>
 			</div>
-			<div id="chart-yearly-chartist"></div>
+			<div id="chart-yearly"></div>
 		</div>
-	</section>
-	<section class="two-charts">
-		<div id="chart-monthly"></div>
-		<div id="chart-yearly"></div>
 		<script type="text/javascript">
 			eefstatifyColumnChart(
 				'#chart-monthly',
-				'<?php esc_html_e( 'Monthly Views', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>',
 				[ '<?php echo __( implode( "','", array_keys( $views_for_all_months ) ) ); // @codingStandardsIgnoreLine only numbers ?>' ],
-				[ <?php echo esc_html( implode( ',', $views_for_all_months ) ); ?> ],
-				'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( $filename_monthly ); ?>'
+				[ <?php echo esc_html( implode( ',', $views_for_all_months ) ); ?> ]
 			);
 			eefstatifyColumnChart(
 				'#chart-yearly',
-				'<?php esc_html_e( 'Yearly Views', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>',
 				[ '<?php echo __( implode( "','", array_keys( $views_for_all_years ) ) ); // @codingStandardsIgnoreLine only numbers ?>' ],
-				[ <?php echo esc_html( implode( ',', $views_for_all_years ) ); ?> ],
-				'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				<?php
-				echo "'";
-				esc_html(
-					eefstatify_get_filename(
-						__( 'Yearly Views', 'extended-evaluation-for-statify' )
-						. '-' . eefstatify_get_post_title_from_url( $selected_post )
-					)
-				);
-				echo "'";
-				?>
+				[ <?php echo esc_html( implode( ',', $views_for_all_years ) ); ?> ]
 			)
 		</script>
 	</section>
@@ -159,21 +138,21 @@ if ( 0 === $selected_year ) {
 	<section>
 		<div class="chart-container">
 			<div class="chart-title">
-				<?php echo esc_html( get_bloginfo( 'name' ) ); ?>:
-				<?php esc_html_e( 'Daily Views', 'extended-evaluation-for-statify' ); ?>
+				<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>:
+				<?php echo esc_html( __( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . $selected_year ); ?>
 			</div>
-			<div id="chart-daily-chartist"></div>
+			<div id="chart-daily"></div>
 		</div>
 		<div class="chart-container">
 			<div class="chart-title">
-				<?php echo esc_html( get_bloginfo( 'name' ) ); ?>:
+				<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>:
 				<?php esc_html_e( 'Monthly Views', 'extended-evaluation-for-statify' ); ?>
 			</div>
-			<div id="chart-monthly-chartist"></div>
+			<div id="chart-monthly"></div>
 		</div>
 		<script>
 			eefstatify_line_chart(
-				'#chart-daily-chartist',
+				'#chart-daily',
 				[
 					<?php
 					$y = '';
@@ -191,43 +170,11 @@ if ( 0 === $selected_year ) {
 					}
 					?>
 				],
-				[ <?php echo esc_html( $y ); ?> ],
-				'Y-MM-DD',
-				'Views',
-				'Time'
-			)
-		</script>
-	</section>
-	<section class="two-charts">
-		<div id="chart-daily"></div>
-		<div id="chart-monthly"></div>
-		<script type="text/javascript">
-			eefstatifyLineChart(
-				'#chart-daily',
-				'<?php echo esc_html( __( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . $selected_year ); ?>',
-				'<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>',
-				[ 
-					<?php
-					$y = '';
-					foreach ( $months as $month ) {
-						$days = eefstatify_get_days( $month, $selected_year );
-						foreach ( $days as $day ) {
-							$views = eefstatify_get_daily_views( $views_for_all_days, $selected_year, $month, $day );
-							echo "'" . esc_html( $day ) . '. ' . esc_html( eefstatify_get_month_name( $month ) ) . "',";
-							$y .= $views . ',';
-						}
-					}
-					?>
-				],
-				[ <?php echo esc_html( $y ); ?> ],
-				'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( $filename_daily ); ?>'
+				[ <?php echo esc_html( $y ); ?> ]
 			);
 			eefstatifyColumnChart(
 				'#chart-monthly',
-				'<?php echo esc_html( __( 'Monthly Views', 'extended-evaluation-for-statify' ) . ' ' . $selected_year ); ?>',
-				'<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>',
-				[ 
+				[
 					<?php
 					$y = '';
 					foreach ( $months as $month ) {
@@ -239,18 +186,7 @@ if ( 0 === $selected_year ) {
 					}
 					?>
 				],
-				[ <?php echo esc_html( $y ); ?> ],
-				'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				<?php
-				echo "'";
-				echo esc_html(
-					eefstatify_get_filename(
-						__( 'Monthly Views', 'extended-evaluation-for-statify' )
-						. '-' . $selected_year . '-' . eefstatify_get_post_title_from_url( $selected_post )
-					)
-				);
-				echo "'";
-				?>
+				[ <?php echo esc_html( $y ); ?> ]
 			);
 		</script>
 	</section>

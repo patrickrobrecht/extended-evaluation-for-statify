@@ -18,52 +18,19 @@ function exportTableToCSV($table, filename) {
 	});
 }
 
-function eefstatifyColumnChart(id, title, subtitle, xAxisValues, yAxisValues, yAxisTitle, filename) {
-    jQuery(function() {
-        jQuery(id).highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: title
-            },
-            subtitle: {
-                text: subtitle
-            },
-            xAxis: {
-                categories: xAxisValues
-            },
-            yAxis: {
-                title: {
-                    text: yAxisTitle
-                },
-                min: 0
-            },
-            legend: {
-                enabled: false
-            },
-            series: [{
-                name: yAxisTitle,
-                data: yAxisValues
-            }],
-            credits: {
-                enabled: false
-            },
-            exporting: {
-                filename: filename
-            }
-        });
-    });
-
+function eefstatifyColumnChart(id, x, y) {
     var data = {
-        labels: xAxisValues,
+        labels: x,
         series: [
-            yAxisValues
+            y
         ]
     };
     var options = {
         axisX: {
             showGrid: false
+        },
+        axisY: {
+            onlyInteger: true
         },
         seriesBarDistance: 20,
         chartPadding: {
@@ -85,16 +52,16 @@ function eefstatifyColumnChart(id, title, subtitle, xAxisValues, yAxisValues, yA
         }]
     ];
 
-    new Chartist.Bar(id + "-chartist", data, options, responsiveOptions)
+    new Chartist.Bar(id, data, options, responsiveOptions)
 }
 
-function eefstatify_line_chart(div, labels, seriesData, dateFormat, xAxisTitle, yAxisTitle) {
+function eefstatify_line_chart(id, labels, data) {
     var data = {
         labels: labels,
         series: [
             {
                 name: 'series-1',
-                data: seriesData
+                data: data
             }
         ]
     };
@@ -102,6 +69,9 @@ function eefstatify_line_chart(div, labels, seriesData, dateFormat, xAxisTitle, 
     var options = {
         axisX: {
             showGrid: false
+        },
+        axisY: {
+            onlyInteger: true
         },
         chartPadding: {
             top: 20,
@@ -112,7 +82,7 @@ function eefstatify_line_chart(div, labels, seriesData, dateFormat, xAxisTitle, 
         showPoint: false
     };
 
-    new Chartist.Line(div, data, options)
+    new Chartist.Line(id, data, options)
 }
 
 function eefstatifyLineChart(id, title, subtitle, xAxisValues, yAxisValues, yAxisTitle, filename) {

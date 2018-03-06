@@ -80,12 +80,16 @@ if ( 'popular' === $selected_post_type ) {
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
 <?php } else { ?>
 	<section>
-		<div id="chart"></div>
-		<script type="text/javascript">
+		<div class="chart-container">
+			<div class="chart-title">
+				<?php echo esc_html( get_bloginfo( 'name' ) ); ?>:
+				<?php esc_html_e( 'Most Popular Content', 'extended-evaluation-for-statify' ); ?>
+			</div>
+			<div id="chart-popular-content"></div>
+		</div>
+		<script>
 			eefstatifyColumnChart(
-				'#chart',
-				'<?php esc_html_e( 'Most Popular Content', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>',
+				'#chart-popular-content',
 				[
 					<?php
 					foreach ( $views_per_post_for_diagram as $post ) {
@@ -99,9 +103,7 @@ if ( 'popular' === $selected_post_type ) {
 						echo esc_html( $post['count'] . ',' );
 					}
 					?>
-				],
-				'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( $filename ); ?>'
+				]
 			);
 		</script>	
 	</section>
@@ -180,6 +182,13 @@ if ( ! $query->have_posts() ) {
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
 	<?php } else { ?>
 	<section>
+		<div class="chart-container">
+			<div class="chart-title">
+				<?php echo esc_html( get_bloginfo( 'name' ) ); ?>:
+				<?php esc_html_e( 'Most Popular Content', 'extended-evaluation-for-statify' ); ?>
+			</div>
+			<div id="chart-chartist"></div>
+		</div>
 		<div id="chart"></div>
 	</section>
 	<section>
@@ -188,7 +197,7 @@ if ( ! $query->have_posts() ) {
 			echo esc_html( eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) );
 				eefstatify_echo_export_button( $filename );
 				?>
-				</h3>
+		</h3>
 		<table id="table-data" class="wp-list-table widefat striped">
 			<thead>
 				<tr>
@@ -228,12 +237,8 @@ if ( ! $query->have_posts() ) {
 	<script type="text/javascript">
 		eefstatifyColumnChart(
 			'#chart',
-			'<?php echo esc_html( get_post_type_object( $post_type )->labels->name ); ?>',
-			'<?php echo esc_html( get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>',
 			[ <?php echo $x; // @codingStandardsIgnoreLine $x is properly escaped. ?> ],
-			[ <?php echo esc_html( $y ); ?> ],
-			'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-			'<?php echo esc_html( $filename ); ?>'
+			[ <?php echo esc_html( $y ); ?> ]
 		);
 	</script>
 	<?php

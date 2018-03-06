@@ -105,10 +105,7 @@ function eefstatify_register_and_load_assets() {
 
 		$scripts = array(
 			'chartist' => '/lib/chartist.min.js',
-			'chartist-plugin-axistitle' => '/lib/chartist-plugin-axistitle.min.js',
 			'chartist-plugin-tooltip' => 'lib/chartist-plugin-tooltip.min.js',
-			'highcharts' => '/js/highcharts.js',
-			'highcharts-exporting' => '/js/exporting.js',
 			'statify_extended_functions' => '/js/functions.js',
 		);
 		foreach ( $scripts as $script_name => $script_path ) {
