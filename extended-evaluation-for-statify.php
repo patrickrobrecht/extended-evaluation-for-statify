@@ -84,47 +84,43 @@ function eefstatify_load_plugin_textdomain() {
 add_action( 'init', 'eefstatify_load_plugin_textdomain' );
 
 /**
- * Register and load the style sheet.
+ * Register and load the style sheets and JavaScript libraries.
  */
-function eefstatify_register_and_load_css() {
+function eefstatify_register_and_load_assets() {
 	if ( eefstatify_current_user_can_see_evaluation() ) {
-		wp_enqueue_style(
-			'extended-evaluation-for-statify',
-			plugins_url(
-				'/css/style.css',
-				__FILE__
-			)
+		$styles = array(
+			'extended-evaluation-for-statify' => '/css/style.css',
+			'chartist' => '/lib/chartist.min.css',
+			'chartist-plugin-tooltip' => 'lib/chartist-plugin-tooltip.min.css',
 		);
-	}
-}
+		foreach ( $styles as $style_name => $style_path ) {
+			wp_enqueue_style(
+				$style_name,
+				plugins_url(
+					$style_path,
+					__FILE__
+				)
+			);
+		}
 
-/**
- * Register the Highcharts libraries and load these and JQuery.
- */
-function eefstatify_register_and_load_scripts() {
-	if ( eefstatify_current_user_can_see_evaluation() ) {
-		wp_enqueue_script(
-			'highcharts',
-			plugins_url(
-				'/js/highcharts.js',
-				__FILE__
-			),
-			array( 'jquery' )
+		$scripts = array(
+			'chartist' => '/lib/chartist.min.js',
+			'chartist-plugin-axistitle' => '/lib/chartist-plugin-axistitle.min.js',
+			'chartist-plugin-tooltip' => 'lib/chartist-plugin-tooltip.min.js',
+			'highcharts' => '/js/highcharts.js',
+			'highcharts-exporting' => '/js/exporting.js',
+			'moment' => '/lib/moment.min.js',
+			'statify_extended_functions' => '/js/functions.js',
 		);
-		wp_enqueue_script(
-			'highcharts-exporting',
-			plugins_url(
-				'/js/exporting.js',
-				__FILE__
-			)
-		);
-		wp_enqueue_script(
-			'eefstatify-functions',
-			plugins_url(
-				'/js/functions.js',
-				__FILE__
-			)
-		);
+		foreach ( $scripts as $script_name => $script_path ) {
+			wp_enqueue_script(
+				$script_name,
+				plugins_url(
+					$script_path,
+					__FILE__
+				)
+			);
+		}
 	}
 }
 
@@ -163,8 +159,7 @@ function eefstatify_add_menu() {
 
 	// Load CSS and JavaScript on plugin pages.
 	foreach ( $page_hook_suffixes as $page_hook_suffix ) {
-		add_action( "admin_print_styles-{$page_hook_suffix}", 'eefstatify_register_and_load_css' );
-		add_action( "admin_print_scripts-{$page_hook_suffix}", 'eefstatify_register_and_load_scripts' );
+		add_action( "admin_print_styles-{$page_hook_suffix}", 'eefstatify_register_and_load_assets' );
 	}
 }
 // Register the menu building function.
