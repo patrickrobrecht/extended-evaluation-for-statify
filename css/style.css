@@ -50,8 +50,48 @@
     margin: 1em 0;
 }
 
-.eefstatify .chart-title {
+.eefstatify .chart-title,
+.eefstatify .chart-subtitle {
     text-align: center;
     font-size: 1.5em;
     padding: 0.5em 0;
+}
+
+.eefstatify .chart-subtitle {
+    font-size: 1.1em;
+}
+
+.eefstatify .ct-grid {
+    stroke-width: 0.5px;
+    stroke-dasharray: 10px;
+}
+
+.eefstatify .ct-point {
+    fill: #fff;
+    stroke: #0074a2;
+    stroke-width: 1.5px;
+}
+
+.eefstatify .ct-area {
+    fill: #0074a2;
+}
+
+.eefstatify-ct-tooltip {
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    border-radius: 0.2em;
+    padding: 0.1em 0.5em;
+}
+
+.eefstatify-ct-tooltip:before {
+    border-top-color: #00000099;
+}
+
+.eefstatify-ct-tooltip .chartist-tooltip-meta {
+    color: #0074a2;
+}
+
+.eefstatify .ct-series-a .ct-bar,
+.eefstatify .ct-series-a .ct-line {
+    stroke: #0074a2;
 }

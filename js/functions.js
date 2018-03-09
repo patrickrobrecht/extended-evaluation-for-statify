@@ -59,16 +59,16 @@ function eefstatifyLineChart(id, x, y) {
     var data = {
         labels: x,
         series: [
-            {
-                name: 'series-1',
-                data: y
-            }
+            y
         ]
     };
 
     var options = {
         axisX: {
-            showGrid: false
+            showGrid: false,
+            labelInterpolationFnc: function(value) {
+                return (value.substring(0, 2) === '1.') ? value.substring(2) : ''
+            }
         },
         axisY: {
             onlyInteger: true
@@ -79,10 +79,28 @@ function eefstatifyLineChart(id, x, y) {
             bottom: 30,
             left: 30
         },
-        showPoint: false
+        plugins  : [
+            Chartist.plugins.tooltip({
+                appendToBody: true,
+                class: 'eefstatify-ct-tooltip'
+            })
+        ],
+        showArea : true
     };
 
-    new Chartist.Line(id, data, options)
+    var chart = new Chartist.Line(id, data, options);
+    chart.on('draw', function (data) {
+        if ('point' === data.type) {
+            var circle = new Chartist.Svg('circle', {
+                cx: [data.x],
+                cy: [data.y],
+                r: [4],
+                'ct:value': data.value.y + ' ' + (data.value.y > 1 ? eefstatify_translations.views : eefstatify_translations.view),
+                'ct:meta': x[data.index]
+            }, 'ct-point');
+            data.element.replace(circle);
+        }
+    });
 }
 
 function eefstatifySelectDateRange() {

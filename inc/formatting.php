@@ -184,7 +184,7 @@ function eefstatify_echo_percentage( $number, $decimals = 2 ) {
  * Get the first three characters of the month name.
  *
  * @param int $month_as_int an integer.
- * @return string the first three characters of the month name (e. g. Jan for January).
+ * @return string the short month name (e. g. Jan for January).
  */
 function eefstatify_get_month_name( $month_as_int ) {
 	$month_as_int = intval( $month_as_int );
@@ -192,6 +192,17 @@ function eefstatify_get_month_name( $month_as_int ) {
 		return date_i18n( 'M', strtotime( '2016-' . $month_as_int . '-1' ) );
 	}
 	return '';
+}
+
+/**
+ * Get a string with the first three characters of the month name and the year.
+ *
+ * @param string $month the year-month string.
+ *
+ * @return string short month name and year (e. g. Jan 2018)
+ */
+function eefstatify_get_month_year_name( $month ) {
+	return date_i18n( 'M Y', strtotime( $month . '-1' ) );
 }
 
 /**
@@ -288,8 +299,10 @@ function eefstatify_echo_chart_container( $id, $title, $subtitle = '' ) {
 ?>
 	<div class="chart-container">
 		<div class="chart-title">
-			<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . $subtitle ); ?>:
 			<?php echo esc_html( $title ); ?>
+		</div>
+		<div class="chart-subtitle">
+			<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . $subtitle ); ?>
 		</div>
 		<div id="<?php echo esc_html( $id ); ?>"></div>
 	</div>

@@ -89,9 +89,9 @@ add_action( 'init', 'eefstatify_load_plugin_textdomain' );
 function eefstatify_register_and_load_assets() {
 	if ( eefstatify_current_user_can_see_evaluation() ) {
 		$styles = array(
-			'extended-evaluation-for-statify' => '/css/style.css',
 			'chartist' => '/lib/chartist.min.css',
 			'chartist-plugin-tooltip' => 'lib/chartist-plugin-tooltip.min.css',
+			'eefstatify' => '/css/style.css',
 		);
 		foreach ( $styles as $style_name => $style_path ) {
 			wp_enqueue_style(
@@ -106,7 +106,7 @@ function eefstatify_register_and_load_assets() {
 		$scripts = array(
 			'chartist' => '/lib/chartist.min.js',
 			'chartist-plugin-tooltip' => 'lib/chartist-plugin-tooltip.min.js',
-			'statify_extended_functions' => '/js/functions.js',
+			'eefstatify_functions' => '/js/functions.js',
 		);
 		foreach ( $scripts as $script_name => $script_path ) {
 			wp_enqueue_script(
@@ -117,6 +117,15 @@ function eefstatify_register_and_load_assets() {
 				)
 			);
 		}
+
+		wp_localize_script(
+			'eefstatify_functions',
+			'eefstatify_translations',
+			array(
+				'view'  => strip_tags( esc_html__( 'View', 'extended-evaluation-for-statify' ) ),
+				'views' => strip_tags( esc_html__( 'Views', 'extended-evaluation-for-statify' ) ),
+			)
+		);
 	}
 }
 

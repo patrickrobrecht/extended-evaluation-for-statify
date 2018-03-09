@@ -172,28 +172,17 @@ if ( 'popular' === $selected_post_type ) {
 		'posts_per_page' => -1,
 	);
 	$query = new WP_Query( $args );
-	$x = '';
-	$y = '';
-	$index = 0;
 
 if ( ! $query->have_posts() ) {
 ?>
-	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
-	<?php } else { ?>
-	<section>
-		<?php
-		eefstatify_echo_chart_container(
-			'chart-posts',
-			get_post_type_object( $post_type )->labels->name
-		);
-		?>
-	</section>
+<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
+<?php } else { ?>
 	<section>
 		<h3><?php echo esc_html( get_post_type_object( $post_type )->labels->name ); ?>
 			<?php
 			echo esc_html( eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) );
-				eefstatify_echo_export_button( $filename );
-				?>
+			eefstatify_echo_export_button( $filename );
+			?>
 		</h3>
 		<table id="table-data" class="wp-list-table widefat striped">
 			<thead>
@@ -216,11 +205,6 @@ if ( ! $query->have_posts() ) {
 				} else {
 					$views = eefstatify_get_views_of_post( str_replace( home_url(), '', get_permalink() ) );
 				}
-				$index++;
-				if ( $index <= 25 ) {
-					$x .= "'" . esc_html( get_the_title() ) . "',";
-					$y .= $views . ',';
-				}
 			?>
 				<tr>
 					<td><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></td>
@@ -230,18 +214,12 @@ if ( ! $query->have_posts() ) {
 			<?php endwhile; ?>
 			</tbody>
 		</table>
-	</section>	
-	<script type="text/javascript">
-		eefstatifyColumnChart(
-			'#chart-posts',
-			[ <?php echo $x; // @codingStandardsIgnoreLine $x is properly escaped. ?> ],
-			[ <?php echo esc_html( $y ); ?> ]
-		);
-	</script>
+	</section>
 	<?php
 }
-		// Restore global post data stomped by the_post().
-		wp_reset_postdata();
-	?>
-<?php } ?>
+
+	// Restore global post data stomped by the_post().
+	wp_reset_postdata();
+}
+?>
 </div>

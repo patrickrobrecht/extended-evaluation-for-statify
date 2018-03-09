@@ -85,12 +85,22 @@ if ( 0 === $selected_year ) {
 		<script type="text/javascript">
 			eefstatifyColumnChart(
 				'#chart-monthly',
-				[ '<?php echo __( implode( "','", array_keys( $views_for_all_months ) ) ); // @codingStandardsIgnoreLine only numbers ?>' ],
-				[ <?php echo esc_html( implode( ',', $views_for_all_months ) ); ?> ]
+				[
+					<?php
+					$y = '';
+					foreach ( $views_for_all_months as $month => $views ) {
+						if ( $views > 0 ) {
+							echo "'" . esc_js( eefstatify_get_month_year_name( $month ) ) . "',";
+							$y .= $views . ',';
+						}
+					}
+					?>
+				],
+				[ <?php echo esc_js( $y ); ?> ]
 			);
 			eefstatifyColumnChart(
 				'#chart-yearly',
-				[ '<?php echo __( implode( "','", array_keys( $views_for_all_years ) ) ); // @codingStandardsIgnoreLine only numbers ?>' ],
+				[ '<?php echo implode( "','", array_keys( $views_for_all_years ) ); // @codingStandardsIgnoreLine only numbers ?>' ],
 				[ <?php echo esc_html( implode( ',', $views_for_all_years ) ); ?> ]
 			)
 		</script>
@@ -156,11 +166,7 @@ if ( 0 === $selected_year ) {
 						$days = eefstatify_get_days( $month, $selected_year );
 						foreach ( $days as $day ) {
 							$views = eefstatify_get_daily_views( $views_for_all_days, $selected_year, $month, $day );
-							if ( in_array( $day, array( 1, 15 ) ) ) {
-								echo "'" . esc_html( $day ) . '. ' . esc_html( eefstatify_get_month_name( $month ) ) . "',";
-							} else {
-								echo "'',";
-							}
+							echo "'" . esc_html( $day ) . '. ' . esc_html( eefstatify_get_month_name( $month ) ) . "',";
 							$y .= $views . ',';
 						}
 					}
