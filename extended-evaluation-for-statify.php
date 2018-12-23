@@ -88,35 +88,32 @@ add_action( 'init', 'eefstatify_load_plugin_textdomain' );
  */
 function eefstatify_register_and_load_assets() {
 	if ( eefstatify_current_user_can_see_evaluation() ) {
-		$styles = array(
-			'chartist' => '/lib/chartist.min.css',
-			'chartist-plugin-tooltip' => 'lib/chartist-plugin-tooltip.min.css',
-			'eefstatify' => '/css/style.css',
+		eefstatify_enqueue_style(
+			'chartist',
+			'/lib/chartist.min.css'
 		);
-		foreach ( $styles as $style_name => $style_path ) {
-			wp_enqueue_style(
-				$style_name,
-				plugins_url(
-					$style_path,
-					__FILE__
-				)
-			);
-		}
+		eefstatify_enqueue_style(
+			'chartist-plugin-tooltip',
+			'lib/chartist-plugin-tooltip.min.css'
+		);
+		eefstatify_enqueue_style(
+			'eefstatify',
+			'/css/style.css'
+		);
 
-		$scripts = array(
-			'chartist' => '/lib/chartist.min.js',
-			'chartist-plugin-tooltip' => 'lib/chartist-plugin-tooltip.min.js',
-			'eefstatify_functions' => '/js/functions.js',
+		eefstatify_enqueue_script(
+			'chartist',
+			'/lib/chartist.min.js'
 		);
-		foreach ( $scripts as $script_name => $script_path ) {
-			wp_enqueue_script(
-				$script_name,
-				plugins_url(
-					$script_path,
-					__FILE__
-				)
-			);
-		}
+		eefstatify_enqueue_script(
+			'chartist-plugin-tooltip',
+			'lib/chartist-plugin-tooltip.min.js'
+		);
+		eefstatify_enqueue_script(
+			'eefstatify_functions',
+			'/js/functions.js',
+			[ 'chartist', 'chartist-plugin-tooltip' ]
+		);
 
 		wp_localize_script(
 			'eefstatify_functions',
@@ -127,6 +124,40 @@ function eefstatify_register_and_load_assets() {
 			)
 		);
 	}
+}
+
+/**
+ * Loads the CSS file.
+ *
+ * @param string $style_name the name of the style
+ * @param string $style_path the plugin-relative path of the CSS file
+ */
+function eefstatify_enqueue_style( $style_name, $style_path ) {
+	wp_enqueue_style(
+		$style_name,
+		plugins_url(
+			$style_path,
+			__FILE__
+		)
+	);
+}
+
+/**
+ * Loads the JavaScript file.
+ *
+ * @param string $script_name the name of the script
+ * @param string $script_path the plugin-relative path of the JavaScript file
+ * @param array  $dependencies the dependencies
+ */
+function eefstatify_enqueue_script( $script_name, $script_path, $dependencies = array() ) {
+	wp_enqueue_script(
+		$script_name,
+		plugins_url(
+			$script_path,
+			__FILE__
+		),
+		$dependencies
+	);
 }
 
 /**
