@@ -71,12 +71,12 @@ if ( 'popular' === $selected_post_type ) {
 		__( 'Most Popular Content', 'extended-evaluation-for-statify' )
 		. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end )
 	);
-?>
+	?>
 	<form method="post" action="">
 		<?php wp_nonce_field( 'content' ); ?>
 		<?php eefstatify_echo_date_selection( $valid_start, $start, $valid_end, $end ); ?>
 	</form>
-<?php if ( count( $views_per_post ) === 0 ) { ?>
+	<?php if ( count( $views_per_post ) === 0 ) { ?>
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
 <?php } else { ?>
 	<section>
@@ -130,7 +130,7 @@ if ( 'popular' === $selected_post_type ) {
 					$total += $post['count'];
 				}
 				foreach ( $views_per_post as $post ) {
-				?>
+					?>
 				<tr>
 					<td><a href="<?php echo esc_url( $post['url'] ); ?>" target="_blank"><?php echo esc_html( eefstatify_get_post_title_from_url( $post['url'] ) ); ?></a></td>
 					<td><?php echo esc_url( $post['url'] ); ?></td>
@@ -152,19 +152,19 @@ if ( 'popular' === $selected_post_type ) {
 		</table>
 	</section>
 	<?php } ?>
-<?php
+	<?php
 } else {
 	$post_type = $selected_post_type;
 	$filename = eefstatify_get_filename(
 		get_post_type_object( $post_type )->labels->name
 		. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end )
 	);
-?>
+	?>
 	<form method="post" action="">
 		<?php wp_nonce_field( 'content' ); ?>
 		<?php eefstatify_echo_date_selection( $valid_start, $start, $valid_end, $end ); ?>
 	</form>	
-<?php
+	<?php
 	// Query for the post of the selected post type.
 	$args = array(
 		'post_type'      => $post_type,
@@ -173,10 +173,10 @@ if ( 'popular' === $selected_post_type ) {
 	);
 	$query = new WP_Query( $args );
 
-if ( ! $query->have_posts() ) {
-?>
+	if ( ! $query->have_posts() ) {
+		?>
 <p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
-<?php } else { ?>
+	<?php } else { ?>
 	<section>
 		<h3><?php echo esc_html( get_post_type_object( $post_type )->labels->name ); ?>
 			<?php
@@ -205,7 +205,7 @@ if ( ! $query->have_posts() ) {
 				} else {
 					$views = eefstatify_get_views_of_post( str_replace( home_url(), '', get_permalink() ) );
 				}
-			?>
+				?>
 				<tr>
 					<td><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></td>
 					<td><?php echo esc_url( wp_make_link_relative( get_the_permalink() ) ); ?></td>
@@ -215,8 +215,8 @@ if ( ! $query->have_posts() ) {
 			</tbody>
 		</table>
 	</section>
-	<?php
-}
+		<?php
+	}
 
 	// Restore global post data stomped by the_post().
 	wp_reset_postdata();

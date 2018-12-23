@@ -25,7 +25,7 @@ function eefstatify_echo_export_button( $filename, $button_id = 'csv-export', $t
 		});
 	});
 	</script>
-<?php
+	<?php
 }
 
 /**
@@ -72,7 +72,7 @@ function eefstatify_echo_date_selection( $valid_start, $start, $valid_end, $end 
 			   pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
 		<button type="submit" class="button-secondary"><?php esc_html_e( 'Select date period', 'extended-evaluation-for-statify' ); ?></button>
 	</fieldset>
-<?php
+	<?php
 }
 
 /**
@@ -90,7 +90,7 @@ function eefstatify_echo_post_selection( $selected_post ) {
 			<option value="<?php echo esc_html( $post['target'] ); ?>"><?php echo esc_html( eefstatify_get_post_title_from_url( $post['target'] ) ); ?></option>
 		<?php } ?>
 	</datalist>
-<?php
+	<?php
 }
 
 /**
@@ -296,7 +296,7 @@ function eefstatify_get_post_types() {
  * @param string $subtitle the subtitle after the site name.
  */
 function eefstatify_echo_chart_container( $id, $title, $subtitle = '' ) {
-?>
+	?>
 	<div class="chart-container">
 		<div class="chart-title">
 			<?php echo esc_html( $title ); ?>
@@ -306,5 +306,5 @@ function eefstatify_echo_chart_container( $id, $title, $subtitle = '' ) {
 		</div>
 		<div id="<?php echo esc_html( $id ); ?>"></div>
 	</div>
-<?php
+	<?php
 }

@@ -116,7 +116,7 @@ $filename = eefstatify_get_filename(
 					$total += $referrer['count'];
 				}
 				foreach ( $referrers as $referrer ) {
-				?>
+					?>
 				<tr>
 					<td><a href="<?php echo esc_url( $referrer['url'] ); ?>" target="_blank"><?php echo esc_html( $referrer['host'] ); ?></a></td>
 					<td class="right"><?php eefstatify_echo_number( $referrer['count'] ); ?></td>

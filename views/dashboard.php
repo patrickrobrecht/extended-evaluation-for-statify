@@ -65,7 +65,7 @@ if ( 0 === $selected_year ) {
 		__( 'Monthly Views', 'extended-evaluation-for-statify' )
 		. '-' . eefstatify_get_post_title_from_url( $selected_post )
 	);
-?>
+	?>
 	<?php if ( count( $views_for_all_months ) === 0 ) { ?>
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
 	<?php } else { ?>
@@ -136,13 +136,13 @@ if ( 0 === $selected_year ) {
 		</table>
 	</section>
 	<?php } ?>
-<?php
+	<?php
 } else {
 	$filename_daily = eefstatify_get_filename(
 		__( 'Daily Views', 'extended-evaluation-for-statify' )
 		. '-' . $selected_year . '-' . eefstatify_get_post_title_from_url( $selected_post )
 	);
-?>
+	?>
 	<section>
 		<?php
 		eefstatify_echo_chart_container(
@@ -235,7 +235,7 @@ if ( 0 === $selected_year ) {
 					$daily_views = array();
 					foreach ( $months as $month ) {
 						$daily_views[ $month ] = eefstatify_get_daily_views_of_month( $views_for_all_days, $selected_year, $month );
-					?>
+						?>
 					<td class="right"><?php eefstatify_echo_number( min( $daily_views[ $month ] ) ); ?></td>
 					<?php } ?>
 				</tr>
