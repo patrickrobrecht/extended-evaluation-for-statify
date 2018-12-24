@@ -18,13 +18,19 @@ function exportTableToCSV($table, filename) {
     });
 }
 
-function eefstatifyColumnChart(id, x, y) {
+function eefstatifyColumnChart(id, dataArray) {
+    var dataMap = new Map(dataArray);
+    var seriesData = [];
+    for (var [x, y] of dataMap.entries()) {
+        seriesData.push({meta: x, value: y});
+    }
     var data = {
-        labels: x,
+        labels: Array.from({length: dataArray.length}, (x, i) => i + 1),
         series: [
-            y
+            seriesData
         ]
     };
+
     var options = {
         axisX: {
             showGrid: false
@@ -39,6 +45,16 @@ function eefstatifyColumnChart(id, x, y) {
             left: 30
         },
         height: 300,
+        plugins: [
+            Chartist.plugins.tooltip({
+                anchorToPoint: true,
+                transformTooltipTextFnc: function (y) {
+                    return y + ' ' + (parseInt(y) === 1 ? eefstatify_translations.view : eefstatify_translations.views);
+                },
+                appendToBody: true,
+                class: 'eefstatify-ct-tooltip'
+            })
+        ],
         seriesBarDistance: 20
     };
 
@@ -53,7 +69,7 @@ function eefstatifyColumnChart(id, x, y) {
         }]
     ];
 
-    new Chartist.Bar(id, data, options, responsiveOptions)
+    new Chartist.Bar(id, data, options, responsiveOptions);
 }
 
 function eefstatifyLineChart(id, dataArray, type = 'default') {

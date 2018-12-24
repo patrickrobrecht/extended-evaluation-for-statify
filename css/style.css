@@ -82,3 +82,13 @@
 .eefstatify-ct-tooltip .chartist-tooltip-meta {
     color: #0074a2;
 }
+
+/* Legend */
+.eefstatify .chart-legend {
+    padding: 5px 20px;
+}
+
+.eefstatify .chart-legend ol {
+    column-width: 20em;
+    column-gap: 20px;
+}

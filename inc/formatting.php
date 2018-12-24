@@ -294,8 +294,9 @@ function eefstatify_get_post_types() {
  * @param string $id the id of the chart container.
  * @param string $title the title.
  * @param string $subtitle the subtitle after the site name.
+ * @param array  $legend the items for the legend.
  */
-function eefstatify_echo_chart_container( $id, $title, $subtitle = '' ) {
+function eefstatify_echo_chart_container( $id, $title, $subtitle = '', $legend = [] ) {
 	?>
 	<div class="chart-container">
 		<div class="chart-title">
@@ -304,7 +305,16 @@ function eefstatify_echo_chart_container( $id, $title, $subtitle = '' ) {
 		<div class="chart-subtitle">
 			<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . $subtitle ); ?>
 		</div>
-		<div id="<?php echo esc_html( $id ); ?>"></div>
+		<div id="<?php echo esc_attr( $id ); ?>"></div>
+		<?php if ( count( $legend ) > 0 ) { ?>
+			<div class="chart-legend">
+				<ol>
+					<?php foreach ( $legend as $item ) { ?>
+						<li><?php echo esc_html( $item ); ?></li>
+					<?php } ?>
+				</ol>
+			</div>
+		<?php } ?>
 	</div>
 	<?php
 }

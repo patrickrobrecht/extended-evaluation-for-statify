@@ -37,7 +37,7 @@ if ( isset( $_POST['start'] ) && isset( $_POST['end'] ) && check_admin_referer( 
 }
 
 $referrers = eefstatify_get_views_for_all_referrers( $selected_post, $start, $end );
-$referrers_for_diagram = array_slice( $referrers, 0, 25, true );
+$referrers_for_diagram = array_slice( $referrers, 0, 24, true );
 
 $filename = eefstatify_get_filename(
 	__( 'Referrers', 'extended-evaluation-for-statify' )
@@ -67,10 +67,16 @@ $filename = eefstatify_get_filename(
 <?php } else { ?>
 	<section>
 		<?php
+		$legend = [];
+		foreach ( $referrers_for_diagram as $referrer ) {
+			array_push( $legend, $referrer['host'] );
+		}
+
 		eefstatify_echo_chart_container(
 			'chart-referrers',
 			__( 'Referrers from other websites', 'extended-evaluation-for-statify' ),
-			eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true )
+			eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ),
+			$legend
 		);
 		?>
 		<script type="text/javascript">
@@ -79,14 +85,7 @@ $filename = eefstatify_get_filename(
 				[
 					<?php
 					foreach ( $referrers_for_diagram as $referrer ) {
-						echo "'" . esc_html( $referrer['host'] ) . "',";
-					}
-					?>
-				],
-				[
-					<?php
-					foreach ( $referrers_for_diagram as $referrer ) {
-						echo esc_html( $referrer['count'] . ',' );
+						echo "['" . esc_js( $referrer['host'] ) . "'," . esc_js( $referrer['count'] ) . '],';
 					}
 					?>
 				]

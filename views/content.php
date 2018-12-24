@@ -65,7 +65,7 @@ if ( 'popular' === $selected_post_type ) {
 	} else {
 		$views_per_post = eefstatify_get_views_of_most_popular_posts();
 	}
-	$views_per_post_for_diagram = array_slice( $views_per_post, 0, 25, true );
+	$views_per_post_for_diagram = array_slice( $views_per_post, 0, 24, true );
 
 	$filename = eefstatify_get_filename(
 		__( 'Most Popular Content', 'extended-evaluation-for-statify' )
@@ -81,9 +81,16 @@ if ( 'popular' === $selected_post_type ) {
 <?php } else { ?>
 	<section>
 		<?php
+		$legend = [];
+		foreach ( $views_per_post_for_diagram as $post ) {
+			array_push( $legend, eefstatify_get_post_title_from_url( $post['url'] ) );
+		}
+
 		eefstatify_echo_chart_container(
 			'chart-popular-content',
-			__( 'Most Popular Content', 'extended-evaluation-for-statify' )
+			__( 'Most Popular Content', 'extended-evaluation-for-statify' ),
+			'',
+			$legend
 		);
 		?>
 		<script>
@@ -92,14 +99,7 @@ if ( 'popular' === $selected_post_type ) {
 				[
 					<?php
 					foreach ( $views_per_post_for_diagram as $post ) {
-						echo "'" . esc_html( eefstatify_get_post_title_from_url( $post['url'] ) ) . "',";
-					}
-					?>
-				],
-				[
-					<?php
-					foreach ( $views_per_post_for_diagram as $post ) {
-						echo esc_html( $post['count'] . ',' );
+						echo "['" . esc_js( eefstatify_get_post_title_from_url( $post['url'] ) ) . "'," . esc_js( $post['count'] ) . '],';
 					}
 					?>
 				]
