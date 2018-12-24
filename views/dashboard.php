@@ -83,26 +83,26 @@ if ( 0 === $selected_year ) {
 		);
 		?>
 		<script type="text/javascript">
-			eefstatifyColumnChart(
+			eefstatifyLineChart(
 				'#chart-monthly',
 				[
 					<?php
-					$y = '';
 					foreach ( $views_for_all_months as $month => $views ) {
-						if ( $views > 0 ) {
-							echo "'" . esc_js( eefstatify_get_month_year_name( $month ) ) . "',";
-							$y .= $views . ',';
-						}
+						echo "['" . esc_js( eefstatify_get_month_year_name( $month ) ) . "'," . esc_js( $views ) . '],';
 					}
 					?>
-				],
-				[ <?php echo esc_js( $y ); ?> ]
+				]
 			);
-			eefstatifyColumnChart(
+			eefstatifyLineChart(
 				'#chart-yearly',
-				[ '<?php echo implode( "','", array_keys( $views_for_all_years ) ); // @codingStandardsIgnoreLine only numbers ?>' ],
-				[ <?php echo esc_html( implode( ',', $views_for_all_years ) ); ?> ]
-			)
+				[
+					<?php
+					foreach ( $views_for_all_years as $year => $views ) {
+						echo "['" . esc_js( $year ) . "'," . esc_js( $views ) . '],';
+					}
+					?>
+				]
+			);
 		</script>
 	</section>
 	<section>
@@ -161,32 +161,27 @@ if ( 0 === $selected_year ) {
 				'#chart-daily',
 				[
 					<?php
-					$y = '';
 					foreach ( $months as $month ) {
 						$days = eefstatify_get_days( $month, $selected_year );
 						foreach ( $days as $day ) {
 							$views = eefstatify_get_daily_views( $views_for_all_days, $selected_year, $month, $day );
-							echo "['" . esc_html( $day ) . '. ' . esc_html( eefstatify_get_month_name( $month ) ) . "'," . esc_html( $views ) . '],';
-						}
-					}
-					?>
-				]
-			);
-			eefstatifyColumnChart(
-				'#chart-monthly',
-				[
-					<?php
-					$y = '';
-					foreach ( $months as $month ) {
-						$views = eefstatify_get_monthly_views( $views_for_all_months, $selected_year, $month );
-						if ( $views > 0 ) {
-							echo "'" . esc_html( eefstatify_get_month_name( $month ) ) . "',";
-							$y .= $views . ',';
+							echo "['" . esc_js( $day ) . '. ' . esc_js( eefstatify_get_month_name( $month ) ) . "'," . esc_js( $views ) . '],';
 						}
 					}
 					?>
 				],
-				[ <?php echo esc_html( $y ); ?> ]
+				'daily'
+			);
+			eefstatifyLineChart(
+				'#chart-monthly',
+				[
+					<?php
+					foreach ( $months as $month ) {
+						$views = eefstatify_get_monthly_views( $views_for_all_months, $selected_year, $month );
+						echo "['" . esc_js( eefstatify_get_month_name( $month ) ) . "'," . esc_js( $views ) . '],';
+					}
+					?>
+				]
 			);
 		</script>
 	</section>

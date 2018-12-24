@@ -1,21 +1,21 @@
 function exportTableToCSV($table, filename) {
-	var tmpColDelim = String.fromCharCode(11), tmpRowDelim = String.fromCharCode(0), // Temporary delimiters unlikely to be typed by keyboard to avoid accidentally splitting the actual contents
-	colDelim = '","', rowDelim = '"\r\n"', // actual delimiters for CSV
-	$rows = $table.find('tr'),
-	csv = '"' + $rows.map(function(i, row) {
-		var $row = jQuery(row), $cols = $row.find('td,th');
-		return $cols.map(function(j, col) {
-			var $col = jQuery(col), text = $col.text();
-			return text.replace(/"/g, '""'); // escape double quotes
-		}).get().join(tmpColDelim);
-	}).get().join(tmpRowDelim).split(tmpRowDelim)
-			.join(rowDelim).split(tmpColDelim)
-			.join(colDelim) + '"',
-	csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
-	jQuery(this).attr({
-		'download': filename,
-		'href': csvData
-	});
+    var tmpColDelim = String.fromCharCode(11), tmpRowDelim = String.fromCharCode(0), // Temporary delimiters unlikely to be typed by keyboard to avoid accidentally splitting the actual contents
+        colDelim = '","', rowDelim = '"\r\n"', // actual delimiters for CSV
+        $rows = $table.find('tr'),
+        csv = '"' + $rows.map(function (i, row) {
+            var $row = jQuery(row), $cols = $row.find('td,th');
+            return $cols.map(function (j, col) {
+                var $col = jQuery(col), text = $col.text();
+                return text.replace(/"/g, '""'); // escape double quotes
+            }).get().join(tmpColDelim);
+        }).get().join(tmpRowDelim).split(tmpRowDelim)
+            .join(rowDelim).split(tmpColDelim)
+            .join(colDelim) + '"',
+        csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+    jQuery(this).attr({
+        'download': filename,
+        'href': csvData
+    });
 }
 
 function eefstatifyColumnChart(id, x, y) {
@@ -56,7 +56,7 @@ function eefstatifyColumnChart(id, x, y) {
     new Chartist.Bar(id, data, options, responsiveOptions)
 }
 
-function eefstatifyLineChart(id, dataArray) {
+function eefstatifyLineChart(id, dataArray, type = 'default') {
     var dataMap = new Map(dataArray);
     var seriesData = [];
     for (var [x, y] of dataMap.entries()) {
@@ -72,8 +72,10 @@ function eefstatifyLineChart(id, dataArray) {
     var options = {
         axisX: {
             showGrid: false,
-            labelInterpolationFnc: function(value) {
-                return (value.substring(0, 2) === '1.') ? value.substring(2) : ''
+            labelInterpolationFnc: function (value) {
+                return (type === 'daily')
+                    ? ((value.substring(0, 2) === '1.') ? value.substring(2) : '')
+                    : value;
             }
         },
         axisY: {
@@ -89,7 +91,7 @@ function eefstatifyLineChart(id, dataArray) {
         plugins: [
             Chartist.plugins.tooltip({
                 anchorToPoint: true,
-                transformTooltipTextFnc: function(y) {
+                transformTooltipTextFnc: function (y) {
                     return y + ' ' + (parseInt(y) === 1 ? eefstatify_translations.view : eefstatify_translations.views);
                 },
                 appendToBody: true,
@@ -138,7 +140,7 @@ function eefstatifySelectDateRange() {
             eefstatifySetDateRange(new Date(y, m - 1, 1), new Date(y, m, 0));
             break;
         case 'thisMonth':
-            eefstatifySetDateRange(new Date(y, m, 1),new Date(y, m + 1, 0));
+            eefstatifySetDateRange(new Date(y, m, 1), new Date(y, m + 1, 0));
             break;
         case '1stQuarter':
             eefstatifySetDateRange(new Date(y, 0, 1), new Date(y, 2, 31));
