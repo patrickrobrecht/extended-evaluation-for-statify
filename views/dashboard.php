@@ -166,13 +166,11 @@ if ( 0 === $selected_year ) {
 						$days = eefstatify_get_days( $month, $selected_year );
 						foreach ( $days as $day ) {
 							$views = eefstatify_get_daily_views( $views_for_all_days, $selected_year, $month, $day );
-							echo "'" . esc_html( $day ) . '. ' . esc_html( eefstatify_get_month_name( $month ) ) . "',";
-							$y .= $views . ',';
+							echo "['" . esc_html( $day ) . '. ' . esc_html( eefstatify_get_month_name( $month ) ) . "'," . esc_html( $views ) . '],';
 						}
 					}
 					?>
-				],
-				[ <?php echo esc_html( $y ); ?> ]
+				]
 			);
 			eefstatifyColumnChart(
 				'#chart-monthly',

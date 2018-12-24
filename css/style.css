@@ -1,20 +1,5 @@
 @charset "UTF-8";
 
-.eefstatify section {
-    clear: both;
-    padding-top: 1.5em;
-}
-
-.eefstatify .two-charts div:first-child {
-    width: 65%;
-    float: left
-}
-
-.eefstatify .two-charts div:nth-child(2) {
-    width: 35%;
-    float: left
-}
-
 .eefstatify table {
     border-collapse: collapse;
     clear: both;
@@ -45,11 +30,13 @@
     margin-right: 25px;
 }
 
+/* Chart container */
 .eefstatify .chart-container {
     background: #fff;
     margin: 1em 0;
 }
 
+/* Chart title */
 .eefstatify .chart-title,
 .eefstatify .chart-subtitle {
     text-align: center;
@@ -61,37 +48,37 @@
     font-size: 1.1em;
 }
 
-.eefstatify .ct-grid {
-    stroke-width: 0.5px;
-    stroke-dasharray: 10px;
-}
-
-.eefstatify .ct-point {
-    fill: #fff;
-    stroke: #0074a2;
-    stroke-width: 1.5px;
-}
-
+/* Background for area below lines */
 .eefstatify .ct-area {
     fill: #0074a2;
 }
 
-.eefstatify-ct-tooltip {
-    border: 1px solid #000000;
-    background-color: #ffffff;
-    border-radius: 0.2em;
-    padding: 0.1em 0.5em;
-}
-
-.eefstatify-ct-tooltip:before {
-    border-top-color: #00000099;
-}
-
-.eefstatify-ct-tooltip .chartist-tooltip-meta {
-    color: #0074a2;
-}
-
+/* Color of points and lines */
+.eefstatify .ct-point,
 .eefstatify .ct-series-a .ct-bar,
 .eefstatify .ct-series-a .ct-line {
     stroke: #0074a2;
+}
+
+/* Size of points */
+.eefstatify .ct-point {
+    stroke-width: 8px;
+}
+
+/* Tooltip */
+.eefstatify-ct-tooltip {
+    border: 1px solid #453d3f;
+    background-color: #fff;
+    border-radius: 0.2em;
+    padding: 0.25em;
+}
+
+/* Arrow below tooltip */
+.eefstatify-ct-tooltip:before {
+    border-top-color: #453d3f;
+}
+
+/* Tooltip text first line */
+.eefstatify-ct-tooltip .chartist-tooltip-meta {
+    color: #0074a2;
 }

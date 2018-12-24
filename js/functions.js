@@ -32,13 +32,14 @@ function eefstatifyColumnChart(id, x, y) {
         axisY: {
             onlyInteger: true
         },
-        seriesBarDistance: 20,
         chartPadding: {
             top: 20,
             right: 30,
             bottom: 30,
             left: 30
-        }
+        },
+        height: 300,
+        seriesBarDistance: 20
     };
 
     var responsiveOptions = [
@@ -55,11 +56,16 @@ function eefstatifyColumnChart(id, x, y) {
     new Chartist.Bar(id, data, options, responsiveOptions)
 }
 
-function eefstatifyLineChart(id, x, y) {
+function eefstatifyLineChart(id, dataArray) {
+    var dataMap = new Map(dataArray);
+    var seriesData = [];
+    for (var [x, y] of dataMap.entries()) {
+        seriesData.push({meta: x, value: y});
+    }
     var data = {
-        labels: x,
+        labels: Array.from(dataMap.keys()),
         series: [
-            y
+            seriesData
         ]
     };
 
@@ -79,28 +85,22 @@ function eefstatifyLineChart(id, x, y) {
             bottom: 30,
             left: 30
         },
-        plugins  : [
+        height: 300,
+        plugins: [
             Chartist.plugins.tooltip({
+                anchorToPoint: true,
+                transformTooltipTextFnc: function(y) {
+                    return y + ' ' + (parseInt(y) === 1 ? eefstatify_translations.view : eefstatify_translations.views);
+                },
                 appendToBody: true,
                 class: 'eefstatify-ct-tooltip'
             })
         ],
-        showArea : true
+        showArea: true,
+        showPoints: true
     };
 
     var chart = new Chartist.Line(id, data, options);
-    chart.on('draw', function (data) {
-        if ('point' === data.type) {
-            var circle = new Chartist.Svg('circle', {
-                cx: [data.x],
-                cy: [data.y],
-                r: [4],
-                'ct:value': data.value.y + ' ' + (data.value.y > 1 ? eefstatify_translations.views : eefstatify_translations.view),
-                'ct:meta': x[data.index]
-            }, 'ct-point');
-            data.element.replace(circle);
-        }
-    });
 }
 
 function eefstatifySelectDateRange() {

@@ -112,7 +112,7 @@ function eefstatify_register_and_load_assets() {
 		eefstatify_enqueue_script(
 			'eefstatify_functions',
 			'/js/functions.js',
-			[ 'chartist', 'chartist-plugin-tooltip' ]
+			[ 'chartist', 'chartist-plugin-tooltip', 'jquery' ]
 		);
 
 		wp_localize_script(
@@ -129,8 +129,8 @@ function eefstatify_register_and_load_assets() {
 /**
  * Loads the CSS file.
  *
- * @param string $style_name the name of the style
- * @param string $style_path the plugin-relative path of the CSS file
+ * @param string $style_name the name of the style.
+ * @param string $style_path the plugin-relative path of the CSS file.
  */
 function eefstatify_enqueue_style( $style_name, $style_path ) {
 	wp_enqueue_style(
@@ -145,9 +145,9 @@ function eefstatify_enqueue_style( $style_name, $style_path ) {
 /**
  * Loads the JavaScript file.
  *
- * @param string $script_name the name of the script
- * @param string $script_path the plugin-relative path of the JavaScript file
- * @param array  $dependencies the dependencies
+ * @param string $script_name the name of the script.
+ * @param string $script_path the plugin-relative path of the JavaScript.
+ * @param array  $dependencies the dependencies.
  */
 function eefstatify_enqueue_script( $script_name, $script_path, $dependencies = array() ) {
 	wp_enqueue_script(
