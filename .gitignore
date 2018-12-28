@@ -1,4 +1,3 @@
-css/style.min.css
-dist/
-js/functions.min.js
 vendor/
+*.min.css
+*.min.js

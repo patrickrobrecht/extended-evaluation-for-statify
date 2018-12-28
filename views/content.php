@@ -65,43 +65,44 @@ if ( 'popular' === $selected_post_type ) {
 	} else {
 		$views_per_post = eefstatify_get_views_of_most_popular_posts();
 	}
-	$views_per_post_for_diagram = array_slice( $views_per_post, 0, 25, true );
+	$views_per_post_for_diagram = array_slice( $views_per_post, 0, 24, true );
 
 	$filename = eefstatify_get_filename(
 		__( 'Most Popular Content', 'extended-evaluation-for-statify' )
 		. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end )
 	);
-?>
+	?>
 	<form method="post" action="">
 		<?php wp_nonce_field( 'content' ); ?>
 		<?php eefstatify_echo_date_selection( $valid_start, $start, $valid_end, $end ); ?>
 	</form>
-<?php if ( count( $views_per_post ) === 0 ) { ?>
+	<?php if ( count( $views_per_post ) === 0 ) { ?>
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
 <?php } else { ?>
 	<section>
-		<div id="chart"></div>
-		<script type="text/javascript">
+		<?php
+		$legend = [];
+		foreach ( $views_per_post_for_diagram as $post ) {
+			array_push( $legend, eefstatify_get_post_title_from_url( $post['url'] ) );
+		}
+
+		eefstatify_echo_chart_container(
+			'chart-popular-content',
+			__( 'Most Popular Content', 'extended-evaluation-for-statify' ),
+			'',
+			$legend
+		);
+		?>
+		<script>
 			eefstatifyColumnChart(
-				'#chart',
-				'<?php esc_html_e( 'Most Popular Content', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>',
+				'#chart-popular-content',
 				[
 					<?php
 					foreach ( $views_per_post_for_diagram as $post ) {
-						echo "'" . esc_html( eefstatify_get_post_title_from_url( $post['url'] ) ) . "',";
+						echo "['" . esc_js( eefstatify_get_post_title_from_url( $post['url'] ) ) . "'," . esc_js( $post['count'] ) . '],';
 					}
 					?>
-				],
-				[
-					<?php
-					foreach ( $views_per_post_for_diagram as $post ) {
-						echo esc_html( $post['count'] . ',' );
-					}
-					?>
-				],
-				'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( $filename ); ?>'
+				]
 			);
 		</script>	
 	</section>
@@ -111,7 +112,7 @@ if ( 'popular' === $selected_post_type ) {
 			echo esc_html( eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) );
 			eefstatify_echo_export_button( $filename );
 			?>
-			</h3>
+		</h3>
 		<table id="table-data" class="wp-list-table widefat striped">
 			<thead>
 				<tr>
@@ -129,7 +130,7 @@ if ( 'popular' === $selected_post_type ) {
 					$total += $post['count'];
 				}
 				foreach ( $views_per_post as $post ) {
-				?>
+					?>
 				<tr>
 					<td><a href="<?php echo esc_url( $post['url'] ); ?>" target="_blank"><?php echo esc_html( eefstatify_get_post_title_from_url( $post['url'] ) ); ?></a></td>
 					<td><?php echo esc_url( $post['url'] ); ?></td>
@@ -151,19 +152,19 @@ if ( 'popular' === $selected_post_type ) {
 		</table>
 	</section>
 	<?php } ?>
-<?php
+	<?php
 } else {
 	$post_type = $selected_post_type;
 	$filename = eefstatify_get_filename(
 		get_post_type_object( $post_type )->labels->name
 		. eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end )
 	);
-?>
+	?>
 	<form method="post" action="">
 		<?php wp_nonce_field( 'content' ); ?>
 		<?php eefstatify_echo_date_selection( $valid_start, $start, $valid_end, $end ); ?>
 	</form>	
-<?php
+	<?php
 	// Query for the post of the selected post type.
 	$args = array(
 		'post_type'      => $post_type,
@@ -171,24 +172,18 @@ if ( 'popular' === $selected_post_type ) {
 		'posts_per_page' => -1,
 	);
 	$query = new WP_Query( $args );
-	$x = '';
-	$y = '';
-	$index = 0;
 
-if ( ! $query->have_posts() ) {
-?>
-	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
+	if ( ! $query->have_posts() ) {
+		?>
+<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
 	<?php } else { ?>
-	<section>
-		<div id="chart"></div>
-	</section>
 	<section>
 		<h3><?php echo esc_html( get_post_type_object( $post_type )->labels->name ); ?>
 			<?php
 			echo esc_html( eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) );
-				eefstatify_echo_export_button( $filename );
-				?>
-				</h3>
+			eefstatify_echo_export_button( $filename );
+			?>
+		</h3>
 		<table id="table-data" class="wp-list-table widefat striped">
 			<thead>
 				<tr>
@@ -210,12 +205,7 @@ if ( ! $query->have_posts() ) {
 				} else {
 					$views = eefstatify_get_views_of_post( str_replace( home_url(), '', get_permalink() ) );
 				}
-				$index++;
-				if ( $index <= 25 ) {
-					$x .= "'" . esc_html( get_the_title() ) . "',";
-					$y .= $views . ',';
-				}
-			?>
+				?>
 				<tr>
 					<td><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></td>
 					<td><?php echo esc_url( wp_make_link_relative( get_the_permalink() ) ); ?></td>
@@ -224,22 +214,12 @@ if ( ! $query->have_posts() ) {
 			<?php endwhile; ?>
 			</tbody>
 		</table>
-	</section>	
-	<script type="text/javascript">
-		eefstatifyColumnChart(
-			'#chart',
-			'<?php echo esc_html( get_post_type_object( $post_type )->labels->name ); ?>',
-			'<?php echo esc_html( get_bloginfo( 'name' ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>',
-			[ <?php echo $x; // @codingStandardsIgnoreLine $x is properly escaped. ?> ],
-			[ <?php echo esc_html( $y ); ?> ],
-			'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-			'<?php echo esc_html( $filename ); ?>'
-		);
-	</script>
-	<?php
+	</section>
+		<?php
+	}
+
+	// Restore global post data stomped by the_post().
+	wp_reset_postdata();
 }
-		// Restore global post data stomped by the_post().
-		wp_reset_postdata();
-	?>
-<?php } ?>
+?>
 </div>

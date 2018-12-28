@@ -25,7 +25,7 @@ function eefstatify_echo_export_button( $filename, $button_id = 'csv-export', $t
 		});
 	});
 	</script>
-<?php
+	<?php
 }
 
 /**
@@ -72,7 +72,7 @@ function eefstatify_echo_date_selection( $valid_start, $start, $valid_end, $end 
 			   pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
 		<button type="submit" class="button-secondary"><?php esc_html_e( 'Select date period', 'extended-evaluation-for-statify' ); ?></button>
 	</fieldset>
-<?php
+	<?php
 }
 
 /**
@@ -90,7 +90,7 @@ function eefstatify_echo_post_selection( $selected_post ) {
 			<option value="<?php echo esc_html( $post['target'] ); ?>"><?php echo esc_html( eefstatify_get_post_title_from_url( $post['target'] ) ); ?></option>
 		<?php } ?>
 	</datalist>
-<?php
+	<?php
 }
 
 /**
@@ -184,7 +184,7 @@ function eefstatify_echo_percentage( $number, $decimals = 2 ) {
  * Get the first three characters of the month name.
  *
  * @param int $month_as_int an integer.
- * @return string the first three characters of the month name (e. g. Jan for January).
+ * @return string the short month name (e. g. Jan for January).
  */
 function eefstatify_get_month_name( $month_as_int ) {
 	$month_as_int = intval( $month_as_int );
@@ -192,6 +192,17 @@ function eefstatify_get_month_name( $month_as_int ) {
 		return date_i18n( 'M', strtotime( '2016-' . $month_as_int . '-1' ) );
 	}
 	return '';
+}
+
+/**
+ * Get a string with the first three characters of the month name and the year.
+ *
+ * @param string $month the year-month string.
+ *
+ * @return string short month name and year (e. g. Jan 2018)
+ */
+function eefstatify_get_month_year_name( $month ) {
+	return date_i18n( 'M Y', strtotime( $month . '-1' ) );
 }
 
 /**
@@ -275,4 +286,35 @@ function eefstatify_get_post_types() {
 	);
 	$types = array_merge( array( 'post', 'page' ), get_post_types( $types_args ) );
 	return $types;
+}
+
+/**
+ * Echos the div container for the chart.
+ *
+ * @param string $id the id of the chart container.
+ * @param string $title the title.
+ * @param string $subtitle the subtitle after the site name.
+ * @param array  $legend the items for the legend.
+ */
+function eefstatify_echo_chart_container( $id, $title, $subtitle = '', $legend = [] ) {
+	?>
+	<div class="chart-container">
+		<div class="chart-title">
+			<?php echo esc_html( $title ); ?>
+		</div>
+		<div class="chart-subtitle">
+			<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . $subtitle ); ?>
+		</div>
+		<div id="<?php echo esc_attr( $id ); ?>"></div>
+		<?php if ( count( $legend ) > 0 ) { ?>
+			<div class="chart-legend">
+				<ol>
+					<?php foreach ( $legend as $item ) { ?>
+						<li><?php echo esc_html( $item ); ?></li>
+					<?php } ?>
+				</ol>
+			</div>
+		<?php } ?>
+	</div>
+	<?php
 }

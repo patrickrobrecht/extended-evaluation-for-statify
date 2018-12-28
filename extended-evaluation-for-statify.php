@@ -3,7 +3,7 @@
  * Plugin Name: Statify – Extended Evaluation
  * Plugin URI: https://patrick-robrecht.de/wordpress/
  * Description: Extended evaluation for the compact, easy-to-use and privacy-compliant Statify plugin.
- * Version: 2.4
+ * Version: 2.5-dev
  * Author: Patrick Robrecht
  * Author URI: https://patrick-robrecht.de/
  * License: GPLv3
@@ -84,48 +84,80 @@ function eefstatify_load_plugin_textdomain() {
 add_action( 'init', 'eefstatify_load_plugin_textdomain' );
 
 /**
- * Register and load the style sheet.
+ * Register and load the style sheets and JavaScript libraries.
  */
-function eefstatify_register_and_load_css() {
+function eefstatify_register_and_load_assets() {
 	if ( eefstatify_current_user_can_see_evaluation() ) {
-		wp_enqueue_style(
-			'extended-evaluation-for-statify',
-			plugins_url(
-				'/css/style.css',
-				__FILE__
+		eefstatify_enqueue_style(
+			'chartist',
+			'/lib/chartist.min.css'
+		);
+		eefstatify_enqueue_style(
+			'chartist-plugin-tooltip',
+			'lib/chartist-plugin-tooltip.min.css'
+		);
+		eefstatify_enqueue_style(
+			'eefstatify',
+			'/css/style.css'
+		);
+
+		eefstatify_enqueue_script(
+			'chartist',
+			'/lib/chartist.min.js'
+		);
+		eefstatify_enqueue_script(
+			'chartist-plugin-tooltip',
+			'lib/chartist-plugin-tooltip.min.js'
+		);
+		eefstatify_enqueue_script(
+			'eefstatify_functions',
+			'/js/functions.js',
+			[ 'chartist', 'chartist-plugin-tooltip', 'jquery' ]
+		);
+
+		wp_localize_script(
+			'eefstatify_functions',
+			'eefstatify_translations',
+			array(
+				'view'  => strip_tags( esc_html__( 'View', 'extended-evaluation-for-statify' ) ),
+				'views' => strip_tags( esc_html__( 'Views', 'extended-evaluation-for-statify' ) ),
 			)
 		);
 	}
 }
 
 /**
- * Register the Highcharts libraries and load these and JQuery.
+ * Loads the CSS file.
+ *
+ * @param string $style_name the name of the style.
+ * @param string $style_path the plugin-relative path of the CSS file.
  */
-function eefstatify_register_and_load_scripts() {
-	if ( eefstatify_current_user_can_see_evaluation() ) {
-		wp_enqueue_script(
-			'highcharts',
-			plugins_url(
-				'/js/highcharts.js',
-				__FILE__
-			),
-			array( 'jquery' )
-		);
-		wp_enqueue_script(
-			'highcharts-exporting',
-			plugins_url(
-				'/js/exporting.js',
-				__FILE__
-			)
-		);
-		wp_enqueue_script(
-			'eefstatify-functions',
-			plugins_url(
-				'/js/functions.js',
-				__FILE__
-			)
-		);
-	}
+function eefstatify_enqueue_style( $style_name, $style_path ) {
+	wp_enqueue_style(
+		$style_name,
+		plugins_url(
+			$style_path,
+			__FILE__
+		)
+	);
+}
+
+/**
+ * Loads the JavaScript file.
+ *
+ * @param string $script_name the name of the script.
+ * @param string $script_path the plugin-relative path of the JavaScript.
+ * @param array  $dependencies the dependencies.
+ */
+function eefstatify_enqueue_script( $script_name, $script_path, $dependencies = array() ) {
+	wp_enqueue_script(
+		$script_name,
+		plugins_url(
+			$script_path,
+			__FILE__
+		),
+		$dependencies
+	);
 }
 
 /**
@@ -163,8 +195,7 @@ function eefstatify_add_menu() {
 
 	// Load CSS and JavaScript on plugin pages.
 	foreach ( $page_hook_suffixes as $page_hook_suffix ) {
-		add_action( "admin_print_styles-{$page_hook_suffix}", 'eefstatify_register_and_load_css' );
-		add_action( "admin_print_scripts-{$page_hook_suffix}", 'eefstatify_register_and_load_scripts' );
+		add_action( "admin_print_styles-{$page_hook_suffix}", 'eefstatify_register_and_load_assets' );
 	}
 }
 // Register the menu building function.

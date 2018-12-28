@@ -15,7 +15,9 @@
     "source": "https://github.com/patrickrobrecht/extended-evaluation-for-statify"
   },
   "require": {
-    "php": "^5.6|^7"
+    "php": "^5.6|^7",
+    "npm-asset/chartist": "^0.11.0",
+    "npm-asset/chartist-plugin-tooltips": "^0.0.18"
   },
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "^0.4",
@@ -25,10 +27,25 @@
     "wimg/php-compatibility": "^8.0",
     "wp-coding-standards/wpcs": "^0.14"
   },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
   "scripts": {
+    "post-install-cmd": [
+      "@build"
+    ],
+    "post-update-cmd": [
+      "@build"
+    ],
     "build": [
       "@cs",
-      "@minify",
+      "@copy-assets",
+      "@minify"
+    ],
+    "copy-assets": [
       "SlowProg\\CopyFile\\ScriptHandler::copy"
     ],
     "cs": [
@@ -39,22 +56,15 @@
     ],
     "minify": [
       "minifycss css/style.css > css/style.min.css",
-      "minifyjs js/functions.js > js/functions.min.js"
+      "minifyjs js/functions.js > js/functions.min.js",
+      "minifycss vendor/npm-asset/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css > lib/chartist-plugin-tooltip.min.css"
     ]
   },
   "extra": {
     "copy-file": {
-      "css/style.min.css": "dist/css/style.css",
-      "css/index.php": "dist/css/",
-      "inc/": "dist/inc/",
-      "js/exporting.js": "dist/js/",
-      "js/functions.min.js": "dist/js/functions.js",
-      "js/highcharts.js": "dist/js/",
-      "js/index.php": "dist/js/",
-      "views/": "dist/views",
-      "extended-evaluation-for-statify.php": "dist/",
-      "index.php": "dist/",
-      "readme.txt": "dist/"
+      "vendor/npm-asset/chartist/dist/chartist.min.css": "lib/",
+      "vendor/npm-asset/chartist/dist/chartist.min.js": "lib/",
+      "vendor/npm-asset/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js": "lib/"
     }
   }
 }

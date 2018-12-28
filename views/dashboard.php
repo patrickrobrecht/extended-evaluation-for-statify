@@ -65,41 +65,44 @@ if ( 0 === $selected_year ) {
 		__( 'Monthly Views', 'extended-evaluation-for-statify' )
 		. '-' . eefstatify_get_post_title_from_url( $selected_post )
 	);
-?>
+	?>
 	<?php if ( count( $views_for_all_months ) === 0 ) { ?>
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
 	<?php } else { ?>
-	<section class="two-charts">
-		<div id="chart-monthly"></div>
-		<div id="chart-yearly"></div>
+	<section>
+		<?php
+		eefstatify_echo_chart_container(
+			'chart-monthly',
+			__( 'Monthly Views', 'extended-evaluation-for-statify' ),
+			eefstatify_get_post_title_from_url( $selected_post )
+		);
+		eefstatify_echo_chart_container(
+			'chart-yearly',
+			__( 'Yearly Views', 'extended-evaluation-for-statify' ),
+			eefstatify_get_post_title_from_url( $selected_post )
+		);
+		?>
 		<script type="text/javascript">
-			eefstatifyColumnChart(
+			eefstatifyLineChart(
 				'#chart-monthly',
-				'<?php esc_html_e( 'Monthly Views', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>',
-				[ '<?php echo __( implode( "','", array_keys( $views_for_all_months ) ) ); // @codingStandardsIgnoreLine only numbers ?>' ],
-				[ <?php echo esc_html( implode( ',', $views_for_all_months ) ); ?> ],
-				'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( $filename_monthly ); ?>'
+				[
+					<?php
+					foreach ( $views_for_all_months as $month => $views ) {
+						echo "['" . esc_js( eefstatify_get_month_year_name( $month ) ) . "'," . esc_js( $views ) . '],';
+					}
+					?>
+				]
 			);
-			eefstatifyColumnChart(
+			eefstatifyLineChart(
 				'#chart-yearly',
-				'<?php esc_html_e( 'Yearly Views', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>',
-				[ '<?php echo __( implode( "','", array_keys( $views_for_all_years ) ) ); // @codingStandardsIgnoreLine only numbers ?>' ],
-				[ <?php echo esc_html( implode( ',', $views_for_all_years ) ); ?> ],
-				'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				<?php
-				echo "'";
-				esc_html(
-					eefstatify_get_filename(
-						__( 'Yearly Views', 'extended-evaluation-for-statify' )
-						. '-' . eefstatify_get_post_title_from_url( $selected_post )
-					)
-				);
-				echo "'";
-				?>
-			)
+				[
+					<?php
+					foreach ( $views_for_all_years as $year => $views ) {
+						echo "['" . esc_js( $year ) . "'," . esc_js( $views ) . '],';
+					}
+					?>
+				]
+			);
 		</script>
 	</section>
 	<section>
@@ -133,66 +136,52 @@ if ( 0 === $selected_year ) {
 		</table>
 	</section>
 	<?php } ?>
-<?php
+	<?php
 } else {
 	$filename_daily = eefstatify_get_filename(
 		__( 'Daily Views', 'extended-evaluation-for-statify' )
 		. '-' . $selected_year . '-' . eefstatify_get_post_title_from_url( $selected_post )
 	);
-?>
-	<section class="two-charts">
-		<div id="chart-daily"></div>
-		<div id="chart-monthly"></div>
-		<script type="text/javascript">
+	?>
+	<section>
+		<?php
+		eefstatify_echo_chart_container(
+			'chart-daily',
+			__( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . $selected_year,
+			eefstatify_get_post_title_from_url( $selected_post )
+		);
+		eefstatify_echo_chart_container(
+			'chart-monthly',
+			__( 'Monthly Views', 'extended-evaluation-for-statify' ) . ' ' . $selected_year,
+			eefstatify_get_post_title_from_url( $selected_post )
+		);
+		?>
+		<script>
 			eefstatifyLineChart(
 				'#chart-daily',
-				'<?php echo esc_html( __( 'Daily Views', 'extended-evaluation-for-statify' ) . ' ' . $selected_year ); ?>',
-				'<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>',
-				[ 
+				[
 					<?php
-					$y = '';
 					foreach ( $months as $month ) {
 						$days = eefstatify_get_days( $month, $selected_year );
 						foreach ( $days as $day ) {
 							$views = eefstatify_get_daily_views( $views_for_all_days, $selected_year, $month, $day );
-							echo "'" . esc_html( $day ) . '. ' . esc_html( eefstatify_get_month_name( $month ) ) . "',";
-							$y .= $views . ',';
+							echo "['" . esc_js( $day ) . '. ' . esc_js( eefstatify_get_month_name( $month ) ) . "'," . esc_js( $views ) . '],';
 						}
 					}
 					?>
 				],
-				[ <?php echo esc_html( $y ); ?> ],
-				'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( $filename_daily ); ?>'
+				'daily'
 			);
-			eefstatifyColumnChart(
+			eefstatifyLineChart(
 				'#chart-monthly',
-				'<?php echo esc_html( __( 'Monthly Views', 'extended-evaluation-for-statify' ) . ' ' . $selected_year ); ?>',
-				'<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) ); ?>',
-				[ 
+				[
 					<?php
-					$y = '';
 					foreach ( $months as $month ) {
 						$views = eefstatify_get_monthly_views( $views_for_all_months, $selected_year, $month );
-						if ( $views > 0 ) {
-							echo "'" . esc_html( eefstatify_get_month_name( $month ) ) . "',";
-							$y .= $views . ',';
-						}
+						echo "['" . esc_js( eefstatify_get_month_name( $month ) ) . "'," . esc_js( $views ) . '],';
 					}
 					?>
-				],
-				[ <?php echo esc_html( $y ); ?> ],
-				'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				<?php
-				echo "'";
-				echo esc_html(
-					eefstatify_get_filename(
-						__( 'Monthly Views', 'extended-evaluation-for-statify' )
-						. '-' . $selected_year . '-' . eefstatify_get_post_title_from_url( $selected_post )
-					)
-				);
-				echo "'";
-				?>
+				]
 			);
 		</script>
 	</section>
@@ -202,7 +191,7 @@ if ( 0 === $selected_year ) {
 			echo esc_html( eefstatify_get_post_type_name_and_title_from_url( $selected_post ) );
 			eefstatify_echo_export_button( $filename_daily );
 			?>
-			</h3>
+		</h3>
 		<table id="table-data" class="wp-list-table widefat striped">
 			<thead>
 				<tr>
@@ -239,7 +228,7 @@ if ( 0 === $selected_year ) {
 					$daily_views = array();
 					foreach ( $months as $month ) {
 						$daily_views[ $month ] = eefstatify_get_daily_views_of_month( $views_for_all_days, $selected_year, $month );
-					?>
+						?>
 					<td class="right"><?php eefstatify_echo_number( min( $daily_views[ $month ] ) ); ?></td>
 					<?php } ?>
 				</tr>

@@ -37,7 +37,7 @@ if ( isset( $_POST['start'] ) && isset( $_POST['end'] ) && check_admin_referer( 
 }
 
 $referrers = eefstatify_get_views_for_all_referrers( $selected_post, $start, $end );
-$referrers_for_diagram = array_slice( $referrers, 0, 25, true );
+$referrers_for_diagram = array_slice( $referrers, 0, 24, true );
 
 $filename = eefstatify_get_filename(
 	__( 'Referrers', 'extended-evaluation-for-statify' )
@@ -66,28 +66,29 @@ $filename = eefstatify_get_filename(
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
 <?php } else { ?>
 	<section>
-		<div id="chart"></div>
+		<?php
+		$legend = [];
+		foreach ( $referrers_for_diagram as $referrer ) {
+			array_push( $legend, $referrer['host'] );
+		}
+
+		eefstatify_echo_chart_container(
+			'chart-referrers',
+			__( 'Referrers from other websites', 'extended-evaluation-for-statify' ),
+			eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ),
+			$legend
+		);
+		?>
 		<script type="text/javascript">
 			eefstatifyColumnChart(
-				'#chart',
-				'<?php esc_html_e( 'Referrers from other websites', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( get_bloginfo( 'name' ) . ' ' . eefstatify_get_post_title_from_url( $selected_post ) . eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ) ); ?>',
-				[ 
-					<?php
-					foreach ( $referrers_for_diagram as $referrer ) {
-						echo "'" . esc_html( $referrer['host'] ) . "',";
-					}
-					?>
-				],
+				'#chart-referrers',
 				[
 					<?php
 					foreach ( $referrers_for_diagram as $referrer ) {
-						echo esc_html( $referrer['count'] . ',' );
+						echo "['" . esc_js( $referrer['host'] ) . "'," . esc_js( $referrer['count'] ) . '],';
 					}
 					?>
-				],
-				'<?php esc_html_e( 'Views', 'extended-evaluation-for-statify' ); ?>',
-				'<?php echo esc_html( $filename ); ?>'
+				]
 			);
 		</script>
 	</section>	
@@ -98,7 +99,7 @@ $filename = eefstatify_get_filename(
 			echo esc_html( eefstatify_get_post_type_name_and_title_from_url( $selected_post ) );
 			eefstatify_echo_export_button( $filename );
 			?>
-			</h3>
+		</h3>
 		<table id="table-data" class="wp-list-table widefat striped">
 			<thead>
 				<tr>
@@ -114,7 +115,7 @@ $filename = eefstatify_get_filename(
 					$total += $referrer['count'];
 				}
 				foreach ( $referrers as $referrer ) {
-				?>
+					?>
 				<tr>
 					<td><a href="<?php echo esc_url( $referrer['url'] ); ?>" target="_blank"><?php echo esc_html( $referrer['host'] ); ?></a></td>
 					<td class="right"><?php eefstatify_echo_number( $referrer['count'] ); ?></td>
