@@ -25,12 +25,12 @@
             "version": "v0.0.18",
             "source": {
                 "type": "git",
-                "url": "https://github.com/tmmdata/chartist-plugin-tooltip.git",
+                "url": "git@github.com:Globegitter/chartist-plugin-tooltip.git",
                 "reference": "9917bad5e271b9e7cad289ca2ff0f07a8f8f5231"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tmmdata/chartist-plugin-tooltip/zipball/9917bad5e271b9e7cad289ca2ff0f07a8f8f5231",
+                "url": "https://api.github.com/repos/Globegitter/chartist-plugin-tooltip/zipball/9917bad5e271b9e7cad289ca2ff0f07a8f8f5231",
                 "reference": "9917bad5e271b9e7cad289ca2ff0f07a8f8f5231",
                 "shasum": null
             },
