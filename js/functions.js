@@ -1,5 +1,7 @@
 function exportTableToCSV($table, filename) {
-    var tmpColDelim = String.fromCharCode(11), tmpRowDelim = String.fromCharCode(0), // Temporary delimiters unlikely to be typed by keyboard to avoid accidentally splitting the actual contents
+    // Temporary delimiters unlikely to be typed by keyboard to avoid accidentally splitting the actual contents.
+    var tmpColDelim = String.fromCharCode(11), tmpRowDelim = String.fromCharCode(0),
+        // Actual delimiters for CSV.
         colDelim = '","', rowDelim = '"\r\n"', // actual delimiters for CSV
         $rows = $table.find('tr'),
         csv = '"' + $rows.map(function (i, row) {
@@ -147,10 +149,10 @@ function eefstatifySelectDateRange() {
             eefstatifySetDateRange(t, t);
             break;
         case 'thisWeek':
-            eefstatifySetDateRange(new Date(y, m, mondayOfCurrentWeek), new Date(y, m, start.getDate() + 6));
+            eefstatifySetDateRange(new Date(y, m, mondayOfCurrentWeek), new Date(y, m, mondayOfCurrentWeek + 6));
             break;
         case 'last28days':
-            eefstatifySetDateRange(new Date(y, m, d - 28), t);
+            eefstatifySetDateRange(new Date(y, m, d - 27), t);
             break;
         case 'lastMonth':
             eefstatifySetDateRange(new Date(y, m - 1, 1), new Date(y, m, 0));
