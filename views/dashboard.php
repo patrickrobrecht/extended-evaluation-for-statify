@@ -225,7 +225,7 @@ if ( 0 === $selected_year ) {
 				<tr>
 					<td><?php esc_html_e( 'Minimum', 'extended-evaluation-for-statify' ); ?></td>
 					<?php
-					$daily_views = array();
+					$daily_views = [];
 					foreach ( $months as $month ) {
 						$daily_views[ $month ] = eefstatify_get_daily_views_of_month( $views_for_all_days, $selected_year, $month );
 						?>

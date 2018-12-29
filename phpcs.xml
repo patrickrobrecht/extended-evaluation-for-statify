@@ -38,6 +38,10 @@
     <rule ref="WordPress.VIP.DirectDatabaseQuery.NoCaching">
         <exclude-pattern>queries.php</exclude-pattern>
     </rule>
+    <rule ref="WordPress.WP.GlobalVariablesOverride.OverrideProhibited">
+        <exclude-pattern>content.php</exclude-pattern>
+        <exclude-pattern>dashboard.php</exclude-pattern>
+    </rule>
     <rule ref="WordPress.WP.I18n">
         <properties>
             <property name="text_domain" type="array" value="extended-evaluation-for-statify" />
@@ -45,6 +49,6 @@
     </rule>
 
     <!-- Include sniffs for PHP cross-version compatibility. -->
-    <config name="testVersion" value="5.6-"/>
+    <config name="testVersion" value="5.4-"/>
     <rule ref="PHPCompatibility"/>
 </ruleset>
