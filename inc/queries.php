@@ -51,7 +51,7 @@ function eefstatify_get_years() {
 		ORDER BY `year` DESC",
 		ARRAY_A
 	);
-	$years = array();
+	$years = [];
 	foreach ( $results as $result ) {
 		array_push( $years, intval( $result['year'] ) );
 	}
@@ -90,7 +90,7 @@ function eefstatify_get_views_for_all_days( $post_url = '' ) {
 			ARRAY_A
 		);
 	}
-	$views_for_all_days = array();
+	$views_for_all_days = [];
 	foreach ( $results as $result ) {
 		$views_for_all_days[ $result['date'] ] = $result['count'];
 	}
@@ -156,7 +156,7 @@ function eefstatify_get_views_for_all_months( $post_url = '' ) {
 			ARRAY_A
 		);
 	}
-	$views_for_all_months = array();
+	$views_for_all_months = [];
 	foreach ( $results as $result ) {
 		$views_for_all_months[ $result['date'] ] = $result['count'];
 	}
@@ -206,7 +206,7 @@ function eefstatify_get_average_daily_views_of_month( $views_for_all_months, $ye
  */
 function eefstatify_get_daily_views_of_month( $views_for_all_days, $year, $month ) {
 	$days = eefstatify_get_days( $month, $year );
-	$views = array();
+	$views = [];
 	foreach ( $days as $day ) {
 		array_push( $views, intval( eefstatify_get_daily_views( $views_for_all_days, $year, $month, $day ) ) );
 	}
@@ -244,7 +244,7 @@ function eefstatify_get_views_for_all_years( $post_url = '' ) {
 			ARRAY_A
 		);
 	}
-	$views_for_all_years = array();
+	$views_for_all_years = [];
 	foreach ( $results as $result ) {
 		$views_for_all_years[ $result['date'] ] = $result['count'];
 	}

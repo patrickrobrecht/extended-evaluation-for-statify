@@ -16,6 +16,8 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+define( 'EEFSTATFIFY_VERSION', '2.5.0' );
+
 // Includes.
 require_once 'inc/queries.php';
 require_once 'inc/formatting.php';
@@ -138,7 +140,9 @@ function eefstatify_enqueue_style( $style_name, $style_path ) {
 		plugins_url(
 			$style_path,
 			__FILE__
-		)
+		),
+		[],
+		EEFSTATFIFY_VERSION
 	);
 }
 
@@ -149,14 +153,15 @@ function eefstatify_enqueue_style( $style_name, $style_path ) {
  * @param string $script_path the plugin-relative path of the JavaScript.
  * @param array  $dependencies the dependencies.
  */
-function eefstatify_enqueue_script( $script_name, $script_path, $dependencies = array() ) {
+function eefstatify_enqueue_script( $script_name, $script_path, $dependencies = [] ) {
 	wp_enqueue_script(
 		$script_name,
 		plugins_url(
 			$script_path,
 			__FILE__
 		),
-		$dependencies
+		$dependencies,
+		EEFSTATFIFY_VERSION
 	);
 }
 
@@ -164,7 +169,7 @@ function eefstatify_enqueue_script( $script_name, $script_path, $dependencies = 
  * Create an item and submenu items in the WordPress admin menu.
  */
 function eefstatify_add_menu() {
-	$page_hook_suffixes = array();
+	$page_hook_suffixes = [];
 	$page_hook_suffixes[] = add_menu_page(
 		__( 'Statify – Extended Evaluation', 'extended-evaluation-for-statify' ), // page title.
 		'Statify', // title in the menu.
