@@ -4,7 +4,7 @@ Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
 Tested up to: 5.0
 Requires PHP: 5.4
-Stable tag: 2.5-dev
+Stable tag: 2.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,7 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 
 = 2.5 =
 * Enhancement: New charts library (for full GPL compatibility)
+* Bugfix: Errors in selection of predefined time periods
 
 = 2.4 =
 * Feature: Selection of predefined time periods

@@ -2,6 +2,10 @@
 
 ## Version 2.x
 
+### Version 2.5
+* Enhancement: New charts library (for full GPL compatibility)
+* Bugfix: Errors in selection of predefined time periods
+
 ### Version 2.4
 * Feature: Selection of predefined time periods
 * Enhancement: Better selection of posts
