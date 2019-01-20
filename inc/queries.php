@@ -198,6 +198,7 @@ function eefstatify_get_average_daily_views_of_month( $views_for_all_months, $ye
 
 /**
  * Returns an array with the daily views for all days in the given month.
+ * If the given month is the current one, just the views for past days and the current day is included.
  *
  * @param array $views_for_all_days an array with the daily views.
  * @param int   $year the year.
@@ -205,12 +206,31 @@ function eefstatify_get_average_daily_views_of_month( $views_for_all_months, $ye
  * @return array array with the daily views for all days in the given day.
  */
 function eefstatify_get_daily_views_of_month( $views_for_all_days, $year, $month ) {
-	$days = eefstatify_get_days( $month, $year );
+	if ( eefstatify_is_current_month( $year, $month ) ) {
+		$days = range( 1, intval( date( 'd' ) ) );
+	} else {
+		$days = eefstatify_get_days( $month, $year );
+	}
+
 	$views = [];
 	foreach ( $days as $day ) {
 		array_push( $views, intval( eefstatify_get_daily_views( $views_for_all_days, $year, $month, $day ) ) );
 	}
 	return $views;
+}
+
+/**
+ * Returns whether the given month is the current one.
+ *
+ * @param int $year a year.
+ * @param int $month a month.
+ *
+ * @return bool true if and only if the given month is the current one.
+ */
+function eefstatify_is_current_month( $year, $month ) {
+	$current_year = intval( date( 'Y' ) );
+	$current_month = intval( date( 'm' ) );
+	return ( $current_year === $year && $current_month === $month );
 }
 
 /**
