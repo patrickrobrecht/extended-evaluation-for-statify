@@ -192,7 +192,9 @@ function eefstatify_get_monthly_views( $views_for_all_months, $year, $month ) {
  */
 function eefstatify_get_average_daily_views_of_month( $views_for_all_months, $year, $month ) {
 	$views_in_month = eefstatify_get_monthly_views( $views_for_all_months, $year, $month );
-	$days_in_month = count( eefstatify_get_days( $month, $year ) );
+	$days_in_month = eefstatify_is_current_month( $year, $month )
+		? intval( date( 'd' ) )
+		: count( eefstatify_get_days( $month, $year ) );
 	return round( $views_in_month / $days_in_month );
 }
 
