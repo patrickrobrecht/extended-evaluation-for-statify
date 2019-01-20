@@ -4,7 +4,7 @@ Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
 Tested up to: 5.0
 Requires PHP: 5.4
-Stable tag: 2.4
+Stable tag: 2.5.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -60,9 +60,10 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify/blob/master/CHANGELOG.md) for the details.
 
-= 2.5 =
+= 2.5.0 =
 * Enhancement: New charts library (for full GPL compatibility)
 * Bugfix: Errors in selection of predefined time periods
+* Bugfix: Calculation of minimum/average daily views in current month
 
 = 2.4 =
 * Feature: Selection of predefined time periods
@@ -74,7 +75,7 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 
 == Upgrade Notice ==
 
-= 2.5 =
+= 2.5.0 =
 New charts library.
 
 = 2.4 =
