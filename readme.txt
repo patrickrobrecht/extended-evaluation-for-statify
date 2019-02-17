@@ -2,7 +2,7 @@
 Contributors: patrickrobrecht
 Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
-Tested up to: 5.0
+Tested up to: 5.1
 Requires PHP: 5.4
 Stable tag: 2.5.0
 License: GPLv3
