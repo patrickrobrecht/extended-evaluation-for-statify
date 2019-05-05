@@ -47,7 +47,7 @@ if ( isset( $_POST['start'] ) && isset( $_POST['end'] ) && check_admin_referer( 
 		<p><?php echo esc_html( $message ); ?></p>
 	</div>
 	<?php } ?>
-	<h2 class="nav-tab-wrapper">
+	<nav class="nav-tab-wrapper wp-clearfix" aria-label="<?php esc_html_e( 'Popular Content and Post Types', 'extended-evaluation-for-statify' ); ?>">
 		<a href="<?php echo esc_url( admin_url( 'admin.php?page=extended_evaluation_for_statify_content' ) ); ?>"
 			class="<?php eefstatify_echo_tab_class( 'popular' === $selected_post_type ); ?>">
 				<?php esc_html_e( 'Most Popular Content', 'extended-evaluation-for-statify' ); ?></a>
@@ -56,7 +56,7 @@ if ( isset( $_POST['start'] ) && isset( $_POST['end'] ) && check_admin_referer( 
 			class="<?php eefstatify_echo_tab_class( $selected_post_type === $post_type ); ?>">
 				<?php echo esc_html( get_post_type_object( $post_type )->labels->name ); ?></a>
 	<?php } ?>
-	</h2>
+	</nav>
 <?php
 if ( 'popular' === $selected_post_type ) {
 	// Show most popular content.

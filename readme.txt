@@ -2,9 +2,9 @@
 Contributors: patrickrobrecht
 Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
-Tested up to: 5.1
+Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 2.5.0
+Stable tag: 2.6.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -60,6 +60,10 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify/blob/master/CHANGELOG.md) for the details.
 
+= 2.6.0 =
+* Bugfix: Loading of minified CSS/JS, and min.js.map files
+* Enhancement: tabs semantics improvements, as recommended since WordPress 5.2
+
 = 2.5.0 =
 * Enhancement: New charts library (for full GPL compatibility)
 * Bugfix: Errors in selection of predefined time periods
@@ -74,6 +78,9 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 
 
 == Upgrade Notice ==
+
+= 2.6.0 =
+Admin tabs semantic improvement and bugfixes for loading minified files.
 
 = 2.5.0 =
 New charts library.
