@@ -29,16 +29,10 @@
     <rule ref="WordPress">
         <exclude name="WordPress.VIP.PostsPerPage.posts_per_page_posts_per_page" />
     </rule>
-    <rule ref="WordPress.VIP.RestrictedFunctions.url_to_postid_url_to_postid">
-        <exclude-pattern>formatting.php</exclude-pattern>
-    </rule>
     <rule ref="WordPress.DB.PreparedSQLPlaceholders.UnsupportedPlaceholder">
         <exclude-pattern>queries.php</exclude-pattern>
     </rule>
-    <rule ref="WordPress.VIP.DirectDatabaseQuery.NoCaching">
-        <exclude-pattern>queries.php</exclude-pattern>
-    </rule>
-    <rule ref="WordPress.WP.GlobalVariablesOverride.OverrideProhibited">
+    <rule ref="WordPress.WP.GlobalVariablesOverride.Prohibited">
         <exclude-pattern>content.php</exclude-pattern>
         <exclude-pattern>dashboard.php</exclude-pattern>
     </rule>
