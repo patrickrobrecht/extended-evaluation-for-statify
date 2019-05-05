@@ -42,7 +42,7 @@ if ( isset( $_GET['year'] ) && 4 === strlen( sanitize_text_field( wp_unslash( $_
 <div class="wrap eefstatify">
 	<h1><?php esc_html_e( 'Statify – Extended Evaluation', 'extended-evaluation-for-statify' ); ?></h1>
 
-    <nav class="nav-tab-wrapper wp-clearfix" aria-label="<?php esc_html_e( 'Overview and Years', 'extended-evaluation-for-statify' ); ?>">
+	<nav class="nav-tab-wrapper wp-clearfix" aria-label="<?php esc_html_e( 'Overview and Years', 'extended-evaluation-for-statify' ); ?>">
 		<a href="<?php echo esc_url( admin_url( 'admin.php?page=extended_evaluation_for_statify_dashboard&post=' . $selected_post ) ); ?>"
 			class="<?php eefstatify_echo_tab_class( 0 === $selected_year ); ?>"><?php esc_html_e( 'Overview', 'extended-evaluation-for-statify' ); ?></a>
 	<?php foreach ( $years as $year ) { ?>
