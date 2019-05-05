@@ -1,3 +1,4 @@
 vendor/
 *.min.css
 *.min.js
+*.min.js.map

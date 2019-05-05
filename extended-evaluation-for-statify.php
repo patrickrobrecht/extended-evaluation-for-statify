@@ -100,7 +100,7 @@ function eefstatify_register_and_load_assets() {
 		);
 		eefstatify_enqueue_style(
 			'eefstatify',
-			'/css/style.css'
+			'/css/style.min.css'
 		);
 
 		eefstatify_enqueue_script(
@@ -113,7 +113,7 @@ function eefstatify_register_and_load_assets() {
 		);
 		eefstatify_enqueue_script(
 			'eefstatify_functions',
-			'/js/functions.js',
+			'/js/functions.min.js',
 			[ 'chartist', 'chartist-plugin-tooltip', 'jquery' ]
 		);
 

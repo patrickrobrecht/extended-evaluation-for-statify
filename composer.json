@@ -64,7 +64,9 @@
     "copy-file": {
       "vendor/npm-asset/chartist/dist/chartist.min.css": "lib/",
       "vendor/npm-asset/chartist/dist/chartist.min.js": "lib/",
-      "vendor/npm-asset/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js": "lib/"
+      "vendor/npm-asset/chartist/dist/chartist.min.js.map": "lib/",
+      "vendor/npm-asset/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js": "lib/",
+      "vendor/npm-asset/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js.map": "lib/"
     }
   }
 }
