@@ -28,6 +28,7 @@
     <config name="minimum_supported_wp_version" value="4.4" />
     <rule ref="WordPress">
         <exclude name="WordPress.VIP.PostsPerPage.posts_per_page_posts_per_page" />
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
     </rule>
     <rule ref="WordPress.DB.PreparedSQLPlaceholders.UnsupportedPlaceholder">
         <exclude-pattern>queries.php</exclude-pattern>

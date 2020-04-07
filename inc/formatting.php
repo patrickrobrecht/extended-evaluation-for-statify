@@ -153,7 +153,7 @@ function eefstatify_get_date_period_string( $start, $end, $show, $formatted_date
 function eefstatify_get_filename( $export_name ) {
 	$sitename = sanitize_key( get_bloginfo( 'name' ) );
 	$export_name = str_replace( ' ', '-', $export_name );
-	return $sitename . '-' . $export_name . '-export-' . date( 'Y-m-d-H-i-s' );
+	return $sitename . '-' . $export_name . '-export-' . gmdate( 'Y-m-d-H-i-s' );
 }
 
 /**
