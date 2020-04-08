@@ -18,7 +18,6 @@
     <file>views</file>
     <file>extended-evaluation-for-statify.php</file>
     <exclude-pattern>index.php</exclude-pattern>
-    <exclude-pattern>dist/*</exclude-pattern>
     <exclude-pattern>vendor/*</exclude-pattern>
 
     <!-- Exclude minified Javascript files. -->
@@ -29,9 +28,6 @@
     <rule ref="WordPress">
         <exclude name="WordPress.VIP.PostsPerPage.posts_per_page_posts_per_page" />
         <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
-    </rule>
-    <rule ref="WordPress.DB.PreparedSQLPlaceholders.UnsupportedPlaceholder">
-        <exclude-pattern>queries.php</exclude-pattern>
     </rule>
     <rule ref="WordPress.WP.GlobalVariablesOverride.Prohibited">
         <exclude-pattern>content.php</exclude-pattern>

@@ -13,19 +13,22 @@ defined( 'ABSPATH' ) || exit;
  *
  * @param int $month the month as value between 1 and 12 (default: 1).
  * @param int $year a year (default: 0).
+ *
  * @return array an array of integers (1, 2, ..., 31).
  */
 function eefstatify_get_days( $month = 1, $year = 0 ) {
 	if ( 2 === $month ) {
 		if ( checkdate( 2, 29, $year ) ) {
 			return range( 1, 29 );
-		} else {
-			return range( 1, 28 );
 		}
+
+		return range( 1, 28 );
 	}
+
 	if ( in_array( $month, array( 4, 6, 9, 11 ), true ) ) {
 		return range( 1, 30 );
 	}
+
 	return range( 1, 31 );
 }
 
@@ -51,10 +54,11 @@ function eefstatify_get_years() {
 		ORDER BY `year` DESC",
 		ARRAY_A
 	);
-	$years = [];
+	$years   = [];
 	foreach ( $results as $result ) {
-		array_push( $years, intval( $result['year'] ) );
+		$years[] = (int) $result['year'];
 	}
+
 	return $years;
 }
 
@@ -63,6 +67,7 @@ function eefstatify_get_years() {
  * If the given URL is not the empty string, the result is restricted to the given post.
  *
  * @param string $post_url the URL of the post to select for (or the empty string for all posts).
+ *
  * @return array an array with date as key and views as value
  */
 function eefstatify_get_views_for_all_days( $post_url = '' ) {
@@ -94,6 +99,7 @@ function eefstatify_get_views_for_all_days( $post_url = '' ) {
 	foreach ( $results as $result ) {
 		$views_for_all_days[ $result['date'] ] = $result['count'];
 	}
+
 	return $views_for_all_days;
 }
 
@@ -105,23 +111,26 @@ function eefstatify_get_views_for_all_days( $post_url = '' ) {
  * @param int   $year the year.
  * @param int   $month the month.
  * @param int   $day the day.
+ *
  * @return int number the number of views (or -1 if the date is invalid).
  */
 function eefstatify_get_daily_views( $views_for_all_days, $year, $month, $day ) {
-	$year = str_pad( $year, 4, '0', STR_PAD_LEFT );
-	$month = str_pad( $month, 2, '0', STR_PAD_LEFT );
-	$day = str_pad( $day, 2, '0', STR_PAD_LEFT );
 	if ( checkdate( $month, $day, $year ) ) {
-		$date = $year . '-' . $month . '-' . $day;
+		$date = sprintf(
+			'%s-%s-%s',
+			str_pad( $year, 4, '0', STR_PAD_LEFT ),
+			str_pad( $month, 2, '0', STR_PAD_LEFT ),
+			str_pad( $day, 2, '0', STR_PAD_LEFT )
+		);
 		if ( array_key_exists( $date, $views_for_all_days ) ) {
 			return $views_for_all_days[ $date ];
-		} else {
-			return 0;
 		}
-	} else {
-		// No valid date.
-		return -1;
+
+		return 0;
 	}
+
+	// No valid date.
+	return -1;
 }
 
 /**
@@ -129,6 +138,7 @@ function eefstatify_get_daily_views( $views_for_all_days, $year, $month, $day ) 
  * If the given URL is not the empty string, the result is restricted to the given post.
  *
  * @param string $post_url the URL of the post to select for (or the empty string for all posts).
+ *
  * @return array an array with month as key and views as value.
  */
 function eefstatify_get_views_for_all_months( $post_url = '' ) {
@@ -146,6 +156,7 @@ function eefstatify_get_views_for_all_months( $post_url = '' ) {
 		// Only for selected posts.
 		$results = $wpdb->get_results(
 			$wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnsupportedPlaceholder
 				"SELECT DATE_FORMAT(`created`, '%Y-%m') as `date`, COUNT(`created`) as `count`
                 FROM `$wpdb->statify`
                 WHERE `target` = %s
@@ -160,6 +171,7 @@ function eefstatify_get_views_for_all_months( $post_url = '' ) {
 	foreach ( $results as $result ) {
 		$views_for_all_months[ $result['date'] ] = $result['count'];
 	}
+
 	return $views_for_all_months;
 }
 
@@ -169,17 +181,20 @@ function eefstatify_get_views_for_all_months( $post_url = '' ) {
  * @param array $views_for_all_months an array with the monthly views.
  * @param int   $year the year.
  * @param int   $month the month.
+ *
  * @return int the view for the given month.
  */
 function eefstatify_get_monthly_views( $views_for_all_months, $year, $month ) {
-	$year = str_pad( $year, 4, '0', STR_PAD_LEFT );
-	$month = str_pad( $month, 2, '0', STR_PAD_LEFT );
-	$date = $year . '-' . $month;
+	$date = sprintf(
+		'%s-%s',
+		str_pad( $year, 4, '0', STR_PAD_LEFT ),
+		str_pad( $month, 2, '0', STR_PAD_LEFT )
+	);
 	if ( array_key_exists( $date, $views_for_all_months ) ) {
 		return $views_for_all_months[ $date ];
-	} else {
-		return 0;
 	}
+
+	return 0;
 }
 
 /**
@@ -188,13 +203,15 @@ function eefstatify_get_monthly_views( $views_for_all_months, $year, $month ) {
  * @param array $views_for_all_months an array with the monthly views.
  * @param int   $year the year.
  * @param int   $month the month.
+ *
  * @return float the average daily views in the given month.
  */
 function eefstatify_get_average_daily_views_of_month( $views_for_all_months, $year, $month ) {
 	$views_in_month = eefstatify_get_monthly_views( $views_for_all_months, $year, $month );
-	$days_in_month = eefstatify_is_current_month( $year, $month )
+	$days_in_month  = eefstatify_is_current_month( $year, $month )
 		? (int) gmdate( 'd' )
 		: count( eefstatify_get_days( $month, $year ) );
+
 	return round( $views_in_month / $days_in_month );
 }
 
@@ -205,19 +222,21 @@ function eefstatify_get_average_daily_views_of_month( $views_for_all_months, $ye
  * @param array $views_for_all_days an array with the daily views.
  * @param int   $year the year.
  * @param int   $month the month.
+ *
  * @return array array with the daily views for all days in the given day.
  */
 function eefstatify_get_daily_views_of_month( $views_for_all_days, $year, $month ) {
 	if ( eefstatify_is_current_month( $year, $month ) ) {
-		$days = range( 1, intval( gmdate( 'd' ) ) );
+		$days = range( 1, (int) gmdate( 'd' ) );
 	} else {
 		$days = eefstatify_get_days( $month, $year );
 	}
 
 	$views = [];
 	foreach ( $days as $day ) {
-		array_push( $views, intval( eefstatify_get_daily_views( $views_for_all_days, $year, $month, $day ) ) );
+		$views[] = (int) eefstatify_get_daily_views( $views_for_all_days, $year, $month, $day );
 	}
+
 	return $views;
 }
 
@@ -230,8 +249,9 @@ function eefstatify_get_daily_views_of_month( $views_for_all_days, $year, $month
  * @return bool true if and only if the given month is the current one.
  */
 function eefstatify_is_current_month( $year, $month ) {
-	$current_year = intval( gmdate( 'Y' ) );
-	$current_month = intval( gmdate( 'm' ) );
+	$current_year  = (int) gmdate( 'Y' );
+	$current_month = (int) gmdate( 'm' );
+
 	return ( $current_year === $year && $current_month === $month );
 }
 
@@ -241,6 +261,7 @@ function eefstatify_is_current_month( $year, $month ) {
  * If the given URL is not the empty string, the result is restricted to the given post.
  *
  * @param string $post_url the URL of the post to select for (or the empty string for all posts).
+ *
  * @return array an array with the year as key and views as value.
  */
 function eefstatify_get_views_for_all_years( $post_url = '' ) {
@@ -270,6 +291,7 @@ function eefstatify_get_views_for_all_years( $post_url = '' ) {
 	foreach ( $results as $result ) {
 		$views_for_all_years[ $result['date'] ] = $result['count'];
 	}
+
 	return $views_for_all_years;
 }
 
@@ -279,15 +301,16 @@ function eefstatify_get_views_for_all_years( $post_url = '' ) {
  *
  * @param array $views_for_all_years an array with the yearly views.
  * @param int   $year the year.
+ *
  * @return int the views of the given year.
  */
 function eefstatify_get_yearly_views( $views_for_all_years, $year ) {
-	$year = str_pad( $year, 4, '0', STR_PAD_LEFT );
-	if ( array_key_exists( $year, $views_for_all_years ) ) {
-		return $views_for_all_years[ $year ];
-	} else {
-		return 0;
+	$year_key = str_pad( $year, 4, '0', STR_PAD_LEFT );
+	if ( array_key_exists( $year_key, $views_for_all_years ) ) {
+		return $views_for_all_years[ $year_key ];
 	}
+
+	return 0;
 }
 
 /**
@@ -295,6 +318,7 @@ function eefstatify_get_yearly_views( $views_for_all_years, $year ) {
  *
  * @param string $start the start date of the period.
  * @param string $end the end date of the period.
+ *
  * @return array an array with the most popular posts, ordered by view count.
  */
 function eefstatify_get_views_of_most_popular_posts( $start = '', $end = '' ) {
@@ -307,20 +331,20 @@ function eefstatify_get_views_of_most_popular_posts( $start = '', $end = '' ) {
 			ORDER BY `count` DESC",
 			ARRAY_A
 		);
-	} else {
-		return $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT COUNT(`target`) as `count`, `target` as `url`
-				FROM `$wpdb->statify`
-				WHERE `created` >= %s AND `created` <= %s
-				GROUP BY `target`
-				ORDER BY `count` DESC",
-				$start,
-				$end
-			),
-			ARRAY_A
-		);
 	}
+
+	return $wpdb->get_results(
+		$wpdb->prepare(
+			"SELECT COUNT(`target`) as `count`, `target` as `url`
+            FROM `$wpdb->statify`
+            WHERE `created` >= %s AND `created` <= %s
+            GROUP BY `target`
+            ORDER BY `count` DESC",
+			$start,
+			$end
+		),
+		ARRAY_A
+	);
 }
 
 /**
@@ -329,6 +353,7 @@ function eefstatify_get_views_of_most_popular_posts( $start = '', $end = '' ) {
  * @param string $url the post URL.
  * @param string $start the start date of the period.
  * @param string $end the end date of the period.
+ *
  * @return int the number of views for the post.
  */
 function eefstatify_get_views_of_post( $url, $start = '', $end = '' ) {
@@ -356,6 +381,7 @@ function eefstatify_get_views_of_post( $url, $start = '', $end = '' ) {
 			OBJECT
 		);
 	}
+
 	return $results[0]->count;
 }
 
@@ -366,6 +392,7 @@ function eefstatify_get_views_of_post( $url, $start = '', $end = '' ) {
  * @param string $post_url the URL of the post to select for (or the empty string for all posts).
  * @param string $start the start date of the period.
  * @param string $end the end date of the period.
+ *
  * @return array an array with the most referrers, ordered by view count
  */
 function eefstatify_get_views_for_all_referrers( $post_url = '', $start = '', $end = '' ) {
@@ -382,53 +409,53 @@ function eefstatify_get_views_for_all_referrers( $post_url = '', $start = '', $e
 				ORDER BY `count` DESC",
 				ARRAY_A
 			);
-		} else {
-			return $wpdb->get_results(
-				$wpdb->prepare(
-					"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`,
-					SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host`
-					FROM `$wpdb->statify`
-					WHERE `referrer` != '' AND `created` >= %s AND `created` <= %s
-					GROUP BY `host`
-					ORDER BY `count` DESC",
-					$start,
-					$end
-				),
-				ARRAY_A
-			);
 		}
-	} else {
-		// Only for selected posts.
-		if ( '' === $start && '' === $end ) {
-			return $wpdb->get_results(
-				$wpdb->prepare(
-					"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`,
-					SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host`
-					FROM `$wpdb->statify`
-					WHERE `referrer` != '' AND target = %s
-					GROUP BY `host`
-					ORDER BY `count` DESC",
-					$post_url
-				),
-				ARRAY_A
-			);
-		} else {
-			return $wpdb->get_results(
-				$wpdb->prepare(
-					"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`,
-					SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host`
-					FROM `$wpdb->statify`
-					WHERE `referrer` != '' AND `target` = %s AND `created` >= %s AND `created` <= %s
-					GROUP BY `host`
-					ORDER BY `count` DESC",
-					$post_url,
-					$start,
-					$end
-				),
-				ARRAY_A
-			);
-		}
+
+		return $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`,
+                SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host`
+                FROM `$wpdb->statify`
+                WHERE `referrer` != '' AND `created` >= %s AND `created` <= %s
+                GROUP BY `host`
+                ORDER BY `count` DESC",
+				$start,
+				$end
+			),
+			ARRAY_A
+		);
 	}
+
+	// Only for selected posts.
+	if ( '' === $start && '' === $end ) {
+		return $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`,
+                SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host`
+                FROM `$wpdb->statify`
+                WHERE `referrer` != '' AND target = %s
+                GROUP BY `host`
+                ORDER BY `count` DESC",
+				$post_url
+			),
+			ARRAY_A
+		);
+	}
+
+	return $wpdb->get_results(
+		$wpdb->prepare(
+			"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`,
+            SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host`
+            FROM `$wpdb->statify`
+            WHERE `referrer` != '' AND `target` = %s AND `created` >= %s AND `created` <= %s
+            GROUP BY `host`
+            ORDER BY `count` DESC",
+			$post_url,
+			$start,
+			$end
+		),
+		ARRAY_A
+	);
 }
 
 /**
@@ -438,6 +465,7 @@ function eefstatify_get_views_for_all_referrers( $post_url = '', $start = '', $e
  */
 function eefstatify_get_post_urls() {
 	global $wpdb;
+
 	return $wpdb->get_results(
 		"SELECT DISTINCT `target`
 		FROM `$wpdb->statify`
