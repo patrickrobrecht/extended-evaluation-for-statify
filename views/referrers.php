@@ -23,7 +23,7 @@ $start = '';
 $end = '';
 
 // Check for at least one date set and valid wp_nonce.
-if ( isset( $_POST['start'] ) && isset( $_POST['end'] ) && check_admin_referer( 'referrers' ) ) {
+if ( isset( $_POST['start'], $_POST['end'] ) && check_admin_referer( 'referrers' ) ) {
 	$start = sanitize_text_field( wp_unslash( $_POST['start'] ) );
 	$end = sanitize_text_field( wp_unslash( $_POST['end'] ) );
 	if ( '' !== $start || '' !== $end ) {
@@ -69,7 +69,7 @@ $filename = eefstatify_get_filename(
 		<?php
 		$legend = [];
 		foreach ( $referrers_for_diagram as $referrer ) {
-			array_push( $legend, $referrer['host'] );
+			$legend[] = $referrer['host'];
 		}
 
 		eefstatify_echo_chart_container(

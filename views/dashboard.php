@@ -11,12 +11,10 @@ defined( 'ABSPATH' ) || exit;
 // Get the selected post if one is set, otherwise: all posts.
 if ( isset( $_POST['post'] ) && check_admin_referer( 'dashboard' ) ) {
 	$selected_post = sanitize_text_field( wp_unslash( $_POST['post'] ) );
+} elseif ( isset( $_GET['post'] ) ) {
+	$selected_post = sanitize_text_field( wp_unslash( $_GET['post'] ) );
 } else {
-	if ( isset( $_GET['post'] ) ) {
-		$selected_post = sanitize_text_field( wp_unslash( $_GET['post'] ) );
-	} else {
-		$selected_post = '';
-	}
+	$selected_post = '';
 }
 
 // Get the data necessary for all tabs.
@@ -26,7 +24,7 @@ $views_for_all_months = eefstatify_get_views_for_all_months( $selected_post );
 
 // Get the selected tab.
 if ( isset( $_GET['year'] ) && 4 === strlen( sanitize_text_field( wp_unslash( $_GET['year'] ) ) ) ) {
-	$selected_year = intval( sanitize_text_field( wp_unslash( $_GET['year'] ) ) );
+	$selected_year = (int) sanitize_text_field( wp_unslash( $_GET['year'] ) );
 
 	// Get the data shown on daily details tab for one year.
 	$days = eefstatify_get_days();

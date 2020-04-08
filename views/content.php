@@ -26,7 +26,7 @@ $start = '';
 $end = '';
 
 // Check for at least one date set and valid wp_nonce.
-if ( isset( $_POST['start'] ) && isset( $_POST['end'] ) && check_admin_referer( 'content' ) ) {
+if ( isset( $_POST['start'], $_POST['end'] ) && check_admin_referer( 'content' ) ) {
 	$start = sanitize_text_field( wp_unslash( $_POST['start'] ) );
 	$end = sanitize_text_field( wp_unslash( $_POST['end'] ) );
 	if ( '' !== $start || '' !== $end ) {
@@ -83,7 +83,7 @@ if ( 'popular' === $selected_post_type ) {
 		<?php
 		$legend = [];
 		foreach ( $views_per_post_for_diagram as $post ) {
-			array_push( $legend, eefstatify_get_post_title_from_url( $post['url'] ) );
+			$legend[] = eefstatify_get_post_title_from_url( $post['url'] );
 		}
 
 		eefstatify_echo_chart_container(

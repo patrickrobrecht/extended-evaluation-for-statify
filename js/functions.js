@@ -1,16 +1,17 @@
-function exportTableToCSV($table, filename) {
+function eefstatifyTableToCsv($table, filename) {
     // Temporary delimiters unlikely to be typed by keyboard to avoid accidentally splitting the actual contents.
-    var tmpColDelim = String.fromCharCode(11), tmpRowDelim = String.fromCharCode(0),
+    const tmpColDelim = String.fromCharCode(11), tmpRowDelim = String.fromCharCode(0),
         // Actual delimiters for CSV.
-        colDelim = '","', rowDelim = '"\r\n"', // actual delimiters for CSV
+        colDelim = '","', rowDelim = '"\r\n"',
         $rows = $table.find('tr'),
         csv = '"' + $rows.map(function (i, row) {
-            var $row = jQuery(row), $cols = $row.find('td,th');
+            const $row = jQuery(row), $cols = $row.find('td,th');
             return $cols.map(function (j, col) {
-                var $col = jQuery(col), text = $col.text();
+                const $col = jQuery(col), text = $col.text();
                 return text.replace(/"/g, '""'); // escape double quotes
             }).get().join(tmpColDelim);
-        }).get().join(tmpRowDelim).split(tmpRowDelim)
+        }).get()
+            .join(tmpRowDelim).split(tmpRowDelim)
             .join(rowDelim).split(tmpColDelim)
             .join(colDelim) + '"',
         csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
@@ -21,19 +22,19 @@ function exportTableToCSV($table, filename) {
 }
 
 function eefstatifyColumnChart(id, dataArray) {
-    var dataMap = new Map(dataArray);
-    var seriesData = [];
-    for (var [x, y] of dataMap.entries()) {
+    const dataMap = new Map(dataArray);
+    const seriesData = [];
+    for (const [x, y] of dataMap.entries()) {
         seriesData.push({meta: x, value: y});
     }
-    var data = {
+    const data = {
         labels: Array.from({length: dataArray.length}, (x, i) => i + 1),
         series: [
             seriesData
         ]
     };
 
-    var options = {
+    const options = {
         axisX: {
             showGrid: false
         },
@@ -60,7 +61,7 @@ function eefstatifyColumnChart(id, dataArray) {
         seriesBarDistance: 20
     };
 
-    var responsiveOptions = [
+    const responsiveOptions = [
         ['screen and (max-width: 640px)', {
             seriesBarDistance: 5,
             axisX: {
@@ -75,19 +76,19 @@ function eefstatifyColumnChart(id, dataArray) {
 }
 
 function eefstatifyLineChart(id, dataArray, type = 'default') {
-    var dataMap = new Map(dataArray);
-    var seriesData = [];
-    for (var [x, y] of dataMap.entries()) {
+    const dataMap = new Map(dataArray);
+    const seriesData = [];
+    for (const [x, y] of dataMap.entries()) {
         seriesData.push({meta: x, value: y});
     }
-    var data = {
+    const data = {
         labels: Array.from(dataMap.keys()),
         series: [
             seriesData
         ]
     };
 
-    var options = {
+    const options = {
         axisX: {
             showGrid: false,
             labelInterpolationFnc: function (value) {
@@ -120,11 +121,11 @@ function eefstatifyLineChart(id, dataArray, type = 'default') {
         showPoints: true
     };
 
-    var chart = new Chartist.Line(id, data, options);
+    new Chartist.Line(id, data, options);
 }
 
 function eefstatifySelectDateRange() {
-    var t = new Date(),
+    const t = new Date(),
         y = t.getFullYear(),
         m = t.getMonth(),
         d = t.getDate(),
@@ -185,7 +186,7 @@ function eefstatifySetDateRange(start, end) {
 }
 
 function eefstatifyDateFormat(date) {
-    var m = date.getMonth() + 1,
+    const m = date.getMonth() + 1,
         d = date.getDate();
     return date.getFullYear() + '-' + (m > 9 ? '' : '0') + m + '-' + (d > 9 ? '' : '0') + d;
 }
@@ -196,7 +197,7 @@ function eefstatifyDateRangeChange() {
 }
 
 function eefstatifyValidateDateRange() {
-    var start = jQuery('#start'),
+    const start = jQuery('#start'),
         end = jQuery('#end'),
         correct = start[0].validity.valid && end[0].validity.valid && ((start.val() && end.val()) || (!start.val() && !end.val()));
     jQuery('form button').prop('disabled', !correct);

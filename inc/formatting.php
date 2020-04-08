@@ -21,7 +21,7 @@ function eefstatify_echo_export_button( $filename, $button_id = 'csv-export', $t
 	<script type='text/javascript'>
 	jQuery(document).ready(function () {
 		jQuery("#<?php echo esc_html( $button_id ); ?>").click(function () {
-			exportTableToCSV.apply(this, [jQuery('#<?php echo esc_html( $table_id ); ?>'), '<?php echo esc_html( $filename ); ?>.csv']);
+			eefstatifyTableToCsv.apply(this, [jQuery('#<?php echo esc_html( $table_id ); ?>'), '<?php echo esc_html( $filename ); ?>.csv']);
 		});
 	});
 	</script>
@@ -139,9 +139,9 @@ function eefstatify_get_date_period_string( $start, $end, $show, $formatted_date
 		}
 		return ' ' . __( 'from', 'extended-evaluation-for-statify' ) . ' ' . $start
 			. ' ' . __( 'to', 'extended-evaluation-for-statify' ) . ' ' . $end;
-	} else {
-		return '';
 	}
+
+	return '';
 }
 
 /**
@@ -162,7 +162,7 @@ function eefstatify_get_filename( $export_name ) {
  * @param string $string a numeric value as string.
  */
 function eefstatify_echo_number( $string ) {
-	$number = intval( $string );
+	$number = (int) $string;
 	if ( $number < 0 ) {
 		echo '&mdash;';
 	} else {
@@ -187,7 +187,7 @@ function eefstatify_echo_percentage( $number, $decimals = 2 ) {
  * @return string the short month name (e. g. Jan for January).
  */
 function eefstatify_get_month_name( $month_as_int ) {
-	$month_as_int = intval( $month_as_int );
+	$month_as_int = (int) $month_as_int;
 	if ( in_array( $month_as_int, eefstatify_get_months(), true ) ) {
 		return date_i18n( 'M', strtotime( '2016-' . $month_as_int . '-1' ) );
 	}
@@ -212,12 +212,12 @@ function eefstatify_get_month_year_name( $month ) {
  * @return string the number or a dash.
  */
 function eefstatify_get_number_for_csv( $string ) {
-	$number = intval( $string );
+	$number = (int) $string;
 	if ( $number < 0 ) {
 		return '-';
-	} else {
-		return $string;
 	}
+
+	return $string;
 }
 
 /**
@@ -284,8 +284,8 @@ function eefstatify_get_post_types() {
 		'public' => true,
 		'_builtin' => false,
 	);
-	$types = array_merge( array( 'post', 'page' ), get_post_types( $types_args ) );
-	return $types;
+
+	return array_merge( array( 'post', 'page' ), get_post_types( $types_args ) );
 }
 
 /**
