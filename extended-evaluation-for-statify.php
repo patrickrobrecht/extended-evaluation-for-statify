@@ -232,7 +232,9 @@ add_action( 'admin_menu', 'eefstatify_add_menu' );
 function eefstatify_add_capability() {
 	// Only administrators can see the evaluation by default.
 	$role = get_role( 'administrator' );
-	$role->add_cap( 'see_statify_evaluation' );
+	if ( $role ) {
+		$role->add_cap( 'see_statify_evaluation' );
+	}
 
 	// Remove old role Statify Analyst.
 	$role = get_role( 'statify_evaluator' );

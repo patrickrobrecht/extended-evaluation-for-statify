@@ -132,7 +132,9 @@ if ( 'popular' === $selected_post_type ) {
 				foreach ( $views_per_post as $post ) {
 					?>
 				<tr>
-					<td><a href="<?php echo esc_url( $post['url'] ); ?>" target="_blank"><?php echo esc_html( eefstatify_get_post_title_from_url( $post['url'] ) ); ?></a></td>
+					<td><a href="<?php echo esc_url( home_url( $post['url'] ) ); ?>" target="_blank">
+							<?php echo esc_html( eefstatify_get_post_title_from_url( $post['url'] ) ); ?>
+						</a></td>
 					<td><?php echo esc_url( $post['url'] ); ?></td>
 					<td><?php echo esc_html( eefstatify_get_post_type_name_from_url( $post['url'] ) ); ?></td>
 					<td class="right"><?php eefstatify_echo_number( $post['count'] ); ?></td>
