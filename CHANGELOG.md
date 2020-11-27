@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version 2.x
 
+### Version 2.6.1
+* Update tooltip library (switch to more recent fork)
+
 ### Version 2.6.0
 * Bugfix: Loading of minified CSS/JS, and min.js.map files
 * Enhancement: tabs semantics improvements, as recommended since WordPress 5.2
