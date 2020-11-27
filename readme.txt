@@ -4,7 +4,7 @@ Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
 Tested up to: 5.6
 Requires PHP: 5.4
-Stable tag: 2.6.0
+Stable tag: 2.6.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -60,6 +60,11 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify/blob/master/CHANGELOG.md) for the details.
 
+= 2.6.1 =
+* Update tooltip library (switch to more recent fork)
+* Fix issues on WordPress multisite installations (set capabilities and links on the content page)
+* Code style improvements
+
 = 2.6.0 =
 * Bugfix: Loading of minified CSS/JS, and min.js.map files
 * Enhancement: tabs semantics improvements, as recommended since WordPress 5.2
@@ -69,21 +74,11 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 * Bugfix: Errors in selection of predefined time periods
 * Bugfix: Calculation of minimum/average daily views in current month
 
-= 2.4 =
-* Feature: Selection of predefined time periods
-* Enhancement: Better selection of posts
-* Enhancement: Minified CSS/JS files, build command
-* Enhancement: Check for compliance with WordPress Coding Guidelines with PHP_CodeSniffer
-* Refactoring the charts code
-
 
 == Upgrade Notice ==
 
+= 2.6.1 =
+This release fixes two bugs on multisite installations.
+
 = 2.6.0 =
 Admin tabs semantic improvement and bugfixes for loading minified files.
-
-= 2.5.0 =
-New charts library.
-
-= 2.4 =
-New features and enhancements. It is recommended for all users.
