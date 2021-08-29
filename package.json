@@ -1,0 +1,43 @@
+{
+  "private": true,
+  "devDependencies": {
+    "@wordpress/eslint-plugin": "^9.1.1",
+    "@wordpress/stylelint-config": "^19.0.4",
+    "eslint": "^7.26.0",
+    "stylelint": "^13.13.1"
+  },
+  "scripts": {
+    "cs": "npm run csCSS && npm run csJS",
+    "csCSS": "npx stylelint css/style.css",
+    "csJS": "npx eslint js/functions.js",
+    "csfix": "npm run csfixCSS && npm run csfixJS",
+    "csfixCSS": "npx stylelint css/style.css --fix",
+    "csfixJS": "npx eslint js/functions.js --fix"
+  },
+  "eslintConfig": {
+    "extends": "plugin:@wordpress/eslint-plugin/recommended",
+    "rules": {
+      "no-nested-ternary": "off",
+      "no-unused-vars": [
+        "error",
+        {
+          "varsIgnorePattern": "eefstatify(TableToCsv|ColumnChart|LineChart|SelectDateRange|DateRangeChange)"
+        }
+      ]
+    },
+    "env": {
+      "browser": true,
+      "jquery": true
+    },
+    "globals": {
+      "Chartist": "readonly",
+      "eefstatify_translations": "readonly"
+    }
+  },
+  "stylelint": {
+    "extends": "@wordpress/stylelint-config",
+    "rules": {
+      "font-weight-notation": "named-where-possible"
+    }
+  }
+}

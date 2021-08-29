@@ -1,0 +1,22 @@
+name: Code style check
+on: push
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install
+        run: |
+          composer install --no-interaction
+          npm ci
+      - name: Code style checks for PHP
+        run: composer cs
+      - name: Code style checks for CSS and JavaScript
+        run: npm run cs
