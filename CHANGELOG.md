@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version 2.x
 
+### Version 2.6.2
+* Bugfix: Error in most popular posts diagram showing multiple pages with the same title
+
 ### Version 2.6.1
 * Update tooltip library (switch to more recent fork)
 * Fix issues on WordPress multisite installations (set capabilities and links on the content page)

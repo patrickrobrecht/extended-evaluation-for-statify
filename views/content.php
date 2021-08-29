@@ -78,7 +78,7 @@ if ( 'popular' === $selected_post_type ) {
 	</form>
 	<?php if ( count( $views_per_post ) === 0 ) { ?>
 	<p><?php esc_html_e( 'No data available.', 'extended-evaluation-for-statify' ); ?></p>
-<?php } else { ?>
+	<?php } else { ?>
 	<section>
 		<?php
 		$legend = [];
@@ -98,8 +98,8 @@ if ( 'popular' === $selected_post_type ) {
 				'#chart-popular-content',
 				[
 					<?php
-					foreach ( $views_per_post_for_diagram as $post ) {
-						echo "['" . esc_js( eefstatify_get_post_title_from_url( $post['url'] ) ) . "'," . esc_js( $post['count'] ) . '],';
+					foreach ( $views_per_post_for_diagram as $index => $post ) {
+						echo "['" . esc_js( $index ) . "'," . esc_js( $post['count'] ) . '],';
 					}
 					?>
 				]
