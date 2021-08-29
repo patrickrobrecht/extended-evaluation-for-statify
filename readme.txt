@@ -4,7 +4,7 @@ Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
 Tested up to: 5.7
 Requires PHP: 5.4
-Stable tag: 2.6.1
+Stable tag: 2.6.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -60,6 +60,9 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify/blob/master/CHANGELOG.md) for the details.
 
+= 2.6.2 =
+* Bugfix: Error in most popular posts diagram showing multiple pages with the same title
+
 = 2.6.1 =
 * Update tooltip library (switch to more recent fork)
 * Fix issues on WordPress multisite installations (set capabilities and links on the content page)
@@ -77,8 +80,5 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 
 == Upgrade Notice ==
 
-= 2.6.1 =
-This release fixes two bugs on multisite installations.
-
-= 2.6.0 =
-Admin tabs semantic improvement and bugfixes for loading minified files.
+= 2.6.2 =
+This release fixes a bug in the most popular posts diagram.
