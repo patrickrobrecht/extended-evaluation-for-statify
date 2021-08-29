@@ -1,94 +1,94 @@
 @charset "UTF-8";
 
 .eefstatify table {
-    border-collapse: collapse;
-    clear: both;
+	border-collapse: collapse;
+	clear: both;
 }
 
 .eefstatify td,
 .eefstatify th {
-    padding: .7em;
-    vertical-align: top;
+	padding: 0.7em;
+	vertical-align: top;
 }
 
 .eefstatify .right {
-    text-align: right;
-    min-width: 2.5em;
+	text-align: right;
+	min-width: 2.5em;
 }
 
 .eefstatify .sum {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .eefstatify legend {
-    margin: 1em 0;
-    font-weight: bold;
+	margin: 1em 0;
+	font-weight: bold;
 }
 
-.eefstatify input[type=date],
+.eefstatify input[type="date"],
 .eefstatify select {
-    margin-right: 25px;
+	margin-right: 25px;
 }
 
 /* Chart container */
 .eefstatify .chart-container {
-    background: #fff;
-    margin: 1em 0;
+	background: #fff;
+	margin: 1em 0;
 }
 
 /* Chart title */
 .eefstatify .chart-title,
 .eefstatify .chart-subtitle {
-    text-align: center;
-    font-size: 1.5em;
-    padding: 0.5em 0;
+	text-align: center;
+	font-size: 1.5em;
+	padding: 0.5em 0;
 }
 
 .eefstatify .chart-subtitle {
-    font-size: 1.1em;
+	font-size: 1.1em;
 }
 
 /* Background for area below lines */
 .eefstatify .ct-area {
-    fill: #0074a2;
+	fill: #0074a2;
 }
 
 /* Color of points and lines */
 .eefstatify .ct-point,
 .eefstatify .ct-series-a .ct-bar,
 .eefstatify .ct-series-a .ct-line {
-    stroke: #0074a2;
+	stroke: #0074a2;
 }
 
 /* Size of points */
 .eefstatify .ct-point {
-    stroke-width: 8px;
+	stroke-width: 8px;
 }
 
 /* Tooltip */
 .eefstatify-ct-tooltip {
-    border: 1px solid #453d3f;
-    background-color: #fff;
-    border-radius: 0.2em;
-    padding: 0.25em;
+	border: 1px solid #453d3f;
+	background-color: #fff;
+	border-radius: 0.2em;
+	padding: 0.25em;
 }
 
 /* Arrow below tooltip */
-.eefstatify-ct-tooltip:before {
-    border-top-color: #453d3f;
+.eefstatify-ct-tooltip::before {
+	border-top-color: #453d3f;
 }
 
 /* Tooltip text first line */
 .eefstatify-ct-tooltip .chartist-tooltip-meta {
-    color: #0074a2;
+	color: #0074a2;
 }
 
 /* Legend */
 .eefstatify .chart-legend {
-    padding: 5px 20px;
+	padding: 5px 20px;
 }
 
 .eefstatify .chart-legend ol {
-    column-width: 20em;
-    column-gap: 20px;
+	column-width: 20em;
+	column-gap: 20px;
 }
