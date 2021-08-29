@@ -19,4 +19,4 @@ jobs:
       - name: Code style checks for PHP
         run: composer cs
       - name: Code style checks for CSS and JavaScript
-        run: npm cs
+        run: npm run cs
