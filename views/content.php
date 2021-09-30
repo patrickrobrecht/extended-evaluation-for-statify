@@ -89,7 +89,7 @@ if ( 'popular' === $selected_post_type ) {
 		eefstatify_echo_chart_container(
 			'chart-popular-content',
 			__( 'Most Popular Content', 'extended-evaluation-for-statify' ),
-			'',
+			eefstatify_get_date_period_string( $start, $end, $valid_start && $valid_end, true ),
 			$legend
 		);
 		?>
