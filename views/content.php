@@ -99,7 +99,11 @@ if ( 'popular' === $selected_post_type ) {
 				[
 					<?php
 					foreach ( $views_per_post_for_diagram as $index => $post ) {
-						echo "['" . esc_js( $index ) . "'," . esc_js( $post['count'] ) . '],';
+						echo "['"
+							 . esc_js( $index + 1 . '. ' . eefstatify_get_post_title_from_url( $post['url'] ) )
+							 . "',"
+							 . esc_js( $post['count'] )
+							 . '],';
 					}
 					?>
 				]
