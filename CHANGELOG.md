@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version 2.x
 
+### Version 2.6.3
+* Bugfix: Index and post title tooltip in most popular posts diagram (introduced with bugfix version 2.6.2)
+* Bugfix: Add selected date range to the subtitle in most popular posts diagram
+
 ### Version 2.6.2
 * Bugfix: Error in most popular posts diagram showing multiple pages with the same title
 
