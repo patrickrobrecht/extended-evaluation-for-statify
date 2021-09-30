@@ -4,7 +4,7 @@ Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 2.6.2
+Stable tag: 2.6.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -60,6 +60,10 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify/blob/master/CHANGELOG.md) for the details.
 
+= 2.6.3 =
+* Bugfix: Index and post title tooltip in most popular posts diagram (introduced with bugfix version 2.6.2)
+* Bugfix: Add selected date range to the subtitle in most popular posts diagram
+
 = 2.6.2 =
 * Bugfix: Error in most popular posts diagram showing multiple pages with the same title
 
@@ -80,5 +84,5 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 
 == Upgrade Notice ==
 
-= 2.6.2 =
-This release fixes a bug in the most popular posts diagram.
+= 2.6.3 =
+This release fixes bugs in the most popular posts diagram.
