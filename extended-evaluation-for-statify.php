@@ -138,7 +138,7 @@ function eefstatify_register_and_load_assets() {
 
 		wp_localize_script(
 			'eefstatify_functions',
-			'eefstatify_translations',
+			'eefStatifyTranslations',
 			array(
 				'view'  => strip_tags( esc_html__( 'View', 'extended-evaluation-for-statify' ) ),
 				'views' => strip_tags( esc_html__( 'Views', 'extended-evaluation-for-statify' ) ),
