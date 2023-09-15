@@ -91,7 +91,7 @@ function eefstatifyColumnChart(id, dataArray) {
 		],
 	];
 
-	new Chartist.Bar(id, data, options, responsiveOptions);
+	new Chartist.BarChart(id, data, options, responsiveOptions);
 }
 
 function eefstatifyLineChart(id, dataArray, type = 'default') {
@@ -146,7 +146,7 @@ function eefstatifyLineChart(id, dataArray, type = 'default') {
 		showPoints: true,
 	};
 
-	new Chartist.Line(id, data, options);
+	new Chartist.LineChart(id, data, options);
 }
 
 function eefstatifySelectDateRange() {
