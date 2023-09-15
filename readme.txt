@@ -4,7 +4,7 @@ Tags: stats, analytics, privacy, statistics
 Requires at least: 4.4
 Tested up to: 6.3
 Requires PHP: 5.4
-Stable tag: 2.6.3
+Stable tag: 2.6.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -60,6 +60,10 @@ Therefore you'll have to add the *see_statify_evaluation* capability to the user
 
 Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended-evaluation-for-statify/blob/master/CHANGELOG.md) for the details.
 
+= 2.6.4 =
+- Bugfix: Updated dependencies, including the Chartist library used for the charts
+- Security fix: Precede cell values starting with = or another spreadsheet meta-character with a single quote to avoid CSV injection
+
 = 2.6.3 =
 * Bugfix: Index and post title tooltip in most popular posts diagram (introduced with bugfix version 2.6.2)
 * Bugfix: Add selected date range to the subtitle in most popular posts diagram
@@ -84,5 +88,5 @@ Please see [the changelog at GitHub](https://github.com/patrickrobrecht/extended
 
 == Upgrade Notice ==
 
-= 2.6.3 =
-This release fixes bugs in the most popular posts diagram.
+= 2.6.4 =
+This release contains a security fix and all users are encouraged to update to this version.
