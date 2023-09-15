@@ -1,10 +1,11 @@
 {
   "private": true,
   "devDependencies": {
-    "@wordpress/eslint-plugin": "^9.1.1",
-    "@wordpress/stylelint-config": "^19.0.4",
-    "eslint": "^7.26.0",
-    "stylelint": "^13.13.1"
+    "@wordpress/eslint-plugin": "^15.1.0",
+    "@wordpress/stylelint-config": "^21.24.0",
+    "eslint": "^8.49.0",
+    "prettier": "^2.8.8",
+    "stylelint": "^14.16.1"
   },
   "scripts": {
     "cs": "npm run csCSS && npm run csJS",
@@ -31,7 +32,7 @@
     },
     "globals": {
       "Chartist": "readonly",
-      "eefstatify_translations": "readonly"
+      "eefStatifyTranslations": "readonly"
     }
   },
   "stylelint": {
