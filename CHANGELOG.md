@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Updated dependencies, including the Chartist library used for the charts
 
+### Security
+- Precede cell values starting with = or another spreadsheet meta-character with a single quote to avoid CSV injection
+
 
 ## Version 2.x
 

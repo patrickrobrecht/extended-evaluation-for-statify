@@ -5,6 +5,7 @@ function eefstatifyTableToCsv(table, filename) {
 		// Actual delimiters for CSV.
 		colDelim = '","',
 		rowDelim = '"\r\n"',
+		forbiddenStartCharacters = ['+', '-', '=', '@'],
 		rows = table.find('tr'),
 		csv =
 			'"' +
@@ -13,7 +14,19 @@ function eefstatifyTableToCsv(table, filename) {
 					return jQuery(row)
 						.find('td,th')
 						.map(function (j, col) {
-							return jQuery(col).text().replace(/"/g, '""'); // escape double quotes
+							let text = jQuery(col).text();
+							// Escape double quotes and trim result.
+							text = text.replace(/"/g, '""').trim();
+							// Precede cell values starting with = or another spreadsheet meta-character with a single quote to avoid CSV injection.
+							const startCharacter = text.substring(0, 1);
+							if (
+								forbiddenStartCharacters.includes(
+									startCharacter
+								)
+							) {
+								text = "'" + text;
+							}
+							return text;
 						})
 						.get()
 						.join(tmpColDelim);
