@@ -1,24 +1,33 @@
-name: Code style check
+name: Check code style
+
 on: push
+
 jobs:
   quality:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
-      - name: Setup Node
-        uses: actions/setup-node@v3
         with:
-          node-version: '18'
-      - name: Install
-        run: |
-          composer install --no-interaction
-          npm ci
-      - name: Code style checks for PHP
+          php-version: 8.3
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install npm dependencies
+        run: npm clean-install
+
+      - name: Check code style for PHP
         run: composer cs
-      - name: Code style checks for CSS and JavaScript
+
+      - name: Check code style for CSS and JavaScript
         run: npm run cs

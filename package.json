@@ -1,11 +1,11 @@
 {
   "private": true,
   "devDependencies": {
-    "@wordpress/eslint-plugin": "^15.1.0",
-    "@wordpress/stylelint-config": "^21.24.0",
-    "eslint": "^8.49.0",
-    "prettier": "^2.8.8",
-    "stylelint": "^14.16.1"
+    "@wordpress/eslint-plugin": "^21.4.0",
+    "@wordpress/stylelint-config": "^23.3.0",
+    "eslint": "^8.57.1",
+    "prettier": "^3.3.3",
+    "stylelint": "^16.10.0"
   },
   "scripts": {
     "cs": "npm run csCSS && npm run csJS",
