@@ -24,10 +24,10 @@
     <exclude-pattern>*.min.js</exclude-pattern>
 
     <!-- WordPress coding standards -->
-    <config name="minimum_supported_wp_version" value="4.4" />
+    <config name="minimum_supported_wp_version" value="4.4"/>
     <rule ref="WordPress">
-        <exclude name="WordPress.VIP.PostsPerPage.posts_per_page_posts_per_page" />
-        <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
+        <exclude name="WordPress.VIP.PostsPerPage.posts_per_page_posts_per_page"/>
+        <exclude name="Universal.Arrays.DisallowShortArraySyntax.Found"/>
     </rule>
     <rule ref="WordPress.WP.GlobalVariablesOverride.Prohibited">
         <exclude-pattern>content.php</exclude-pattern>
@@ -35,11 +35,11 @@
     </rule>
     <rule ref="WordPress.WP.I18n">
         <properties>
-            <property name="text_domain" type="array" value="extended-evaluation-for-statify" />
+            <property name="text_domain" type="array" value="extended-evaluation-for-statify"/>
         </properties>
     </rule>
 
     <!-- Include sniffs for PHP cross-version compatibility. -->
     <config name="testVersion" value="5.4-"/>
-    <rule ref="PHPCompatibility"/>
+    <rule ref="PHPCompatibilityWP"/>
 </ruleset>
