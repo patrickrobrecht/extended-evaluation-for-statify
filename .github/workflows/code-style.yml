@@ -8,20 +8,20 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3
+          php-version: 8.5
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Install npm dependencies
         run: npm clean-install

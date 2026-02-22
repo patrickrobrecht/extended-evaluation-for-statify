@@ -1,9 +1,9 @@
 === Statify – Extended Evaluation ===
 Contributors: patrickrobrecht
 Tags: stats, analytics, privacy, statistics
-Requires at least: 4.4
-Tested up to: 6.4
-Requires PHP: 5.4
+Requires at least: 4.7
+Tested up to: 6.9
+Requires PHP: 5.6
 Stable tag: 2.6.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
