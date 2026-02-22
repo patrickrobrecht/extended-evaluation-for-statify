@@ -1,0 +1,26 @@
+* text=auto eol=lf
+
+*.css text diff=css
+*.js text diff=javascript
+*.json text diff=json
+*.md text diff=markdown
+*.php text diff=php
+*.txt text
+*.xml text diff=xml
+*.yml text diff=yaml
+
+# Ignore for export
+/.git export-ignore
+/.github export-ignore
+/.idea export-ignore
+/node_modules export-ignore
+
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/composer.json export-ignore
+/composer.lock export-ignore
+/package.json export-ignore
+/package-lock.json export-ignore
+/phpunit.xml export-ignore
+/README.md export-ignore
