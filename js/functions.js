@@ -71,22 +71,6 @@ function eefstatifyColumnChart(id, dataArray) {
 			left: 30,
 		},
 		height: 300,
-		plugins: [
-			Chartist.plugins.tooltip({
-				anchorToPoint: true,
-				transformTooltipTextFnc(y) {
-					return (
-						y +
-						' ' +
-						(parseInt(y) === 1
-							? eefStatifyTranslations.view
-							: eefStatifyTranslations.views)
-					);
-				},
-				appendToBody: true,
-				class: 'eefstatify-ct-tooltip',
-			}),
-		],
 		seriesBarDistance: 20,
 	};
 
@@ -104,7 +88,8 @@ function eefstatifyColumnChart(id, dataArray) {
 		],
 	];
 
-	new Chartist.BarChart(id, data, options, responsiveOptions);
+	const chart = new Chartist.BarChart(id, data, options, responsiveOptions);
+	eefstatifyAddTooltip(chart);
 }
 
 function eefstatifyLineChart(id, dataArray, type = 'default') {
@@ -139,27 +124,12 @@ function eefstatifyLineChart(id, dataArray, type = 'default') {
 			left: 30,
 		},
 		height: 300,
-		plugins: [
-			Chartist.plugins.tooltip({
-				anchorToPoint: true,
-				transformTooltipTextFnc(y) {
-					return (
-						y +
-						' ' +
-						(parseInt(y) === 1
-							? eefStatifyTranslations.view
-							: eefStatifyTranslations.views)
-					);
-				},
-				appendToBody: true,
-				class: 'eefstatify-ct-tooltip',
-			}),
-		],
 		showArea: true,
 		showPoints: true,
 	};
 
-	new Chartist.LineChart(id, data, options);
+	const chart = new Chartist.LineChart(id, data, options);
+	eefstatifyAddTooltip(chart);
 }
 
 function eefstatifySelectDateRange() {
@@ -262,4 +232,42 @@ function eefstatifyValidateDateRange() {
 			end[0].validity.valid &&
 			((start.val() && end.val()) || (!start.val() && !end.val()));
 	jQuery('form button').prop('disabled', !correct);
+}
+
+function eefstatifyAddTooltip(chart) {
+	const tooltip = jQuery('<div class="eefstatify-ct-tooltip"></div>')
+		.hide()
+		.appendTo('body');
+
+	chart.on('draw', function (data) {
+		const element = jQuery(data.element.getNode());
+		element.on('mouseenter', function () {
+			const value = data.value.y;
+			let content = '';
+			if (data.meta) {
+				content +=
+					'<div class="eefstatify-ct-tooltip-meta">' +
+					data.meta +
+					'</div>';
+			}
+			content +=
+				value +
+				' ' +
+				(parseInt(value) === 1
+					? eefStatifyTranslations.view
+					: eefStatifyTranslations.views);
+			tooltip.html(content).show();
+		});
+
+		element.on('mouseleave', function () {
+			tooltip.hide();
+		});
+
+		element.on('mousemove', function (event) {
+			tooltip.css({
+				left: event.pageX + 15,
+				top: event.pageY - 15,
+			});
+		});
+	});
 }

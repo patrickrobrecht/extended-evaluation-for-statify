@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- Update dependencies, including the Chartist library used for the charts
+- Replace outdated Chartist tooltip plugin with a custom implementation
+
 
 ## Version 2.6.4
 

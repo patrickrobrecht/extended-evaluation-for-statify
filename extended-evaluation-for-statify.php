@@ -114,10 +114,6 @@ function eefstatify_register_and_load_assets() {
 			'/lib/chartist.min.css'
 		);
 		eefstatify_enqueue_style(
-			'chartist-plugin-tooltip',
-			'lib/chartist-plugin-tooltip.min.css'
-		);
-		eefstatify_enqueue_style(
 			'eefstatify',
 			'/css/style.min.css'
 		);
@@ -127,13 +123,9 @@ function eefstatify_register_and_load_assets() {
 			'/lib/chartist.min.js'
 		);
 		eefstatify_enqueue_script(
-			'chartist-plugin-tooltip',
-			'lib/chartist-plugin-tooltip.min.js'
-		);
-		eefstatify_enqueue_script(
 			'eefstatify_functions',
 			'/js/functions.min.js',
-			[ 'chartist', 'chartist-plugin-tooltip', 'jquery' ]
+			[ 'chartist', 'jquery' ]
 		);
 
 		wp_localize_script(

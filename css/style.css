@@ -71,6 +71,9 @@
 	background-color: #fff;
 	border-radius: 0.2em;
 	padding: 0.25em;
+	position: absolute;
+    text-align: center;
+    font-weight: bold;
 }
 
 /* Arrow below tooltip */
@@ -79,7 +82,7 @@
 }
 
 /* Tooltip text first line */
-.eefstatify-ct-tooltip .chartist-tooltip-meta {
+.eefstatify-ct-tooltip-meta {
 	color: #0074a2;
 }
 
