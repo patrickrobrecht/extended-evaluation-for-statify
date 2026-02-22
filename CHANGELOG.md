@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Update dependencies, including the Chartist library used for the charts
 - Replace outdated Chartist tooltip plugin with a custom implementation
+- Configure gitattributes, force tabs (as enforced by WP Coding Standards)
 
 
 ## Version 2.6.4
