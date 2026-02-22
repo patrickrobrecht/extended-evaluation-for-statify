@@ -5,6 +5,7 @@
 *.json text diff=json
 *.md text diff=markdown
 *.php text diff=php
+*.txt text
 *.xml text diff=xml
 *.yml text diff=yaml
 
