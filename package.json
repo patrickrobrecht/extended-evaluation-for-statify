@@ -1,42 +1,23 @@
 {
-  "private": true,
-  "devDependencies": {
-    "@wordpress/eslint-plugin": "^24.2.0",
-    "@wordpress/stylelint-config": "^23.11.1",
-    "prettier": "^3.8.1"
-  },
-  "scripts": {
-    "cs": "npm run csCSS && npm run csJS",
-    "csCSS": "npx stylelint css/style.css",
-    "csJS": "npx eslint js/functions.js",
-    "csfix": "npm run csfixCSS && npm run csfixJS",
-    "csfixCSS": "npx stylelint css/style.css --fix",
-    "csfixJS": "npx eslint js/functions.js --fix"
-  },
-  "eslintConfig": {
-    "extends": "plugin:@wordpress/eslint-plugin/recommended",
-    "rules": {
-      "no-nested-ternary": "off",
-      "no-unused-vars": [
-        "error",
-        {
-          "varsIgnorePattern": "eefstatify(TableToCsv|ColumnChart|LineChart|SelectDateRange|DateRangeChange)"
-        }
-      ]
-    },
-    "env": {
-      "browser": true,
-      "jquery": true
-    },
-    "globals": {
-      "Chartist": "readonly",
-      "eefStatifyTranslations": "readonly"
-    }
-  },
-  "stylelint": {
-    "extends": "@wordpress/stylelint-config",
-    "rules": {
-      "font-weight-notation": "named-where-possible"
-    }
-  }
+	"private": true,
+	"devDependencies": {
+		"@wordpress/eslint-plugin": "^25.0.0",
+		"@wordpress/stylelint-config": "^23.36.0",
+		"globals": "^17.5.0",
+		"prettier": "^3.8.3"
+	},
+	"scripts": {
+		"cs": "npm run csCSS && npm run csJS",
+		"csCSS": "npx stylelint css/style.css",
+		"csJS": "npx eslint js/functions.js eslint.config.mjs",
+		"csfix": "npm run csfixCSS && npm run csfixJS",
+		"csfixCSS": "npx stylelint css/style.css --fix",
+		"csfixJS": "npx eslint js/functions.js eslint.config.mjs --fix"
+	},
+	"stylelint": {
+		"extends": "@wordpress/stylelint-config",
+		"rules": {
+			"font-weight-notation": "named-where-possible"
+		}
+	}
 }
