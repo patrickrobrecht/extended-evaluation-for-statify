@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef2fea843a5e5f541d4628536e3e4b6e",
+    "content-hash": "14eb46a3fc7e4fd1792199f8ea01c190",
     "packages": [
         {
             "name": "npm-asset/chartist",
@@ -16,21 +16,6 @@
             "type": "npm-asset",
             "license": [
                 "MIT OR WTFPL"
-            ]
-        },
-        {
-            "name": "npm-asset/chartist-plugin-tooltips-updated",
-            "version": "1.0.0",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/chartist-plugin-tooltips-updated/-/chartist-plugin-tooltips-updated-1.0.0.tgz"
-            },
-            "require": {
-                "npm-asset/chartist": ">=1.0.0,<2.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
             ]
         }
     ],
