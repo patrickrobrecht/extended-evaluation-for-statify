@@ -1,10 +1,10 @@
 {
 	"private": true,
 	"devDependencies": {
-		"@wordpress/eslint-plugin": "^25.0.0",
-		"@wordpress/stylelint-config": "^23.36.0",
-		"globals": "^17.5.0",
-		"prettier": "^3.8.3"
+		"@wordpress/eslint-plugin": "^25.10.0",
+		"@wordpress/stylelint-config": "^24.3.0",
+		"globals": "^17.11.0",
+		"prettier": "^3.9.6"
 	},
 	"scripts": {
 		"cs": "npm run csCSS && npm run csJS",
@@ -13,6 +13,10 @@
 		"csfix": "npm run csfixCSS && npm run csfixJS",
 		"csfixCSS": "npx stylelint css/style.css --fix",
 		"csfixJS": "npx eslint js/functions.js eslint.config.mjs --fix"
+	},
+	"allowScripts": {
+		"core-js": false,
+		"unrs-resolver": false
 	},
 	"stylelint": {
 		"extends": "@wordpress/stylelint-config",
