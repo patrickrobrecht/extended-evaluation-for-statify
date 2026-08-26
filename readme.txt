@@ -2,7 +2,7 @@
 Contributors: patrickrobrecht
 Tags: stats, analytics, privacy, statistics
 Requires at least: 4.7
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 5.6
 Stable tag: 2.6.5
 License: GPLv3
@@ -12,6 +12,8 @@ This plugin evaluates the data collected with the privacy-friendly Statify Plugi
 
 
 == Description ==
+**The functionality of this extension became part of Statify. You can update to Statify 2.x and uninstall this plugin.**
+
 This plugin evaluates the data collected with the privacy-friendly [Statify](https://wordpress.org/plugins/statify/) Plugin which is only saving date, referrer and target url for every page view.
 
 The plugin creates evaluations for the following criteria:
