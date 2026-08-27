@@ -2,6 +2,12 @@
 
 This WordPress plugin evaluates the data collected with the privacy-friendly Statify Plugin (data tables and diagrams). The evaluation can be downloaded as csv and as diagram (image or PDF).
 
+Most of the functionality has been integrated into Statify.
+After the update to [Statify 2.x](https://github.com/pluginkollektiv/statify/releases) you'll find a new menu entry at _Dashboard_ > _Statify_ in the WordPress admin area.
+You can uninstall this plugin afterward.
+
+**This plugin will receive security updates until December 2026.**
+
 ## How to use this plugin
 
 The use of this WordPress Plugin requires the [Statify Plugin](https://de.wordpress.org/plugins/statify/) to be installed and activated.
@@ -14,8 +20,7 @@ Details, screenshot and the zip file download of the latest stable version can b
 Install [Composer](https://getcomposer.org/)
     and run `composer install` to install the dependencies for development.
 
-`composer build` creates the release version in the `dist` directory
-    (it contains exactly the files necessary for wordpress.org).
+`composer build` prepares the required assets.
 
 `composer cs` checks the code style
     and reports any violations of the WordPress Coding Guidelines
